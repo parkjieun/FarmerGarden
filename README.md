@@ -11,5 +11,5 @@ https://docs.google.com/spreadsheets/d/1e9bJdDTk8L3oyalDqiSUmR_t4xPTUf_djbOCobEh
 https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing
 
 # 프로젝트 계획서
-https://docs.google.com/document/d/1JyErznuF3qJV7owFnHF6U22iY904FPNdtKCqLfOzl04/edit?usp=sharing
+https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing
 
