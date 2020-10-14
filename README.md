@@ -1,4 +1,4 @@
-<h2 align=center>A402 - Among Earth</h2>
+<h2 align=center>A105 - 슬기로운 재배생활</h2>
 
 <div align=center>
     <img src="https://img.shields.io/badge/platform-web-green">
