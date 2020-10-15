@@ -19,9 +19,9 @@ CREATE TABLE ssafy_iot.calendar (
 	calendar_eat_day   DATE         NOT NULL COMMENT '예상 수확 날짜', -- 예상 수확 날짜
 	calendar_start_day DATE         NOT NULL COMMENT '재배 시작 날짜', -- 재배 시작 날짜
 	calendar_stop_day  DATE         NULL     COMMENT '재배 중단 날짜', -- 재배 중단 날짜
-	user_id            VARCHAR(125) NOT NULL COMMENT '사용자 아이디', -- 사용자 아이디
-	plant_id           INTEGER      NOT NULL COMMENT '작물 기본키', -- 작물 기본키
-	choice_id          INTEGER      NULL     COMMENT '작물선택 기본키' -- 작물선택 기본키
+	choice_id          INTEGER      NULL     COMMENT '작물선택 기본키', -- 작물선택 기본키
+	user_id            VARCHAR(125) NULL     COMMENT '사용자 아이디', -- 사용자 아이디
+	plant_id           INTEGER      NULL     COMMENT '작물 기본키' -- 작물 기본키
 )
 COMMENT '일정 테이블';
 
@@ -85,18 +85,17 @@ ALTER TABLE ssafy_iot.post
 ALTER TABLE ssafy_iot.post
 	AUTO_INCREMENT = 1000;
 
-
 -- 라즈베리 테이블
 CREATE TABLE ssafy_iot.raspberry (
 	rb_id          INTEGER      NOT NULL COMMENT '라즈베리 기본키', -- 라즈베리 기본키
 	rb_temperature DOUBLE       NOT NULL COMMENT '온도', -- 온도
 	rb_humidity    DOUBLE       NOT NULL COMMENT '습도', -- 습도
 	rb_shoot_day   DATE         NULL     COMMENT '발아날짜', -- 발아날짜
-	user_id        VARCHAR(125) NOT NULL COMMENT '사용자 아이디', -- 사용자 아이디
-	plant_id       INTEGER      NOT NULL COMMENT '작물 기본키', -- 작물 기본키
 	rb_img         VARCHAR(225) NOT NULL COMMENT '이미지', -- 이미지
 	rb_create      DATETIME     NOT NULL DEFAULT current_timestamp() COMMENT '촬영시간', -- 촬영시간
-	choice_id      INTEGER      NULL     COMMENT '작물선택 기본키' -- 작물선택 기본키
+	choice_id      INTEGER      NULL     COMMENT '작물선택 기본키', -- 작물선택 기본키
+	user_id        VARCHAR(125) NULL     COMMENT '사용자 아이디', -- 사용자 아이디
+	plant_id       INTEGER      NULL     COMMENT '작물 기본키' -- 작물 기본키
 )
 COMMENT '라즈베리 테이블';
 
@@ -115,9 +114,9 @@ ALTER TABLE ssafy_iot.raspberry
 
 -- 작물선택 테이블
 CREATE TABLE ssafy_iot.plant_choice (
+	choice_id INTEGER      NOT NULL COMMENT '작물선택 기본키', -- 작물선택 기본키
 	user_id   VARCHAR(125) NOT NULL COMMENT '사용자 아이디', -- 사용자 아이디
 	plant_id  INTEGER      NOT NULL COMMENT '작물 기본키', -- 작물 기본키
-	choice_id INTEGER      NOT NULL COMMENT '작물선택 기본키', -- 작물선택 기본키
 	grow_flag BOOLEAN      NOT NULL DEFAULT true COMMENT '현재재배작물여부' -- 현재재배작물여부
 )
 COMMENT '작물선택 테이블';
@@ -126,9 +125,9 @@ COMMENT '작물선택 테이블';
 ALTER TABLE ssafy_iot.plant_choice
 	ADD CONSTRAINT PK_plant_choice -- 작물선택 테이블 기본키
 		PRIMARY KEY (
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		);
 
 ALTER TABLE ssafy_iot.plant_choice
@@ -141,9 +140,9 @@ ALTER TABLE ssafy_iot.plant_choice
 CREATE TABLE ssafy_iot.rating_log (
 	rating_id   INTEGER      NOT NULL COMMENT '급수 기본키', -- 급수 기본키
 	rating_time DATETIME     NOT NULL DEFAULT current_timestamp() COMMENT '급수시간', -- 급수시간
-	user_id     VARCHAR(125) NOT NULL COMMENT '사용자 아이디', -- 사용자 아이디
-	plant_id    INTEGER      NOT NULL COMMENT '작물 기본키', -- 작물 기본키
-	choice_id   INTEGER      NULL     COMMENT '작물선택 기본키' -- 작물선택 기본키
+	choice_id   INTEGER      NULL     COMMENT '작물선택 기본키', -- 작물선택 기본키
+	user_id     VARCHAR(125) NULL     COMMENT '사용자 아이디', -- 사용자 아이디
+	plant_id    INTEGER      NULL     COMMENT '작물 기본키' -- 작물 기본키
 )
 COMMENT '급수로그테이블';
 
@@ -164,14 +163,14 @@ ALTER TABLE ssafy_iot.rating_log
 ALTER TABLE ssafy_iot.calendar
 	ADD CONSTRAINT FK_plant_choice_TO_calendar -- 작물선택 테이블 -> 일정 테이블
 		FOREIGN KEY (
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		REFERENCES ssafy_iot.plant_choice ( -- 작물선택 테이블
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -192,14 +191,14 @@ ALTER TABLE ssafy_iot.post
 ALTER TABLE ssafy_iot.raspberry
 	ADD CONSTRAINT FK_plant_choice_TO_raspberry -- 작물선택 테이블 -> 라즈베리 테이블
 		FOREIGN KEY (
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		REFERENCES ssafy_iot.plant_choice ( -- 작물선택 테이블
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
@@ -232,14 +231,14 @@ ALTER TABLE ssafy_iot.plant_choice
 ALTER TABLE ssafy_iot.rating_log
 	ADD CONSTRAINT FK_plant_choice_TO_rating_log -- 작물선택 테이블 -> 급수로그테이블
 		FOREIGN KEY (
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		REFERENCES ssafy_iot.plant_choice ( -- 작물선택 테이블
+			choice_id, -- 작물선택 기본키
 			user_id,   -- 사용자 아이디
-			plant_id,  -- 작물 기본키
-			choice_id  -- 작물선택 기본키
+			plant_id   -- 작물 기본키
 		)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE;
