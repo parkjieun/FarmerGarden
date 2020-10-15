@@ -14,7 +14,7 @@ https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1
 https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing
 
 
-<h2 align=center>A105 - 슬기로운 재배생활</h2>
+<h2 align=center>서울 A105 - 슬기로운 재배생활 /  농부네 텃밭</h2>
 
 <div align=center>
     <img src="https://img.shields.io/badge/platform-web-green">
@@ -122,6 +122,8 @@ https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/
 |          vuex          |         | 상태 관리 패턴 + 라이브러리                     |
 |         axios          |      | REST API 서버로부터 데이터를 받아오기 위해 사용 |
 |        vuetify         |        | UI 구성을 위해 사용                             |
+
+
 ### Backend 구성 요소
 
 |   기술 스택    |   Version   | Comment                                    |
@@ -136,6 +138,8 @@ https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/
 | Docker-Compose |      | 컨테이너 환경 및 실행 관리                 |
 |    Jenkins     |      | 자동화 배포 및 빌드                        |
 |     Nginx      |      | Vue 클라이언트 웹 서버 사용                |
+
+
 
 |      Spring 라이브러리       |  Version   | Comment                              |
 | :--------------------------: | :--------: | :----------------------------------- |
