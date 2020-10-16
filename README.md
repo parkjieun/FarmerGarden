@@ -1,4 +1,3 @@
-
 <h2 align=center>서울 A105 - 슬기로운 재배생활 /  농부네 텃밭</h2>
 
 <div align=center>
@@ -113,9 +112,9 @@
 
 |   기술 스택    |   Version   | Comment                                    |
 | :------------: | :---------: | :----------------------------------------- |
-|    OpenJDK     |       | Java vendor 사용                           |
-|   SpringBoot   |       | Rest API 웹 애플리케이션 개발              |
-|     Maven      |        | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
+|    OpenJDK     |   1.8    | Java vendor 사용                           |
+|   SpringBoot   |   2.2.10    | Rest API 웹 애플리케이션 개발              |
+|     Maven      |    -    | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
 |     MySQL      |       | DB vendor 사용                             |
 |    MyBatis     |      | 서버와 DB의 연동을 위해 사용               |
 |     Ubuntu     |  | 서비스 제공을 위해 리눅스 서버 구축        |
