@@ -1,18 +1,3 @@
-# 와이어 프레임
-https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/zC6EO
-
-# 새싹채소 만들기 ppt - iot 설명
-https://docs.google.com/presentation/d/1bVO_9yoMRVuzXt91g64G9fEk4mUDXefe9HiX2BO0DUQ/edit?usp=sharing
-
-# restAPI 문서
-https://docs.google.com/spreadsheets/d/1e9bJdDTk8L3oyalDqiSUmR_t4xPTUf_djbOCobEhkfM/edit?usp=sharing
-
-# 구매장비 목록
-https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing
-
-# 프로젝트 계획서
-https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing
-
 
 <h2 align=center>서울 A105 - 슬기로운 재배생활 /  농부네 텃밭</h2>
 
@@ -86,7 +71,7 @@ https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/
 > ERD 설명 추가
 >
 
-![ERD](document/ERD_ver_1.0.PNG)
+![ERD](document/ERD_ver_2.0.PNG)
 
 
  
