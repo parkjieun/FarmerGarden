@@ -1,3 +1,6 @@
+# 회의록
+https://www.notion.so/a7a286b0cbdb4e439f2df20cdfff9272?v=6cde792e163442978e38d19f4d7f0c1a
+
 # 와이어프레임
 https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/9TmJD
 
