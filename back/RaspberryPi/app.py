@@ -33,8 +33,8 @@ def insert():
 
     # INSERT INTO raspberry(rb_id, rb_temperature, rb_humidity, rb_shoot_day, user_id, plant_id, rb_img, rb_create )
     # VALUES(1, 23, 50,"2020-10-20", 1, 1, "임시 이미지", "2020-10-20");
-    sql = "INSERT INTO raspberry(rb_id, rb_temperature, rb_humidity, rb_shoot_day, user_id, plant_id, rb_img, rb_create ) \
-                VALUES(3, 23, 50, '%s', 1, 1, '임시 이미지', '%s')" % (nowDate, nowDatetime)
+    sql = "INSERT INTO raspberry(rb_temperature, rb_humidity, rb_shoot_day, user_id, plant_id, rb_img, rb_create ) \
+                VALUES(23, 50, '%s', 1, 1, '임시 이미지', '%s')" % (nowDate, nowDatetime)
     db_class.execute(sql)
     db_class.commit()
 
@@ -54,8 +54,8 @@ def select():
     row = db_class.executeAll(sql)
 
     print(row)
-
-    return render_template('/test/test.html',
+    print(row[0])
+    return render_template('test.html',
                            result=None,
                            resultData=row[0],
                            resultUPDATE=None)
@@ -66,17 +66,17 @@ def select():
 def update():
     db_class = dbModule.Database()
 
-    sql = "UPDATE testDB.testTable \
-                SET test='%s' \
-                WHERE test='testData'" % ('update_Data')
+    sql = "UPDATE raspberry \
+                SET rb_img='%s' \
+                WHERE rb_id=1" % ('임시이미지_변경')
     db_class.execute(sql)
     db_class.commit()
 
-    sql = "SELECT idx, test \
-                FROM testDB.testTable"
+    sql = "SELECT * \
+                    FROM raspberry"
     row = db_class.executeAll(sql)
 
-    return render_template('/test/test.html',
+    return render_template('test.html',
                            result=None,
                            resultData=None,
                            resultUPDATE=row[0])
