@@ -1,5 +1,5 @@
 # 회의록
-https://www.notion.so/a7a286b0cbdb4e439f2df20cdfff9272?v=6cde792e163442978e38d19f4d7f0c1a
+https://www.notion.so/invite/07b7de7fe7f9791cc0e1b3a91b4b4f78fcf0f647
 
 # 와이어프레임
 https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/9TmJD
