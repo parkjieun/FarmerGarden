@@ -1,5 +1,7 @@
 package com.ssafy.IoTBackend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +17,14 @@ public class PostServiceImpl implements PostService {
 	private PostMapper postMapper;
 	
 	@Override
+	public List<Post> selectPosts(String user_id) throws Exception {
+		return postMapper.selectPosts(user_id);
+	}
+
+	@Override
 	public void insertPost(Post postDto) throws Exception {
 		postMapper.insertPost(postDto);
 	}
+
 
 }
