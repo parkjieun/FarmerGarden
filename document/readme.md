@@ -21,3 +21,6 @@ https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/
 
 # 챗봇 FAQ 목록
 https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs6y4/edit?usp=sharing
+
+# 농부네 FAQ 챗봇 질문 리스트
+https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs6y4/edit#gid=0
