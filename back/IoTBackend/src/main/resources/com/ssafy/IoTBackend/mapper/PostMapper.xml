@@ -16,6 +16,15 @@
 		 (#{post_title}, #{post_contents}, #{post_img}, #{user_id})
 	</insert>
 	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="post">
+		update post
+		 set post_title = #{post_title},
+		 	 post_contents = #{post_contents},
+		 	 post_img = #{post_img}
+		where post_id = #{post_id}
+	</update>
+	
 	<resultMap type="post" id="postBasic">
 		<result column="post_id" property="post_id" />
 		<result column="post_title" property="post_title" />

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,7 @@ public class PostController {
 	
 	@GetMapping
 	@ApiOperation(value = "게시글 전체 목록 조회")
-	public ResponseEntity<List<Post>> insertPost(@RequestParam String user_id) {
+	public ResponseEntity<List<Post>> selectPosts(@RequestParam String user_id) {
 		List<Post> posts = null;
 		try {
 			posts = postService.selectPosts(user_id);
@@ -50,6 +51,18 @@ public class PostController {
 		try {
 			postService.insertPost(postDto);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PutMapping
+	@ApiOperation(value = "게시글 수정")
+	public ResponseEntity<String> updatePost(@RequestBody Post postDto) {
+		try {
+			postService.updatePost(postDto);
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);

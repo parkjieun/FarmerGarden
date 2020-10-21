@@ -14,5 +14,7 @@ public interface PostMapper {
 	List<Post> selectPosts(String user_id) throws Exception;
 	
 	void insertPost(Post postDto) throws Exception;
+	
+	void updatePost(Post postDto) throws Exception;
 
 }

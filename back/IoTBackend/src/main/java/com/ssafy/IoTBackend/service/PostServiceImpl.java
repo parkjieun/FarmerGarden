@@ -26,5 +26,9 @@ public class PostServiceImpl implements PostService {
 		postMapper.insertPost(postDto);
 	}
 
+	@Override
+	public void updatePost(Post postDto) throws Exception {
+		postMapper.updatePost(postDto);
+	}
 
 }

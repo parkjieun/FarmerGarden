@@ -9,5 +9,7 @@ public interface PostService {
 	public List<Post> selectPosts(String user_id) throws Exception;
 	
 	public void insertPost(Post postDto) throws Exception;
+	
+	public void updatePost(Post postDto) throws Exception;
 
 }
