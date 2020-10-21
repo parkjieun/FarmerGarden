@@ -12,4 +12,6 @@ public interface PostService {
 	
 	public void updatePost(Post postDto) throws Exception;
 
+	public void deletePost(Integer post_id) throws Exception;
+
 }

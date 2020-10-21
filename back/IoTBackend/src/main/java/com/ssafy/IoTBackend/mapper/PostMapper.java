@@ -17,4 +17,5 @@ public interface PostMapper {
 	
 	void updatePost(Post postDto) throws Exception;
 
+	void deletePost(Integer post_id) throws Exception;
 }

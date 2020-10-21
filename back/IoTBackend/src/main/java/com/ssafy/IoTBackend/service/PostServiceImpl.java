@@ -31,4 +31,9 @@ public class PostServiceImpl implements PostService {
 		postMapper.updatePost(postDto);
 	}
 
+	@Override
+	public void deletePost(Integer post_id) throws Exception {
+		postMapper.deletePost(post_id);
+	}
+
 }

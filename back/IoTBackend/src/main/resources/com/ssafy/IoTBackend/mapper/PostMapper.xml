@@ -24,6 +24,12 @@
 		 	 post_img = #{post_img}
 		where post_id = #{post_id}
 	</update>
+		
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost" parameterType="Integer">
+		delete from post
+		where post_id = #{post_id}
+	</delete>
 	
 	<resultMap type="post" id="postBasic">
 		<result column="post_id" property="post_id" />
