@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.IoTBackend.model.User;
-import com.ssafy.IoTBackend.srervice.UserService;
+import com.ssafy.IoTBackend.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

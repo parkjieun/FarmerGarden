@@ -1,4 +1,4 @@
-package com.ssafy.IoTBackend.srervice;
+package com.ssafy.IoTBackend.service;
 
 import com.ssafy.IoTBackend.model.User;
 
