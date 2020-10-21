@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.IoTBackend.mapper.PostMapper">
+    
+	<insert id="insertPost" parameterType="post">
+		insert into post
+		 (post_title, post_contents, post_img, user_id)
+		values
+		 (#{post_title}, #{post_contents}, #{post_img}, #{user_id})
+	</insert>
+	
+	<resultMap type="post" id="postBasic">
+		<result column="post_id" property="post_id" />
+		<result column="post_title" property="post_title" />
+		<result column="post_contents" property="post_contents" />
+		<result column="post_img" property="post_img" />
+		<result column="post_create" property="post_create" />
+		<result column="del_flag" property="del_flag" />
+		<result column="user_id" property="user_id" />
+	</resultMap>
+
+</mapper>
