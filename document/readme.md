@@ -18,3 +18,6 @@ https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1
 
 # 프로젝트 계획서
 https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing
+
+# 챗봇 FAQ 목록
+https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs6y4/edit?usp=sharing
