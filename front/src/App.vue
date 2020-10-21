@@ -16,8 +16,8 @@ export default {
     CoreTopToolbar,
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {};
+  },
 };
 </script>
