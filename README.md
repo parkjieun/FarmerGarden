@@ -1,3 +1,5 @@
+<div align=center><img style="height:300px" src="assets/nongbunae.png"></div>
+
 <h2 align=center>A105 - 슬기로운 재배생활</h2>
 
 <div align=center>
@@ -79,7 +81,26 @@
 
 > 저희는 Spring boot와 flask를 활용한 MSA를 구축했습니다.
 >
-> 내용 추가 예정
+> Flask로 IoT를 제어하고
+>
+> 회원 등 웹서버를 Spring boot로 구성하였습니다.
+
+![Tech_Flow](assets/tech_flow.png)
+
+### IoT
+> 라즈베리파이를 통해 사용자가 물만 넣으면
+>
+> 새싹을 자동으로 기를 수 있게 하는 것이 목표입니다.
+
+![IoT](assets/IoT.png)
+
+* [플로우 차트](https://drive.google.com/file/d/1lV2jV9rgNariafkxwM28mbhvYka-KbNf/view?usp=sharing)
+    * IoT 플로우 차트
+* [새싹채소 만들기 ppt - iot 설명](https://docs.google.com/presentation/d/1bVO_9yoMRVuzXt91g64G9fEk4mUDXefe9HiX2BO0DUQ/edit?usp=sharing)
+    * 디바이스 설계 및 설명
+* [구매장비 목록](https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing)
+    * 구매장비 목록 문서입니다.    
+
 
 ### 문서
 
@@ -89,23 +110,23 @@
     * kakao oven을 사용하여 제작된 와이어프레임
 * [API Documentation](https://docs.google.com/spreadsheets/d/1e9bJdDTk8L3oyalDqiSUmR_t4xPTUf_djbOCobEhkfM/edit?usp=sharing)
     * RESTful 서버의 API 문서입니다.
-* [새싹채소 만들기 ppt - iot 설명](https://docs.google.com/presentation/d/1bVO_9yoMRVuzXt91g64G9fEk4mUDXefe9HiX2BO0DUQ/edit?usp=sharing)
-    * 디바이스 설계 및 설명
-* [구매장비 목록](https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing)
-    * 구매장비 목록 문서입니다.
 
 
-## 환경 보호 수단
+## 프로젝트 구성
 
 ### Frontend 구성 요소
 
 |        Package         |    Version    | Comment                                         |
 | :--------------------: | :-----------: | :---------------------------------------------- |
-|          vue-cli       |         | vue 개발 환경 설정                              |
-|       vue-router       |          | 요청 URL에 따라 브라우저에서 돔을 변경          |
-|          vuex          |         | 상태 관리 패턴 + 라이브러리                     |
-|         axios          |      | REST API 서버로부터 데이터를 받아오기 위해 사용 |
-|        vuetify         |        | UI 구성을 위해 사용                             |
+|       vue-cli          |   4.5.4       | vue 개발 환경 설정                              |
+|       vue-router       |   3.4.6       | 요청 URL에 따라 브라우저에서 돔을 변경          |
+|       vuex             |               | 상태 관리 패턴 + 라이브러리                     |
+|       axios            |               | REST API 서버로부터 데이터를 받아오기 위해 사용 |
+|       vuetify          |   2.2.11      | UI 구성을 위해 사용                             |
+|       cordova          |   2.4.1       | 웹앱 구성을 위해 사용                           |
+|       gradle           |   6.7         | 안드로이드 빌드 시스템                          |
+|       android-sdk      |   30.0.2      | 안드로이드 소프트웨어 라이브러리 킷             |
+
 ### Backend 구성 요소
 
 |   기술 스택    |   Version   | Comment                                    |
