@@ -1,10 +1,18 @@
 package com.ssafy.IoTBackend.model.post;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Valid
+@Getter
+@Setter
+@ToString
 public class UpdatePostRequestDTO {
 	
     @ApiModelProperty(required = true)

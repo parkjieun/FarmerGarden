@@ -5,7 +5,7 @@
     <!-- 유저가 쓴 게시글 전체 목록 조회 -->
 	<select id="selectPosts" parameterType="String" resultMap="postBasic">
 		select * from post
-		where user_id = #{user_id}
+		where user_id = #{user_id} and del_flag = false
 	</select>
     
     <!-- 게시글 등록 -->
@@ -26,10 +26,11 @@
 	</update>
 		
 	<!-- 게시글 삭제 -->
-	<delete id="deletePost" parameterType="Integer">
-		delete from post
+	<update id="deletePost" parameterType="Integer">
+		update post
+		 set del_flag = true
 		where post_id = #{post_id}
-	</delete>
+	</update>
 	
 	<resultMap type="post" id="postBasic">
 		<result column="post_id" property="post_id" />
