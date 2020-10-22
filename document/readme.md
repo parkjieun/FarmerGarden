@@ -21,4 +21,7 @@ https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/
 
 # 챗봇 FAQ 목록
 https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs6y4/edit?usp=sharing
+
+# 중간발표 ppt
+https://docs.google.com/presentation/d/1oHrPjXpgUPbQikc0eiUJi-2U-zGdoKlDX2d-pNNKD24/edit?usp=sharing
  
