@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.IoTBackend.model.Post;
+import com.ssafy.IoTBackend.model.post.CreatePostRequestDTO;
+import com.ssafy.IoTBackend.model.post.Post;
+import com.ssafy.IoTBackend.model.post.UpdatePostRequestDTO;
 import com.ssafy.IoTBackend.service.PostService;
 
 import io.swagger.annotations.Api;
@@ -48,7 +50,7 @@ public class PostController {
 	
 	@PostMapping
 	@ApiOperation(value = "게시글 작성")
-	public ResponseEntity<String> insertPost(@RequestBody Post postDto) {
+	public ResponseEntity<String> createPost(@RequestBody CreatePostRequestDTO postDto) {
 		try {
 			postService.insertPost(postDto);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
@@ -60,7 +62,7 @@ public class PostController {
 	
 	@PutMapping
 	@ApiOperation(value = "게시글 수정")
-	public ResponseEntity<String> updatePost(@RequestBody Post postDto) {
+	public ResponseEntity<String> updatePost(@RequestBody UpdatePostRequestDTO postDto) {
 		try {
 			postService.updatePost(postDto);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

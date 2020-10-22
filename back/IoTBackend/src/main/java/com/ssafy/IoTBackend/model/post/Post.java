@@ -1,4 +1,4 @@
-package com.ssafy.IoTBackend.model;
+package com.ssafy.IoTBackend.model.post;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;

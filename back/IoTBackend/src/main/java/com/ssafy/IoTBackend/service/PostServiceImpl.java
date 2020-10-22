@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.IoTBackend.mapper.PostMapper;
-import com.ssafy.IoTBackend.model.Post;
+import com.ssafy.IoTBackend.model.post.CreatePostRequestDTO;
+import com.ssafy.IoTBackend.model.post.Post;
+import com.ssafy.IoTBackend.model.post.UpdatePostRequestDTO;
 
 @Service
 @Transactional
@@ -22,12 +24,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void insertPost(Post postDto) throws Exception {
+	public void insertPost(CreatePostRequestDTO postDto) throws Exception {
 		postMapper.insertPost(postDto);
 	}
 
 	@Override
-	public void updatePost(Post postDto) throws Exception {
+	public void updatePost(UpdatePostRequestDTO postDto) throws Exception {
 		postMapper.updatePost(postDto);
 	}
 
