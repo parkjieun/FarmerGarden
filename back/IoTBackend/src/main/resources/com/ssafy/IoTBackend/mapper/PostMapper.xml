@@ -7,6 +7,12 @@
 		select * from post
 		where user_id = #{user_id} and del_flag = false
 	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectPostById" parameterType="Integer" resultMap="postBasic">
+		select * from post
+		where post_id = #{post_id}
+	</select>
     
     <!-- 게시글 등록 -->
 	<insert id="insertPost" parameterType="post">

@@ -22,6 +22,11 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectPosts(String user_id) throws Exception {
 		return postMapper.selectPosts(user_id);
 	}
+	
+	@Override
+	public Post selectPostById(Integer post_id) throws Exception {
+		return postMapper.selectPostById(post_id);
+	}
 
 	@Override
 	public void insertPost(CreatePostRequestDTO postDto) throws Exception {

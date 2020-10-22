@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,19 @@ public class PostController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(posts, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/{post_id}")
+	@ApiOperation(value = "특정 게시글 상세 조회")
+	public ResponseEntity<Post> selectPostById(@PathVariable Integer post_id) {
+		Post post = null;
+		try {
+			post = postService.selectPostById(post_id);
+			return new ResponseEntity<>(post, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(post, HttpStatus.NOT_FOUND);
 		}
 	}
 	

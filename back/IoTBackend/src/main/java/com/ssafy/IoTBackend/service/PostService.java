@@ -10,6 +10,8 @@ public interface PostService {
 
 	public List<Post> selectPosts(String user_id) throws Exception;
 	
+	public Post selectPostById(Integer post_id) throws Exception;
+	
 	public void insertPost(CreatePostRequestDTO postDto) throws Exception;
 	
 	public void updatePost(UpdatePostRequestDTO postDto) throws Exception;
