@@ -39,12 +39,12 @@ const routes = [
 
   // plant start
   {
-    path: "/plants",
+    path: "/main",
     name: "PlantMain",
     component: PlantMain,
   },
   {
-    path: "/plant/choice",
+    path: "/choice",
     name: "PlantChoice",
     component: PlantChoice,
   },

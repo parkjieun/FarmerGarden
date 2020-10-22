@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       pot: "기쁨",
-      sprout: "밀1",
+      sprout: "밀1.png",
       itemPot: ["기쁨", "놀람", "뽀", "슬픔", "잠", "죽음", "평범"],
       itemSprout: [
         "무1.gif",
