@@ -7,6 +7,9 @@ import Test from "../views/Test.vue";
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
 
+// plant
+import PlantChoice from "../views/plant/PlantChoice.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -32,6 +35,14 @@ const routes = [
     component: Signup,
   },
   // user end
+
+  // plant start
+  {
+    path: "/plant/choice",
+    name: "PlantChoice",
+    component: PlantChoice,
+  },
+  // plant end
 ];
 
 const router = new VueRouter({

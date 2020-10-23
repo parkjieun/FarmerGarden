@@ -1,42 +1,46 @@
 <template>
-  <v-form ref="form">
-    <v-text-field
-      label="아이디"
-      name="email"
-      type="text"
-      v-model="signupData.username"
-      :rules="emailRules"
-      required
-      autofocus
-      autocapitalize="off"
-      autocorrect="off"
-      autocomplete="off"
-    />
-    <v-text-field
-      label="비밀번호"
-      name="password"
-      :type="isShowPW ? 'text' : 'password'"
-      v-model="signupData.password"
-      :rules="passwordRules"
-      @click:append="isShowPW = !isShowPW"
-      @focus="isWrong = false"
-      required
-      autocomplete="off"
-      :append-icon="isShowPW ? 'mdi-eye' : 'mdi-eye-off'"
-      append-outer-icon
-    />
-    <v-text-field
-      label="비밀번호 확인"
-      name="passwordConfirm"
-      :type="isShowPW2 ? 'text' : 'password'"
-      v-model="signupData.passwordConfirm"
-      :rules="[...passwordConfirmRules, isMatchPasswordConfirm]"
-      append-outer-icon
-      :append-icon="isShowPW2 ? 'mdi-eye' : 'mdi-eye-off'"
-      @click:append="isShowPW2 = !isShowPW2"
-    />
-    <v-btn @click="checkForm()"> 로그인 </v-btn>
-  </v-form>
+  <div>
+    <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 155px);">회원가입</div>
+
+    <v-form ref="form" style="width:300px;" class="mx-auto">
+      <v-text-field
+        label="아이디"
+        name="email"
+        type="text"
+        v-model="signupData.username"
+        :rules="emailRules"
+        required
+        autofocus
+        autocapitalize="off"
+        autocorrect="off"
+        autocomplete="off"
+      />
+      <v-text-field
+        label="비밀번호"
+        name="password"
+        :type="isShowPW ? 'text' : 'password'"
+        v-model="signupData.password"
+        :rules="passwordRules"
+        @click:append="isShowPW = !isShowPW"
+        @focus="isWrong = false"
+        required
+        autocomplete="off"
+        :append-icon="isShowPW ? 'mdi-eye' : 'mdi-eye-off'"
+        append-outer-icon
+      />
+      <v-text-field
+        label="비밀번호 확인"
+        name="passwordConfirm"
+        :type="isShowPW2 ? 'text' : 'password'"
+        v-model="signupData.passwordConfirm"
+        :rules="[...passwordConfirmRules, isMatchPasswordConfirm]"
+        append-outer-icon
+        :append-icon="isShowPW2 ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="isShowPW2 = !isShowPW2"
+      />
+      <v-btn @click="checkForm()" color="primary" width="100%" class="mt-5"> 회원가입 </v-btn>
+    </v-form>
+  </div>
 </template>
 
 <script>
