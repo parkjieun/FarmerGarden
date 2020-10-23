@@ -1,6 +1,6 @@
 <div align=center><img style="height:300px" src="assets/nongbunae.png"></div>
 
-<h2 align=center>A105 - 슬기로운 재배생활</h2>
+<h2 align=center>서울 A105 - 슬기로운 재배생활 / 농부네 텃밭</h2>
 
 <div align=center>
     <img src="https://img.shields.io/badge/platform-web-green">
