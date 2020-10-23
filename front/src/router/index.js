@@ -9,6 +9,7 @@ import Signup from "../views/user/Signup.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
+import PlantMain from "../views/plant/PlantMain.vue";
 
 Vue.use(VueRouter);
 
@@ -38,7 +39,12 @@ const routes = [
 
   // plant start
   {
-    path: "/plant/choice",
+    path: "/main",
+    name: "PlantMain",
+    component: PlantMain,
+  },
+  {
+    path: "/choice",
     name: "PlantChoice",
     component: PlantChoice,
   },
