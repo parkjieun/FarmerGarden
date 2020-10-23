@@ -3,15 +3,17 @@
 <h2 align=center>서울 A105 - 슬기로운 재배생활 / 농부네 텃밭</h2>
 
 <div align=center>
-    <img src="https://img.shields.io/badge/platform-web-green">
-    <img src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=Vue.js&logoColor=white&color=42b883">
-    <img src="https://img.shields.io/badge/framework-spring boot-blue">
-    <img src="https://img.shields.io/badge/framework-flask-green">
-    <img src="https://img.shields.io/badge/database-MysqlDB-9cf">
-    <img src="https://img.shields.io/badge/server-AWS-yellow">
+    <a href="https://opensource.org/licenses/MIT" ><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+    <img src="https://img.shields.io/badge/platform-android-green">
+    <a href="https://kr.vuejs.org/"><img src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=Vue.js&logoColor=white&color=42b883"></a>
+    <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/framework-spring boot-brightgreen"></a>
+    <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="https://img.shields.io/badge/framework-flask-black"></a>
+    <a href="https://mariadb.org/"><img src="https://img.shields.io/badge/database-MariaDB-yellowgreen"></a>
+    <a href="https://aws.amazon.com/ko/?nc2=h_lg"><img src="https://img.shields.io/badge/server-AWS-yellow"></a>
     <img src="https://img.shields.io/badge/language-python%2C java%2C javascript-yellowgreen">
     <img src="https://img.shields.io/badge/swagger-valid-brightgreen">
 </div>
+
 
 <div align=center>
 집 안의 작은 자연, 온 가족 힐링 케어 라이프<br/>
@@ -20,7 +22,7 @@
 병충해나 농약이 없이 야채를 안심하고 먹을 수 있습니다. 
 
 </div>
-
+ 
 
 
 ## :book: 목차
