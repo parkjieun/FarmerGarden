@@ -30,11 +30,13 @@
         append-outer-icon
       />
       <v-btn @click="checkForm()" color="primary" width="100%" class="mt-5"> 로그인 </v-btn>
+      <v-btn @click="kakaoLogin"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
       <v-btn @click="signup()" color="secondary" width="100%" class="mt-5"> 회원가입 </v-btn>
     </v-form>
   </div>
 </template>
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 export default {
   name: "Login",
@@ -65,10 +67,36 @@ export default {
         // 로그인 메소드 호출
       }
     },
+    kakaoLogin() {
+            window.Kakao.Auth.login({
+                scope: 'account_email',
+                success: this.getKaKaoInfo,
+                fail: function(error) {
+                    console.log(error);
+                },
+            })
+    },
+    getKaKaoInfo(authInfo) {
+      console.log(authInfo)
+        // http.post("kakao/", { access_token: authInfo.access_token })
+        // .then(response => {
+        //   // response.data.token => setAuth
+
+        //     this.setAuth("JWT " + response.data.token)
+        //     this.createUserProfile(Response)
+        // })
+    },
     signup() {
       this.$router.push({name: 'Signup'})
     }
   },
+  created() {
+    if (!window.Kakao.isInitialized()) {
+            Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY)
+        }
+
+  }
+
 };
 </script>
 
