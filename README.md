@@ -131,16 +131,15 @@
 
 |   기술 스택    |   Version   | Comment                                    |
 | :------------: | :---------: | :----------------------------------------- |
-|    OpenJDK     |       | Java vendor 사용                           |
-|   SpringBoot   |       | Rest API 웹 애플리케이션 개발              |
-|     Maven      |        | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
-|     MySQL      |       | DB vendor 사용                             |
-|    MyBatis     |      | 서버와 DB의 연동을 위해 사용               |
-|     Ubuntu     |  | 서비스 제공을 위해 리눅스 서버 구축        |
-|     Docker     |   | 컨테이너화 된 애플리케이션 관리            |
-| Docker-Compose |      | 컨테이너 환경 및 실행 관리                 |
-|    Jenkins     |      | 자동화 배포 및 빌드                        |
-|     Nginx      |      | Vue 클라이언트 웹 서버 사용                |
+|    OpenJDK     |  1.8     | Java vendor 사용                           |
+|   SpringBoot   |   2.2.10    | Rest API 웹 애플리케이션 개발              |
+|     Maven      |   4.0.0     | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
+|     MySQL      |   8.0.19    | DB vendor 사용                             |
+|    MyBatis     |  1.3.0    | 서버와 DB의 연동을 위해 사용               |
+|     Ubuntu     | 18.04.5 | 서비스 제공을 위해 리눅스 서버 구축        |
+|     Docker     | 19.03.13  | 컨테이너화 된 애플리케이션 관리            |
+|    Jenkins     |    -  | 자동화 배포 및 빌드                        |
+|     Nginx      | 1.14.0     | Vue 클라이언트 웹 서버 사용                |
 
 |      Spring 라이브러리       |  Version   | Comment                              |
 | :--------------------------: | :--------: | :----------------------------------- |

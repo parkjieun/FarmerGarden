@@ -7,7 +7,17 @@
 		select count(*) from `user` 
 	</select>
 	
+	<insert id="insertUser">
+		insert into user(user_id,user_name,user_pwd) 
+    	values(#{user_id},#{user_name},#{user_pwd})
+	</insert>
 
+
+	<select id="login" resultType="User">
+		select * from user
+		where user_id=#{user_id} 
+	</select>
+	
 </mapper>
 
 
