@@ -23,11 +23,19 @@ import com.ssafy.IoTBackend.service.PostService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 201, message = "Created"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+        @ApiResponse(code = 404, message = "Not Found") })
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
 @RequestMapping("/post")
-@Api(value = "POST (작물 성장일기)")
+@Api(value = "POST (성장일기)")
 public class PostController {
 
 	public static final String SUCCESS = "success";
@@ -37,7 +45,8 @@ public class PostController {
 	private PostService postService;
 	
 	@GetMapping
-	@ApiOperation(value = "게시글 전체 목록 조회")
+	@ApiOperation(value = "유저가 작성한 게시글 전체 목록 조회", 
+		notes = "유저 아이디 params에 담아 요청하면 해당 유저가 작성한 post 리스트 반환")
 	public ResponseEntity<List<Post>> selectPosts(@RequestParam String user_id) {
 		List<Post> posts = null;
 		try {
@@ -50,7 +59,8 @@ public class PostController {
 	}
 	
 	@GetMapping("/{post_id}")
-	@ApiOperation(value = "특정 게시글 상세 조회")
+	@ApiOperation(value = "특정 게시글 상세 조회",
+		notes = "포스트 아이디를 url에 넣어 요청하면 해당 post 정보 반환")
 	public ResponseEntity<Post> selectPostById(@PathVariable Integer post_id) {
 		Post post = null;
 		try {
@@ -63,7 +73,7 @@ public class PostController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "게시글 작성")
+	@ApiOperation(value = "게시글 작성", notes = "성공시 'success' 실패시 'fail' 반환")
 	public ResponseEntity<String> createPost(@RequestBody CreatePostRequestDTO postDto) {
 		try {
 			postService.insertPost(postDto);
@@ -75,7 +85,7 @@ public class PostController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "게시글 수정")
+	@ApiOperation(value = "게시글 수정", notes = "성공시 'success' 실패시 'fail' 반환")
 	public ResponseEntity<String> updatePost(@RequestBody UpdatePostRequestDTO postDto) {
 		try {
 			postService.updatePost(postDto);
@@ -87,7 +97,7 @@ public class PostController {
 	}
 	
 	@DeleteMapping
-	@ApiOperation(value = "게시글 삭제")
+	@ApiOperation(value = "게시글 삭제", notes = "성공시 'success' 실패시 'fail' 반환")
 	public ResponseEntity<String> deletePost(@RequestParam Integer post_id) {
 		try {
 			postService.deletePost(post_id);
