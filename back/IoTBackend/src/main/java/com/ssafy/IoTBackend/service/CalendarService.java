@@ -8,4 +8,6 @@ public interface CalendarService {
 
 	public List<Calendar> selectCalendar(String user_id) throws Exception;
 
+	public void stopCalendar(Integer calendar_id) throws Exception;
+
 }

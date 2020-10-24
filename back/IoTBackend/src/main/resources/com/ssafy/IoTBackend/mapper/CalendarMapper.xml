@@ -8,6 +8,13 @@
 		where user_id = #{user_id}
 	</select>
 	
+	<!-- 재배 일정 중단 -->
+	<update id="stopCalendar" parameterType="Integer">
+		update calendar
+		 set calendar_stop_day = curdate()
+		where calendar_id = #{calendar_id}
+	</update>
+	
 	<resultMap type="calendar" id="calendarBasic">
 		<result column="calendar_id" property="calendar_id" />
 		<result column="calendar_eat_day" property="calendar_eat_day" />

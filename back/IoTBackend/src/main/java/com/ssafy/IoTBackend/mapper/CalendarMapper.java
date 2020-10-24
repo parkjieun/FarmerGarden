@@ -12,4 +12,6 @@ import com.ssafy.IoTBackend.model.calendar.Calendar;
 public interface CalendarMapper {
 	
 	List<Calendar> selectCalendar(String user_id) throws Exception;
+	
+	void stopCalendar(Integer calendar_id) throws Exception;
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class CalendarController {
 	@GetMapping
 	@ApiOperation(value = "유저의 전체 재배 일정 목록 조회", 
 		notes = "유저 아이디 params에 담아 요청하면 해당 유저의 재배 일정 리스트 반환")
-	public ResponseEntity<List<Calendar>> selectPosts(@RequestParam String user_id) {
+	public ResponseEntity<List<Calendar>> selectCalendars(@RequestParam String user_id) {
 		List<Calendar> calendars = null;
 		try {
 			calendars = calendarService.selectCalendar(user_id);
@@ -48,6 +49,18 @@ public class CalendarController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(calendars, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping
+	@ApiOperation(value = "수확하기 전 재배 일정 중단", notes = "성공시 'success' 실패시 'fail' 반환")
+	public ResponseEntity<String> stopCalendar(@RequestParam Integer calendar_id) {
+		try {
+			calendarService.stopCalendar(calendar_id);
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 	}
 

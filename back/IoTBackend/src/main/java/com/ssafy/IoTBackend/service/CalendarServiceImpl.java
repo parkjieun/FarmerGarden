@@ -21,4 +21,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarMapper.selectCalendar(user_id);
 	}
 
+	@Override
+	public void stopCalendar(Integer calendar_id) throws Exception {
+		calendarMapper.stopCalendar(calendar_id);
+	}
+
 }
