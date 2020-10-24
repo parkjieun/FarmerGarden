@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.IoTBackend.mapper.PostMapper">
+    
+    <!-- 유저가 쓴 게시글 전체 목록 조회 -->
+	<select id="selectPosts" parameterType="String" resultMap="postBasic">
+		select * from post
+		where user_id = #{user_id} and del_flag = false
+	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectPostById" parameterType="Integer" resultMap="postBasic">
+		select * from post
+		where post_id = #{post_id}
+	</select>
+    
+    <!-- 게시글 등록 -->
+	<insert id="insertPost" parameterType="post">
+		insert into post
+		 (post_title, post_contents, post_img, user_id)
+		values
+		 (#{post_title}, #{post_contents}, #{post_img}, #{user_id})
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="post">
+		update post
+		 set post_title = #{post_title},
+		 	 post_contents = #{post_contents},
+		 	 post_img = #{post_img}
+		where post_id = #{post_id}
+	</update>
+		
+	<!-- 게시글 삭제 -->
+	<update id="deletePost" parameterType="Integer">
+		update post
+		 set del_flag = true
+		where post_id = #{post_id}
+	</update>
+	
+	<resultMap type="post" id="postBasic">
+		<result column="post_id" property="post_id" />
+		<result column="post_title" property="post_title" />
+		<result column="post_contents" property="post_contents" />
+		<result column="post_img" property="post_img" />
+		<result column="post_create" property="post_create" />
+		<result column="del_flag" property="del_flag" />
+		<result column="user_id" property="user_id" />
+	</resultMap>
+
+</mapper>
