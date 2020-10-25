@@ -19,5 +19,17 @@ export default {
   data() {
     return {};
   },
+  beforeMount() {
+    this.delay(5000);
+  },
+  methods: {
+    delay(ms) {
+      const startPoint = new Date().getTime();
+      console.log("test");
+      while (new Date().getTime() - startPoint <= ms) {
+        /* wait */
+      }
+    },
+  },
 };
 </script>
