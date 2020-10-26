@@ -14,7 +14,11 @@ npm install
 
 cordora 앱 설치
 ```
-vue add cordora
+# If cordova is not already installed
+yarn global add cordova
+
+# Install
+vue add cordovae add cordora
 ```
 cordora 앱 설치 시 세팅(바꿔도 됩니다)
 ```
