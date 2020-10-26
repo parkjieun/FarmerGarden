@@ -6,6 +6,7 @@ import Test from "../views/Test.vue";
 // user
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
+import Register from "../views/user/Register.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
@@ -34,6 +35,11 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   // user end
 
