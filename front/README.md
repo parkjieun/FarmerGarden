@@ -39,6 +39,13 @@ Select Platforms: (Press <space> to select, <a> to toggle all, <i> to invert sel
 
 >(●) Android
 ```
+생성된 src-cordova 폴더에 들어가서 안드로이드 플랫폼 추가
+```
+cd src-cordova
+
+cordova platform add android
+```
+
 
 ### Compiles and hot-reloads for development
 vue 프로젝트 컴파일
