@@ -11,6 +11,7 @@ import Register from "../views/user/Register.vue";
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
 import PlantMain from "../views/plant/PlantMain.vue";
+import Tutorial from "../views/plant/Tutorial.vue";
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,11 @@ const routes = [
     path: "/main",
     name: "PlantMain",
     component: PlantMain,
+  },
+  {
+    path: "/tutorial",
+    name: "Tutorial",
+    component: Tutorial,
   },
   {
     path: "/choice",
