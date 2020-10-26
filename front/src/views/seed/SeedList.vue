@@ -14,6 +14,27 @@
             :src="item.src"
             @click.native="$set(sheet, index - 1, true)"
           />
+          <v-bottom-sheet v-model="sheet[index - 1]">
+            <v-sheet class="rounded-t-xl" :height="$vuetify.breakpoint.height">
+              <v-row>
+                <v-col cols="2"></v-col>
+                <div
+                  class="headline align-self-center teal--text font-weight-bold"
+                >
+                  {{ item.title }}
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="mr-3"
+                  fab
+                  text
+                  @click="$set(sheet, index - 1, false)"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </v-row>
+            </v-sheet>
+          </v-bottom-sheet>
         </v-col>
       </v-row>
     </v-container>
