@@ -33,6 +33,22 @@
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </v-row>
+              <v-tabs v-model="tab">
+                <v-tab href="#nbn--info">
+                  <span>정보</span>
+                </v-tab>
+                <v-tab href="#nbn--recipe">
+                  <span>요리법</span>
+                </v-tab>
+              </v-tabs>
+              <v-tabs-items v-model="tab">
+                <v-tab-item
+                  id="nbn--info"
+                  class="pa-3 text-body-1"
+                  v-html="item.info.text"
+                ></v-tab-item>
+                <v-tab-item id="nbn--recipe"> </v-tab-item>
+              </v-tabs-items>
             </v-sheet>
           </v-bottom-sheet>
         </v-col>
