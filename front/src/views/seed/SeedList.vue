@@ -47,7 +47,46 @@
                   class="pa-3 text-body-1"
                   v-html="item.info.text"
                 ></v-tab-item>
-                <v-tab-item id="nbn--recipe"> </v-tab-item>
+                <v-tab-item id="nbn--recipe">
+                  <v-card class="elevation-0">
+                    <v-card-text
+                      class="pa-0 rounded-0"
+                      style="overflow: auto"
+                      :style="
+                        'height: ' + ($vuetify.breakpoint.height - 180) + 'px'
+                      "
+                    >
+                      <v-card
+                        class="mt-3 rounded-0"
+                        style="
+                          border-top: 1px solid #666666;
+                          border-bottom: 1px solid #666666;
+                        "
+                        width="100%"
+                        target="_blank"
+                        v-for="(recipe, index) in item.recipes"
+                        :key="index"
+                        :href="youtubeLink(recipe.url)"
+                      >
+                        <v-img
+                          :src="youtubeThumbnailLink(recipe.url)"
+                          height="200px"
+                        ></v-img>
+
+                        <v-card-title class="pa-0">
+                          <v-col cols="10" class="text-truncate">{{
+                            recipe.title
+                          }}</v-col>
+                          <v-col cols="2">
+                            <v-icon class="text-h4 grey--text"
+                              >mdi-chevron-right</v-icon
+                            >
+                          </v-col>
+                        </v-card-title>
+                      </v-card>
+                    </v-card-text>
+                  </v-card>
+                </v-tab-item>
               </v-tabs-items>
             </v-sheet>
           </v-bottom-sheet>
