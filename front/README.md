@@ -1,6 +1,11 @@
 # front
 
-apk 같은 경우 yarn 명령어로 해야 작동됩니다. npm 오작동 할 수 있습니다. 
+apk 같은 경우 yarn 명령어로 해야 작동됩니다. npm 오작동 할 수 있습니다.
+
+프로젝트를 위해 따로 설치해야되는 목록
+* android-sdk
+* cordova
+* gradle
 
 ## Project setup
 패키지 설치
