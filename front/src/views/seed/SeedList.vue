@@ -14,8 +14,10 @@
             :src="item.src"
             @click.native="$set(sheet, index - 1, true)"
           />
+          <!-- bottom sheet start -->
           <v-bottom-sheet v-model="sheet[index - 1]">
             <v-sheet class="rounded-t-xl" :height="$vuetify.breakpoint.height">
+              <!-- bottom sheet title start -->
               <v-row>
                 <v-col cols="2"></v-col>
                 <div
@@ -33,6 +35,7 @@
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </v-row>
+              <!-- bottom sheet title end -->
               <v-tabs v-model="tab">
                 <v-tab href="#nbn--info">
                   <span>정보</span>
@@ -46,50 +49,15 @@
                   id="nbn--info"
                   class="pa-3 text-body-1"
                   v-html="item.info.text"
-                ></v-tab-item>
+                />
                 <v-tab-item id="nbn--recipe">
-                  <v-card class="elevation-0">
-                    <v-card-text
-                      class="pa-0 rounded-0"
-                      style="overflow: auto"
-                      :style="
-                        'height: ' + ($vuetify.breakpoint.height - 180) + 'px'
-                      "
-                    >
-                      <v-card
-                        class="mt-3 rounded-0"
-                        style="
-                          border-top: 1px solid #666666;
-                          border-bottom: 1px solid #666666;
-                        "
-                        width="100%"
-                        target="_blank"
-                        v-for="(recipe, index) in item.recipes"
-                        :key="index"
-                        :href="youtubeLink(recipe.url)"
-                      >
-                        <v-img
-                          :src="youtubeThumbnailLink(recipe.url)"
-                          height="200px"
-                        ></v-img>
-
-                        <v-card-title class="pa-0">
-                          <v-col cols="10" class="text-truncate">{{
-                            recipe.title
-                          }}</v-col>
-                          <v-col cols="2">
-                            <v-icon class="text-h4 grey--text"
-                              >mdi-chevron-right</v-icon
-                            >
-                          </v-col>
-                        </v-card-title>
-                      </v-card>
-                    </v-card-text>
-                  </v-card>
+                  <!-- recipe part of tab start -->
+                  <SeedRecipeList :recipes="item.recipes" />
                 </v-tab-item>
               </v-tabs-items>
             </v-sheet>
           </v-bottom-sheet>
+          <!-- bottom sheet end -->
         </v-col>
       </v-row>
     </v-container>
@@ -102,11 +70,14 @@
 import CoreBottomNav from "@/components/core/BottomNav.vue";
 import CoreInfoCard from "@/components/core/InfoCard.vue";
 
+import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
+
 export default {
   name: "SeedList",
   components: {
     CoreBottomNav,
     CoreInfoCard,
+    SeedRecipeList,
   },
   data() {
     return {
@@ -194,14 +165,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    youtubeLink(video) {
-      return "https://www.youtube.com/watch?v=" + video;
-    },
-    youtubeThumbnailLink(video) {
-      return "https://img.youtube.com/vi/" + video + "/sddefault.jpg";
-    },
   },
 };
 </script>
