@@ -2,6 +2,7 @@ package com.ssafy.IoTBackend.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,7 @@ public class UserController {
 	@ApiOperation(value = "테스트")
 	@GetMapping("/test")
 	public ResponseEntity<String> doBuy(User dto) throws Exception {
-		LOGGER.info("--------------------------------------:" + service.selectUser(dto));
+		LOGGER.info("--------------------------------------");
 		LOGGER.debug("[DEBUG]");
 		LOGGER.info("[INFO]");
 		LOGGER.warn("[WARN]");
@@ -47,31 +49,27 @@ public class UserController {
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 
-//	@ApiOperation(value = "회원가입")
-//	@PostMapping("/signup")
-//	public ResponseEntity<String> doSignUp(User dto) throws Exception {
-//		LOGGER.info("--------------------------------------signup");
-//		int result = service.insertUser(dto);
-//		System.out.println(">" + result);
-//		// 실패시 500에러
-//		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
-//	}
-//
-//	@ApiOperation(value = "로그인. 입력된 아이디와 비밀번호가 유효하면 jwt 토큰을 발급한다.")
-//	@GetMapping("/login")
-//	public ResponseEntity<String> doLogin(User dto) throws Exception {
-//		LOGGER.info("--------------------------------------login");
-//		User loggedIn = service.login(dto);
-//
-//		if (loggedIn != null) {
-//			System.out.println(">" + loggedIn.toString());
-//		} else {
-//		}
-//
-//		// 실패시 500에러
-//		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
-//	}
+	@ApiOperation(value = "회원가입")
+	@PostMapping("/signup")
+	public ResponseEntity<String> doSignUp(Authentication authentication, User dto, HttpServletRequest request) throws Exception {
+		LOGGER.info("--------------------------------------signup");
+		
+		dto.setUser_id(authentication.getPrincipal().toString());
+		System.out.println("dto>>>>>>>>> "+dto.toString());
+		
+		int flag = service.insertUser(dto);
 
+		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
+	}
 
-	// 회원수정
+	// 회원정보가져오기
+	@ApiOperation(value = "회원정보 가져오기")
+	@GetMapping
+	public ResponseEntity<User> doGetUser(Authentication authentication) throws Exception {
+		LOGGER.info("--------------------------------------doGetUser");
+		
+		String userId = authentication.getPrincipal().toString();
+		return new ResponseEntity<User>(service.selectUser(userId), HttpStatus.OK);
+	}
 }
