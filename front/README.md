@@ -1,6 +1,11 @@
 # front
 
-apk 같은 경우 yarn 명령어로 해야 작동됩니다. npm 오작동 할 수 있습니다. 
+apk 같은 경우 yarn 명령어로 해야 작동됩니다. npm 오작동 할 수 있습니다.
+
+프로젝트를 위해 따로 설치해야되는 목록
+* android-sdk
+* cordova
+* gradle
 
 ## Project setup
 패키지 설치
@@ -14,7 +19,11 @@ npm install
 
 cordora 앱 설치
 ```
-vue add cordora
+# If cordova is not already installed
+yarn global add cordova
+
+# Install
+vue add cordovae add cordora
 ```
 cordora 앱 설치 시 세팅(바꿔도 됩니다)
 ```
@@ -35,6 +44,13 @@ Select Platforms: (Press <space> to select, <a> to toggle all, <i> to invert sel
 
 >(●) Android
 ```
+생성된 src-cordova 폴더에 들어가서 안드로이드 플랫폼 추가
+```
+cd src-cordova
+
+cordova platform add android
+```
+
 
 ### Compiles and hot-reloads for development
 vue 프로젝트 컴파일

@@ -13,6 +13,7 @@
             dark
             class="px-5 ml-2 font-weight-black"
             color="#00B17B"
+            v-if="btn"
             v-text="btn"
           />
         </v-card-actions>
