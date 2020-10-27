@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px;" class="mx-auto mt-5">
+  <div style="max-width: 90%; min-width: 300px;" class="mx-auto mt-5">
     <div class="text-h5 text-center pb-5">튜토리얼</div>
     <div>
     <v-stepper v-model="e1">
@@ -11,10 +11,7 @@
           <TutorialCard :e1="e1"/>
         </v-stepper-content>
         <v-stepper-content step="3">
-          <TutorialCard/>
-          <div class="text-center">
-            <v-btn @click="goMain" color="primary">완료</v-btn>
-          </div>
+          <TutorialCard :e1="e1"/>
         </v-stepper-content>
       </v-stepper-items>
 
@@ -22,19 +19,21 @@
         <v-stepper-step
           :complete="e1 > 1"
           step="1"
+          @click="e1=1"
         >
-          씨앗 뿌리기
+          씨앗 준비
         </v-stepper-step>
         <v-divider></v-divider>
         <v-stepper-step
           :complete="e1 > 2"
           step="2"
+          @click="e1=2"
         >
-          물 주입
+          씨앗 뿌리기
         </v-stepper-step>
         <v-divider></v-divider>
-        <v-stepper-step step="3">
-          완료
+        <v-stepper-step step="3" @click="e1=3">
+          물 주입
         </v-stepper-step>
       </v-stepper-header>
       
@@ -43,7 +42,7 @@
   </div>
 
   
-  <v-carousel height="350px" :hide-delimiter-background="true" :continuous="false"
+  <v-carousel height="350px" :hide-delimiter-background="false" :continuous="false"
   delimiter-icon="mdi-minus">
     <v-carousel-item>
       <TutorialCard :e1="1"/>
