@@ -11,4 +11,8 @@ public interface UserMapper {
 
 	public int selectUser(User dto) throws Exception;
 
+	public int insertUser(User dto) throws Exception;
+
+	public User login(User dto)  throws Exception;
+
 }

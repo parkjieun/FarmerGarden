@@ -1,17 +1,19 @@
 <div align=center><img style="height:300px" src="assets/nongbunae.png"></div>
 
-<h2 align=center>A105 - 슬기로운 재배생활</h2>
+<h2 align=center>서울 A105 - 슬기로운 재배생활 / 농부네 텃밭</h2>
 
 <div align=center>
-    <img src="https://img.shields.io/badge/platform-web-green">
-    <img src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=Vue.js&logoColor=white&color=42b883">
-    <img src="https://img.shields.io/badge/framework-spring boot-blue">
-    <img src="https://img.shields.io/badge/framework-flask-green">
-    <img src="https://img.shields.io/badge/database-MysqlDB-9cf">
-    <img src="https://img.shields.io/badge/server-AWS-yellow">
+    <a href="https://opensource.org/licenses/MIT" ><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+    <img src="https://img.shields.io/badge/platform-android-green">
+    <a href="https://kr.vuejs.org/"><img src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&logo=Vue.js&logoColor=white&color=42b883"></a>
+    <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/framework-spring boot-brightgreen"></a>
+    <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="https://img.shields.io/badge/framework-flask-black"></a>
+    <a href="https://mariadb.org/"><img src="https://img.shields.io/badge/database-MariaDB-yellowgreen"></a>
+    <a href="https://aws.amazon.com/ko/?nc2=h_lg"><img src="https://img.shields.io/badge/server-AWS-yellow"></a>
     <img src="https://img.shields.io/badge/language-python%2C java%2C javascript-yellowgreen">
     <img src="https://img.shields.io/badge/swagger-valid-brightgreen">
 </div>
+
 
 <div align=center>
 집 안의 작은 자연, 온 가족 힐링 케어 라이프<br/>
@@ -20,26 +22,26 @@
 병충해나 농약이 없이 야채를 안심하고 먹을 수 있습니다. 
 
 </div>
-
+ 
 
 
 ## :book: 목차
 
 ### 🌱 [프로젝트 소개](#프로젝트-소개)
 
-### :gear: [프로젝트 설계](#프로젝트 설계)
+### :gear: [프로젝트 설계](#프로젝트-설계)
 
 - ERD
 - 시스템 구성도
 - 기타 (와이어프레임 / API 문서 / 추천 시스템 소개)
 
-### :package: [프로젝트 구성](#프로젝트 구성)​
+### :package: [프로젝트 구성](#프로젝트-구성)​
 
 * Frontend / Backend 의 사용 Package
 * 코드 실행 방법
 * IoT 장비 구성품 및 작동 방법
 
-### 🌾 [팀원 소개](#팀원 소개)
+### 🌾 [팀원 소개](#팀원-소개)
 
 
 
@@ -131,16 +133,15 @@
 
 |   기술 스택    |   Version   | Comment                                    |
 | :------------: | :---------: | :----------------------------------------- |
-|    OpenJDK     |       | Java vendor 사용                           |
-|   SpringBoot   |       | Rest API 웹 애플리케이션 개발              |
-|     Maven      |        | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
-|     MySQL      |       | DB vendor 사용                             |
-|    MyBatis     |      | 서버와 DB의 연동을 위해 사용               |
-|     Ubuntu     |  | 서비스 제공을 위해 리눅스 서버 구축        |
-|     Docker     |   | 컨테이너화 된 애플리케이션 관리            |
-| Docker-Compose |      | 컨테이너 환경 및 실행 관리                 |
-|    Jenkins     |      | 자동화 배포 및 빌드                        |
-|     Nginx      |      | Vue 클라이언트 웹 서버 사용                |
+|    OpenJDK     |  1.8     | Java vendor 사용                           |
+|   SpringBoot   |   2.2.10    | Rest API 웹 애플리케이션 개발              |
+|     Maven      |   4.0.0     | 프로젝트를 빌드하고 라이브러리를 관리 도구 |
+|     MySQL      |   8.0.19    | DB vendor 사용                             |
+|    MyBatis     |  1.3.0    | 서버와 DB의 연동을 위해 사용               |
+|     Ubuntu     | 18.04.5 | 서비스 제공을 위해 리눅스 서버 구축        |
+|     Docker     | 19.03.13  | 컨테이너화 된 애플리케이션 관리            |
+|    Jenkins     |    -  | 자동화 배포 및 빌드                        |
+|     Nginx      | 1.14.0     | Vue 클라이언트 웹 서버 사용                |
 
 |      Spring 라이브러리       |  Version   | Comment                              |
 | :--------------------------: | :--------: | :----------------------------------- |

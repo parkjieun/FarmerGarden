@@ -26,7 +26,7 @@ export default {
             this.$router.push({name: 'PlantChoice'})
         },
         goMain() {
-            this.$router.push({name:'Main'})
+            this.$router.push({name:'PlantMain'})
         }
     }
 
