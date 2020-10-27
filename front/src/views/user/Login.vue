@@ -30,13 +30,14 @@
         append-outer-icon
       />
       <v-btn @click="checkForm()" color="primary" width="100%" class="mt-5"> 로그인 </v-btn>
-      <v-btn @click="kakaoLogin"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
-      <v-btn @click="signup()" color="secondary" width="100%" class="mt-5"> 회원가입 </v-btn>
+      <v-btn @click="signup()" color="secondary" width="100%" class="my-5"> 회원가입 </v-btn>
+      <v-divider class="my-3"/>
+      <v-btn @click="kakaoLogin" color="yellow"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
     </v-form>
   </div>
 </template>
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
 export default {
   name: "Login",
@@ -68,13 +69,12 @@ export default {
       }
     },
     kakaoLogin() {
-            window.Kakao.Auth.login({
-                scope: 'account_email',
-                success: this.getKaKaoInfo,
-                fail: function(error) {
-                    console.log(error);
-                },
-            })
+      window.Kakao.Auth.login({
+          success: this.getKaKaoInfo,
+          fail: function(error) {
+              console.log(error);
+          },
+      })
     },
     getKaKaoInfo(authInfo) {
       console.log(authInfo)
@@ -91,9 +91,9 @@ export default {
     }
   },
   created() {
-    if (!window.Kakao.isInitialized()) {
-            Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY)
-        }
+    // if (!window.Kakao.isInitialized()) {
+    //         Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY)
+    //     }
 
   }
 
