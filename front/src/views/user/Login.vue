@@ -78,7 +78,7 @@ export default {
     },
     getKaKaoInfo(authInfo) {
       console.log(authInfo)
-        // http.post("kakao/", { access_token: authInfo.access_token })
+        // axios.post("http://k3a105.p.ssafy.io:8000/api/oauth/kakao", { headers: { access_token: authInfo.access_token }})
         // .then(response => {
         //   // response.data.token => setAuth
 
