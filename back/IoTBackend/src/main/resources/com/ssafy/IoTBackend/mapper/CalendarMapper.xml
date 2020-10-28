@@ -13,8 +13,15 @@
     
     <!-- 유저의 재배 일정 목록 조회 -->
 	<select id="selectCalendar" parameterType="String" resultMap="calendarBasic">
-		select * from calendar
-		where user_id = #{user_id}
+		select c.calendar_id, c.calendar_eat_day, c.calendar_start_day, c.calendar_stop_day, 
+			c.choice_id, c.user_id, c.plant_id,
+			p.plant_name, pc.grow_flag
+		from calendar c
+		JOIN plant_choice pc
+		 ON c.choice_id = pc.choice_id
+		JOIN plant p
+		 ON c.plant_id = p.plant_id
+		where c.user_id = #{user_id}
 	</select>
 	
 	<!-- 재배 일정 중단 -->
