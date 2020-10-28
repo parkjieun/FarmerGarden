@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-h5 text-center pb-5 login" style="margin-top: calc(40vh - 155px);">로그인</div>
+    <div class="text-h5 text-center pb-5 login" style="margin-top: calc(40vh - 200px);">로그인</div>
 
     <v-form ref="form" style="width: 300px;" class="mx-auto">
       <v-text-field
