@@ -51,7 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.addFilter(filter)
 		.authorizeRequests()
 		.antMatchers("/oauth/**").permitAll()
-//		.antMatchers(HttpMethod.GET,"/user/**").permitAll()
+		.antMatchers(
+	            "/v2/api-docs", 
+	            "/swagger-resources/**",  
+	            "/swagger-ui.html", 
+	            "/webjars/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.cors()
