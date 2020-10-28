@@ -15,4 +15,7 @@ public class Calendar {
 	private Integer choice_id; 
 	private String user_id;
 	private Integer plant_id;
+	
+	private String plant_name;
+	private boolean grow_flag;
 }

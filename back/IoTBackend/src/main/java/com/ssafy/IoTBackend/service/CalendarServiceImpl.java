@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.IoTBackend.mapper.CalendarMapper;
 import com.ssafy.IoTBackend.model.calendar.Calendar;
+import com.ssafy.IoTBackend.model.calendar.CreateCalendarRequestDTO;
 
 @Service
 @Transactional
@@ -15,6 +16,11 @@ public class CalendarServiceImpl implements CalendarService {
 
 	@Autowired
 	private CalendarMapper calendarMapper;
+	
+	@Override
+	public void insertCalendar(CreateCalendarRequestDTO calendarDTO) throws Exception {
+		calendarMapper.insertCalendar(calendarDTO);
+	}
 	
 	@Override
 	public List<Calendar> selectCalendar(String user_id) throws Exception {
