@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       character: "기본",
-      characterType: "기쁨.png",
+      characterType: "평범.gif",
       pot: "기본",
       potColor: "orange.png",
       sprout: "싹",
@@ -45,14 +45,14 @@ export default {
           "슬픔.png",
           "잠.png",
           "죽음.png",
-          "평범.png",
+          "평범.gif",
         ],
         전자: [
           "기쁨.png",
           "놀람.png",
           "뽀.png",
           "슬픔.png",
-          "잠.png",
+          "잠.gif",
           "죽음.png",
           "평범.png",
         ],
@@ -74,7 +74,7 @@ export default {
         ],
         뚱: ["orange.png", "green.png", "pink.png", "purple.png", "welsh.png"],
         컵: ["orange.png", "green.png", "pink.png", "purple.png", "welsh.png"],
-        고양이: ["orange.png"],
+        고양이: ["orange.gif"],
         토끼: ["orange.png"],
       },
       itemSprout: {
