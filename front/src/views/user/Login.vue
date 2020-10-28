@@ -39,6 +39,8 @@
 
 
 <script>
+import axios from 'axios'
+import { mapActions } from 'vuex'
 export default {
   name: "Login",
   data() {
@@ -63,6 +65,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['setAuth', 'setUser']),
     checkForm() {
       if (this.$refs.form.validate()) {
         // 로그인 메소드 호출
@@ -77,24 +80,24 @@ export default {
       })
     },
     getKaKaoInfo(authInfo) {
-      console.log(authInfo)
-        // axios.post("http://k3a105.p.ssafy.io:8000/api/oauth/kakao", { headers: { access_token: authInfo.access_token }})
-        // .then(response => {
-        //   // response.data.token => setAuth
-
-        //     this.setAuth("JWT " + response.data.token)
-        //     this.createUserProfile(Response)
-        // })
+        axios.post("http://k3a105.p.ssafy.io/api/oauth/kakao", {}, {headers: {accessToken: authInfo.access_token}})
+        .then(response => {
+          this.setAuth("JWT " + response.data.accessToken)
+          if (response.data.isOlder=="1") {
+            this.setUser(response.data)
+          }
+          else {
+            // 주소입력 폼으로 연결
+            console.log("you have to signup")
+          }
+        })
     },
     signup() {
       this.$router.push({name: 'Signup'})
     }
   },
   created() {
-    // if (!window.Kakao.isInitialized()) {
-    //         Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY)
-    //     }
-
+    
   }
 
 };
