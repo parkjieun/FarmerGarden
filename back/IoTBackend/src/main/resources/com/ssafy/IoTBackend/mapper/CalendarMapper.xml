@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.IoTBackend.mapper.CalendarMapper">
+    
+    <!-- 재배 일정 생성 -->
+	<insert id="insertCalendar" parameterType="calendar">
+	insert into calendar
+		 (calendar_eat_day, calendar_start_day, choice_id, user_id, plant_id)
+	values
+		 (date_add(curdate(), INTERVAL (select plant_eat_days from plant where plant_id=#{plant_id}) DAY),
+		 	curdate(), #{choice_id}, #{user_id}, #{plant_id});
+	</insert>
+    
+    <!-- 유저의 재배 일정 목록 조회 -->
+	<select id="selectCalendar" parameterType="String" resultMap="calendarBasic">
+		select c.calendar_id, c.calendar_eat_day, c.calendar_start_day, c.calendar_stop_day, 
+			c.choice_id, c.user_id, c.plant_id,
+			p.plant_name, pc.grow_flag
+		from calendar c
+		JOIN plant_choice pc
+		 ON c.choice_id = pc.choice_id
+		JOIN plant p
+		 ON c.plant_id = p.plant_id
+		where c.user_id = #{user_id}
+	</select>
+	
+	<!-- 재배 일정 중단 -->
+	<update id="stopCalendar" parameterType="Integer">
+		update calendar
+		 set calendar_stop_day = curdate()
+		where calendar_id = #{calendar_id}
+	</update>
+	
+	<resultMap type="calendar" id="calendarBasic">
+		<result column="calendar_id" property="calendar_id" />
+		<result column="calendar_eat_day" property="calendar_eat_day" />
+		<result column="calendar_start_day" property="calendar_start_day" />
+		<result column="calendar_stop_day" property="calendar_stop_day" />
+		<result column="choice_id" property="choice_id" />
+		<result column="user_id" property="user_id" />
+		<result column="plant_id" property="plant_id" />
+	</resultMap>
+</mapper>
