@@ -13,6 +13,7 @@ import PlantChoice from "../views/plant/PlantChoice.vue";
 import PlantMain from "../views/plant/PlantMain.vue";
 import Tutorial from "../views/plant/Tutorial.vue";
 import PlantCalendar from "../views/plant/PlantCalendar.vue";
+import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
 
 // seed
 import SeedList from "../views/seed/SeedList.vue";
@@ -68,6 +69,11 @@ const routes = [
     path: "/calendar",
     name: "PlantCalendar",
     component: PlantCalendar,
+  },
+  {
+    path: "/calendar2",
+    name: "PlantCalendar2",
+    component: PlantCalendar2,
   },
   // plant end
   // seed start

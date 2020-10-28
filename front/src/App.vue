@@ -20,7 +20,7 @@ export default {
     return {};
   },
   beforeMount() {
-    this.delay(2000);
+    this.delay(100);
   },
   methods: {
     delay(ms) {

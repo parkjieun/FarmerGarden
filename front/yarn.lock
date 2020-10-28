@@ -915,6 +915,11 @@
   "resolved" "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz"
   "version" "1.1.3"
 
+"@popperjs/core@^2.4.0":
+  "integrity" "sha512-RFwCobxsvZ6j7twS7dHIZQZituMIDJJNHS/qY6iuthVebxS3zhRY+jaC2roEKiAYaVuTcGmX6Luc6YBcf6zJVg=="
+  "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.5.3.tgz"
+  "version" "2.5.3"
+
 "@soda/friendly-errors-webpack-plugin@^1.7.1":
   "integrity" "sha512-cWKrGaFX+rfbMrAxVv56DzhPNqOJPZuNIS2HGMELtgGzb+vsMzyig9mml5gZ/hr2BGtSLV+dP2LUEuAL8aG2mQ=="
   "resolved" "https://registry.npmjs.org/@soda/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.1.tgz"
@@ -3003,6 +3008,16 @@
   "version" "1.14.1"
   dependencies:
     "assert-plus" "^1.0.0"
+
+"date-fns-tz@^1.0.12":
+  "integrity" "sha512-Ca+9pjGkU90XDHnclfSjz9o7g/ZqyYyYI0aCYmbf65P75oy8gktuaRslO3UPXl3ADgAnF9/KCykQkpU3/xvtWQ=="
+  "resolved" "https://registry.npmjs.org/date-fns-tz/-/date-fns-tz-1.0.12.tgz"
+  "version" "1.0.12"
+
+"date-fns@^2.8.1", "date-fns@>=2.0.0-alpha.13":
+  "integrity" "sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.16.1.tgz"
+  "version" "2.16.1"
 
 "de-indent@^1.0.2":
   "integrity" "sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0="
@@ -8336,6 +8351,16 @@
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
   "version" "3.4.0"
 
+"v-calendar@^2.0.1":
+  "integrity" "sha512-q0Gxs9oSnxAZ1Jv3PKxeaChwPMh5j6HEK2cdEsD+C4tI30uEiWxrSkTS9q9MXpX8+iTuyMNrzxgIY+1VmUkuIg=="
+  "resolved" "https://registry.npmjs.org/v-calendar/-/v-calendar-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "core-js" "^3.6.5"
+    "date-fns" "^2.8.1"
+    "date-fns-tz" "^1.0.12"
+    "lodash" "^4.17.15"
+
 "v8-compile-cache@^2.0.3":
   "integrity" "sha512-8OQ9CL+VWyt3JStj7HX7/ciTL2V3Rl1Wf5OL+SNTm0yK1KvtReVulksyeRnCANHHuUxHlQig+JJDlUhBt1NQDQ=="
   "resolved" "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz"
@@ -8465,7 +8490,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.0.0", "vue@^2.6.11":
+"vue@^2.0.0", "vue@^2.5.18", "vue@^2.6.11":
   "integrity" "sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.12.tgz"
   "version" "2.6.12"
