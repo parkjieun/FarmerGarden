@@ -1,23 +1,25 @@
 <template>
   <div>
-    <v-img
-      style="position: absolute"
-      width="200px"
-      :src="require('@/assets/plant/sprout/' + sprout + '-' + sproutType)"
-    />
-    <v-img
-      style="position: absolute; z-index: 2"
-      width="200px"
-      :src="require('@/assets/plant/pot/' + pot + '-' + potColor)"
-    />
-    <v-img
-      style="position: relative; z-index: 3"
-      width="200px"
-      :src="
-        require('@/assets/plant/character/' + character + '-' + characterType)
-      "
-      @click="changeRandomCharacterType"
-    />
+    <div>
+      <v-img
+        style="position: absolute"
+        width="200px"
+        :src="require('@/assets/plant/sprout/' + sprout + '-' + sproutType)"
+      />
+      <v-img
+        style="position: absolute; z-index: 2"
+        width="200px"
+        :src="require('@/assets/plant/pot/' + pot + '-' + potColor)"
+      />
+      <v-img
+        style="position: relative; z-index: 3"
+        width="200px"
+        :src="
+          require('@/assets/plant/character/' + character + '-' + characterType)
+        "
+        @click="changeRandomCharacterType"
+      />
+    </div>
     <v-select v-model="character" :items="Object.keys(itemCharacter)" />
     <v-select v-model="characterType" :items="itemCharacter[character]" />
     <v-select v-model="pot" :items="Object.keys(itemPot)" />
@@ -50,10 +52,10 @@ export default {
         전자: [
           "기쁨.png",
           "놀람.png",
-          "뽀.png",
+          "뽀.gif",
           "슬픔.png",
           "잠.gif",
-          "죽음.png",
+          "죽음.gif",
           "평범.png",
         ],
       },
@@ -75,11 +77,11 @@ export default {
         뚱: ["orange.png", "green.png", "pink.png", "purple.png", "welsh.png"],
         컵: ["orange.png", "green.png", "pink.png", "purple.png", "welsh.png"],
         고양이: ["orange.gif"],
-        토끼: ["orange.png"],
+        토끼: ["orange.gif"],
       },
       itemSprout: {
-        무: ["1.png", "2.png", "3.png", "4.png"],
-        싹: ["1.png", "2.png", "3.png", "4.png"],
+        무: ["1.gif", "2.gif", "3.gif", "4.gif"],
+        싹: ["1.gif", "2.gif", "3.gif", "4.gif"],
         옥: ["1.png", "2.png", "3.png", "4.png"],
       },
     };
