@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +52,7 @@ public class UserController {
 
 	@ApiOperation(value = "회원가입")
 	@PostMapping("/signup")
-	public ResponseEntity<String> doSignUp(Authentication authentication, User dto, HttpServletRequest request) throws Exception {
+	public ResponseEntity<String> doSignUp(Authentication authentication, User dto) throws Exception {
 		LOGGER.info("--------------------------------------signup");
 		
 		dto.setUser_id(authentication.getPrincipal().toString());
@@ -63,7 +64,6 @@ public class UserController {
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 
-	// 회원정보가져오기
 	@ApiOperation(value = "회원정보 가져오기")
 	@GetMapping
 	public ResponseEntity<User> doGetUser(Authentication authentication) throws Exception {
@@ -71,5 +71,19 @@ public class UserController {
 		
 		String userId = authentication.getPrincipal().toString();
 		return new ResponseEntity<User>(service.selectUser(userId), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "회원정보 수정")
+	@PutMapping
+	public ResponseEntity<String> doUpdateUser(Authentication authentication, User dto) throws Exception {
+		LOGGER.info("--------------------------------------doUpdateUser");
+		
+		String userId = authentication.getPrincipal().toString();
+		dto.setUser_id(userId);
+		
+		int flag = service.updateUser(dto);
+
+		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 }

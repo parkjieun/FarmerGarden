@@ -18,6 +18,12 @@
 	<select id="selectUser" resultType="User">
 		select * from user where user_id=#{user_id} 
 	</select>
+	
+	<update id="updateUser">
+		update user
+    	set user_name=#{user_name}, user_address=#{user_address},user_pot=#{user_pot}
+    	where user_id=#{user_id}
+	</update>
 </mapper>
 
 
