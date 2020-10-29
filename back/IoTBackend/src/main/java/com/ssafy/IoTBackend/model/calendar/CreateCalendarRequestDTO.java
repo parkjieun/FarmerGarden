@@ -1,7 +1,6 @@
 package com.ssafy.IoTBackend.model.calendar;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModelProperty;

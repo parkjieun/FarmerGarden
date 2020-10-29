@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,11 +47,12 @@ public class PostController {
 	
 	@GetMapping
 	@ApiOperation(value = "유저가 작성한 게시글 전체 목록 조회", 
-		notes = "유저 아이디 params에 담아 요청하면 해당 유저가 작성한 post 리스트 반환")
-	public ResponseEntity<List<Post>> selectPosts(@RequestParam String user_id) {
+		notes = "유저가 작성한 post 리스트 반환")
+	public ResponseEntity<List<Post>> selectPosts(Authentication authentication) {
+		String userId = authentication.getPrincipal().toString();
 		List<Post> posts = null;
 		try {
-			posts = postService.selectPosts(user_id);
+			posts = postService.selectPosts(userId);
 			return new ResponseEntity<>(posts, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,8 +76,10 @@ public class PostController {
 	
 	@PostMapping
 	@ApiOperation(value = "게시글 작성", notes = "성공시 'success' 실패시 'fail' 반환")
-	public ResponseEntity<String> createPost(@RequestBody CreatePostRequestDTO postDto) {
+	public ResponseEntity<String> createPost(Authentication authentication, @RequestBody CreatePostRequestDTO postDto) {
+		String userId = authentication.getPrincipal().toString();
 		try {
+			postDto.setUser_id(userId);
 			postService.insertPost(postDto);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 		} catch (Exception e) {

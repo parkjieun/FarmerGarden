@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,11 +41,12 @@ public class CalendarController {
 	
 	@GetMapping
 	@ApiOperation(value = "유저의 전체 재배 일정 목록 조회", 
-		notes = "유저 아이디 params에 담아 요청하면 해당 유저의 재배 일정 리스트 반환")
-	public ResponseEntity<List<Calendar>> selectCalendars(@RequestParam String user_id) {
+		notes = "유저의 재배 일정 리스트 반환")
+	public ResponseEntity<List<Calendar>> selectCalendars(Authentication authentication) {
+		String userId = authentication.getPrincipal().toString();
 		List<Calendar> calendars = null;
 		try {
-			calendars = calendarService.selectCalendar(user_id);
+			calendars = calendarService.selectCalendar(userId);
 			return new ResponseEntity<>(calendars, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
