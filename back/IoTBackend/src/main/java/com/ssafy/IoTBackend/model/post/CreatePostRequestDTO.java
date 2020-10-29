@@ -29,8 +29,7 @@ public class CreatePostRequestDTO {
     @Max(255)
 	private String post_img;
 
-    @ApiModelProperty(required = true)
-    @NotBlank(message = "유저 아이디는 필수 입력값입니다.")
+    @ApiModelProperty(required = false)
 	private String user_id;
 
 }
