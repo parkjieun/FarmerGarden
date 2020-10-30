@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.IoTBackend.model.User;
 import com.ssafy.IoTBackend.model.calendar.Calendar;
 import com.ssafy.IoTBackend.service.CalendarService;
+import com.ssafy.IoTBackend.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,17 +41,24 @@ public class CalendarController {
 	@Autowired
 	private CalendarService calendarService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping
 	@ApiOperation(value = "유저의 전체 재배 일정 목록 조회", 
 		notes = "유저의 재배 일정 리스트 반환")
-	public ResponseEntity<List<Calendar>> selectCalendars(Authentication authentication) {
+	public ResponseEntity<Object> selectCalendars(Authentication authentication) {
 		String userId = authentication.getPrincipal().toString();
 		List<Calendar> calendars = null;
 		try {
-			calendars = calendarService.selectCalendar(userId);
-			return new ResponseEntity<>(calendars, HttpStatus.OK);
+			User user = userService.selectUser(userId);
+			if(user != null) {				
+				calendars = calendarService.selectCalendar(userId);
+				return new ResponseEntity<>(calendars, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(calendars, HttpStatus.NOT_FOUND);
 		}
 	}
@@ -61,7 +70,6 @@ public class CalendarController {
 			calendarService.stopCalendar(calendar_id);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 	}
