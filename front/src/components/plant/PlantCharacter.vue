@@ -2,17 +2,37 @@
   <div>
     <div>
       <v-img
-        style="position: absolute"
+        style="
+          position: absolute;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+        "
         width="200px"
         :src="require('@/assets/plant/sprout/' + sprout + '-' + sproutType)"
       />
       <v-img
-        style="position: absolute; z-index: 2"
+        style="
+          position: absolute;
+          z-index: 2;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+        "
         width="200px"
         :src="require('@/assets/plant/pot/' + pot + '-' + potColor)"
       />
       <v-img
-        style="position: relative; z-index: 3"
+        style="
+          position: relative;
+          z-index: 3;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+        "
         width="200px"
         :src="
           require('@/assets/plant/character/' + character + '-' + characterType)
@@ -20,25 +40,34 @@
         @click="changeRandomCharacterType"
       />
     </div>
-    <v-select v-model="character" :items="Object.keys(itemCharacter)" />
-    <v-select v-model="characterType" :items="itemCharacter[character]" />
-    <v-select v-model="pot" :items="Object.keys(itemPot)" />
-    <v-select v-model="potColor" :items="itemPot[pot]" />
-    <v-select v-model="sprout" :items="Object.keys(itemSprout)" />
-    <v-select v-model="sproutType" :items="itemSprout[sprout]" />
+    <div v-if="!hidden">
+      <v-select v-model="character" :items="Object.keys(itemCharacter)" />
+      <v-select v-model="characterType" :items="itemCharacter[character]" />
+      <v-select v-model="pot" :items="Object.keys(itemPot)" />
+      <v-select v-model="potColor" :items="itemPot[pot]" />
+      <v-select v-model="sprout" :items="Object.keys(itemSprout)" />
+      <v-select v-model="sproutType" :items="itemSprout[sprout]" />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
+      animating: false,
       character: "기본",
       characterType: "평범.gif",
       pot: "기본",
       potColor: "orange.png",
       sprout: "싹",
-      sproutType: "1.png",
+      sproutType: "1.gif",
       itemCharacter: {
         기본: [
           "기쁨.png",
@@ -82,7 +111,7 @@ export default {
       itemSprout: {
         무: ["1.gif", "2.gif", "3.gif", "4.gif"],
         싹: ["1.gif", "2.gif", "3.gif", "4.gif"],
-        옥: ["1.png", "2.png", "3.png", "4.png"],
+        옥: ["1.gif", "2.gif", "3.gif", "4.gif"],
       },
     };
   },
@@ -99,5 +128,5 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
