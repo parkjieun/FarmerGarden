@@ -5,6 +5,7 @@ cd IoTBackend
 ```
 
 ```
+run Spring Boot App
 Spring 이클립스에서 실행하기
 ```
 
