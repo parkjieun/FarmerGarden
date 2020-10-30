@@ -11,10 +11,37 @@
     "
   >
     <v-row style="border: 1px solid #ff0000">
-      <v-col cols="3" style="border: 1px solid #ff0000">온도</v-col>
-      <v-col cols="3" style="border: 1px solid #ff0000">습도</v-col>
+      <v-col cols="3" style="border: 1px solid #ff0000">
+        <div
+          style="
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          온도 100℃
+        </div>
+      </v-col>
+      <v-col cols="3" style="border: 1px solid #ff0000">
+        <div
+          style="
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          습도 100%
+        </div>
+      </v-col>
       <v-spacer> </v-spacer>
-      <v-col cols="3" style="border: 1px solid #ff0000">다음물줄시간</v-col>
+      <v-col cols="3" style="border: 1px solid #ff0000">
+        <div
+          style="
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          다음 시간 3시 15분
+        </div>
+      </v-col>
     </v-row>
     <v-row style="border: 1px solid #ff0000">
       <v-col style="border: 1px solid #ff0000">여백</v-col>
@@ -27,8 +54,8 @@
       <v-col cols="2" style="border: 1px solid #ff0000">사이드여백</v-col>
     </v-row>
     <v-row style="border: 1px solid #ff0000">
-      <v-col cols="9" style="border: 1px solid #ff0000">재배 예정일</v-col>
-
+      <v-col cols="6" style="border: 1px solid #ff0000">재배 예정일</v-col>
+      <v-col cols="3" style="border: 1px solid #ff0000">보고서</v-col>
       <v-col cols="3" style="border: 1px solid #ff0000">화분꾸미기</v-col>
     </v-row>
     <!-- <v-row dense>
