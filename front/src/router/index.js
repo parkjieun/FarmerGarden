@@ -6,10 +6,17 @@ import Test from "../views/Test.vue";
 // user
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
+import Register from "../views/user/Register.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
 import PlantMain from "../views/plant/PlantMain.vue";
+import Tutorial from "../views/plant/Tutorial.vue";
+import PlantCalendar from "../views/plant/PlantCalendar.vue";
+import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
+
+// seed
+import SeedList from "../views/seed/SeedList.vue";
 
 Vue.use(VueRouter);
 
@@ -35,6 +42,11 @@ const routes = [
     name: "Signup",
     component: Signup,
   },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+  },
   // user end
 
   // plant start
@@ -44,9 +56,31 @@ const routes = [
     component: PlantMain,
   },
   {
+    path: "/tutorial",
+    name: "Tutorial",
+    component: Tutorial,
+  },
+  {
     path: "/choice",
     name: "PlantChoice",
     component: PlantChoice,
+  },
+  {
+    path: "/calendar",
+    name: "PlantCalendar",
+    component: PlantCalendar,
+  },
+  {
+    path: "/calendar2",
+    name: "PlantCalendar2",
+    component: PlantCalendar2,
+  },
+  // plant end
+  // seed start
+  {
+    path: "/list",
+    name: "SeedList",
+    component: SeedList,
   },
   // plant end
 ];

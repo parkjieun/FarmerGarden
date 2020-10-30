@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <CoreTopToolbar />
     <v-main>
       <router-view />
     </v-main>
@@ -8,16 +7,28 @@
 </template>
 
 <script>
-import CoreTopToolbar from "@/components/core/TopToolbar.vue";
+// import CoreTopToolbar from "@/components/core/TopToolbar.vue";
 
 export default {
   name: "App",
   components: {
-    CoreTopToolbar,
+    // CoreTopToolbar,
   },
 
   data() {
     return {};
+  },
+  beforeMount() {
+    this.delay(100);
+  },
+  methods: {
+    delay(ms) {
+      const startPoint = new Date().getTime();
+      console.log("test");
+      while (new Date().getTime() - startPoint <= ms) {
+        /* wait */
+      }
+    },
   },
 };
 </script>
