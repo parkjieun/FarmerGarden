@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-h5 text-center pb-5 login" style="margin-top: calc(40vh - 155px);">로그인</div>
+    <div class="text-h5 text-center pb-5 login" style="margin-top: calc(40vh - 200px);">로그인</div>
 
     <v-form ref="form" style="width: 300px;" class="mx-auto">
       <v-text-field
@@ -30,14 +30,17 @@
         append-outer-icon
       />
       <v-btn @click="checkForm()" color="primary" width="100%" class="mt-5"> 로그인 </v-btn>
-      <v-btn @click="kakaoLogin"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
-      <v-btn @click="signup()" color="secondary" width="100%" class="mt-5"> 회원가입 </v-btn>
+      <v-btn @click="signup()" color="secondary" width="100%" class="my-5"> 회원가입 </v-btn>
+      <v-divider class="my-3"/>
+      <v-btn @click="kakaoLogin" color="yellow"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
     </v-form>
   </div>
 </template>
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <script>
+import axios from 'axios'
+import { mapActions } from 'vuex'
 export default {
   name: "Login",
   data() {
@@ -62,39 +65,39 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['setAuth', 'setUser']),
     checkForm() {
       if (this.$refs.form.validate()) {
         // 로그인 메소드 호출
       }
     },
     kakaoLogin() {
-            window.Kakao.Auth.login({
-                scope: 'account_email',
-                success: this.getKaKaoInfo,
-                fail: function(error) {
-                    console.log(error);
-                },
-            })
+      window.Kakao.Auth.login({
+          success: this.getKaKaoInfo,
+          fail: function(error) {
+              console.log(error);
+          },
+      })
     },
     getKaKaoInfo(authInfo) {
-      console.log(authInfo)
-        // http.post("kakao/", { access_token: authInfo.access_token })
-        // .then(response => {
-        //   // response.data.token => setAuth
-
-        //     this.setAuth("JWT " + response.data.token)
-        //     this.createUserProfile(Response)
-        // })
+        axios.post("http://k3a105.p.ssafy.io/api/oauth/kakao", {}, {headers: {accessToken: authInfo.access_token}})
+        .then(response => {
+          this.setAuth("JWT " + response.data.accessToken)
+          if (response.data.isOlder=="1") {
+            this.setUser(response.data)
+          }
+          else {
+            // 주소입력 폼으로 연결
+            console.log("you have to signup")
+          }
+        })
     },
     signup() {
       this.$router.push({name: 'Signup'})
     }
   },
   created() {
-    if (!window.Kakao.isInitialized()) {
-            Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY)
-        }
-
+    
   }
 
 };
