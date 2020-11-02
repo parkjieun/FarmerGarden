@@ -9,13 +9,15 @@
         <v-card-title class="pt-0 headline font-weight-black" v-text="title" />
 
         <v-card-actions>
-          <v-btn
-            dark
-            class="px-5 ml-2 font-weight-black"
-            color="#00B17B"
-            v-if="btn"
-            v-text="btn"
-          />
+          <slot name="btn">
+            <v-btn
+              dark
+              class="px-5 ml-2 font-weight-black"
+              color="#00B17B"
+              v-if="btn"
+              v-text="btn"
+            />
+          </slot>
         </v-card-actions>
       </div>
 
