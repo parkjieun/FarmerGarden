@@ -15,6 +15,7 @@ public class JwtUtil {
 
 	public JwtUtil(String secret) {
 		this.key = Keys.hmacShaKeyFor(secret.getBytes());
+		System.out.println(">>>>>>>>>>>>>>>>>> key"+this.key);
 	}
     public String createToken(String userId) {
 
