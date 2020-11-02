@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.IoTBackend.model.User;
 import com.ssafy.IoTBackend.model.post.CreatePostRequestDTO;
 import com.ssafy.IoTBackend.model.post.Post;
 import com.ssafy.IoTBackend.model.post.UpdatePostRequestDTO;
 import com.ssafy.IoTBackend.service.PostService;
+import com.ssafy.IoTBackend.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,17 +47,24 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping
 	@ApiOperation(value = "유저가 작성한 게시글 전체 목록 조회", 
 		notes = "유저가 작성한 post 리스트 반환")
-	public ResponseEntity<List<Post>> selectPosts(Authentication authentication) {
+	public ResponseEntity<Object> selectPosts(Authentication authentication) {
 		String userId = authentication.getPrincipal().toString();
 		List<Post> posts = null;
 		try {
-			posts = postService.selectPosts(userId);
-			return new ResponseEntity<>(posts, HttpStatus.OK);
+			User user = userService.selectUser(userId);
+			if(user != null) {
+				posts = postService.selectPosts(userId);
+				return new ResponseEntity<>(posts, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(posts, HttpStatus.NOT_FOUND);
 		}
 	}
@@ -79,11 +88,15 @@ public class PostController {
 	public ResponseEntity<String> createPost(Authentication authentication, @RequestBody CreatePostRequestDTO postDto) {
 		String userId = authentication.getPrincipal().toString();
 		try {
-			postDto.setUser_id(userId);
-			postService.insertPost(postDto);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+			User user = userService.selectUser(userId);
+			if(user != null) {
+				postDto.setUser_id(userId);
+				postService.insertPost(postDto);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 	}
