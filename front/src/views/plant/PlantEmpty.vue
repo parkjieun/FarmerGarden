@@ -43,17 +43,21 @@
       <v-col cols="2" class="py-0"> </v-col>
     </v-row>
     <v-row> </v-row>
-    <CoreBottomNav />
   </v-container>
 </template>
 
 <script>
-import CoreBottomNav from "@/components/core/BottomNav.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PlantMain",
-  components: {
-    CoreBottomNav,
+  mounted() {
+    if (this.plantCharInfo) {
+      this.$router.push({ name: "PlantMain" });
+    }
+  },
+  computed: {
+    ...mapGetters(["plantCharInfo"]),
   },
   data() {
     return {
