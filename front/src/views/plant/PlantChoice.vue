@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- btn toolbar start -->
     <v-row>
       <v-col cols="1"></v-col>
       <v-col cols="5">
@@ -14,6 +15,9 @@
       </v-col>
       <v-col cols="1"></v-col>
     </v-row>
+    <!-- btn toolbar end -->
+
+    <!-- preview image start -->
     <v-row>
       <v-col cols="10" class="mx-auto">
         <v-container
@@ -44,31 +48,31 @@
         </v-container>
       </v-col>
     </v-row>
+    <!-- preview image end -->
+
+    <!-- tabs slider group start -->
     <v-row>
+      <!-- tabs start -->
       <v-tabs v-model="tab" centered>
         <v-tabs-slider></v-tabs-slider>
-
-        <v-tab href="#tab-pot"> 화분 </v-tab>
-
+        <v-tab href="#tab-pot" v-text="'화분'" />
         <v-tab
           href="#tab-color"
           v-if="!oneColor.includes(selectPlantCharInfo.pot)"
-        >
-          색깔
-        </v-tab>
-
-        <v-tab href="#tab-char"> 캐릭터 </v-tab>
-
-        <v-tab href="#tab-bgimage"> 배경 </v-tab>
+          v-text="'색깔'"
+        />
+        <v-tab href="#tab-char" v-text="'캐릭터'" />
+        <v-tab href="#tab-bgimage" v-text="'배경'" />
       </v-tabs>
+      <!-- tabs end -->
 
       <v-tabs-items v-model="tab">
+        <!-- pot tab start -->
         <v-tab-item value="tab-pot">
           <v-slide-group
             v-model="selectPlantCharInfo.pot"
             class="pa-4"
             mandatory
-            show-arrows
           >
             <v-slide-item
               v-for="(value, key, index) in itemPot"
@@ -93,6 +97,9 @@
             </v-slide-item>
           </v-slide-group>
         </v-tab-item>
+        <!-- pot tab end -->
+
+        <!-- pot color tab start -->
         <v-tab-item
           value="tab-color"
           v-if="!oneColor.includes(selectPlantCharInfo.pot)"
@@ -101,7 +108,6 @@
             v-model="selectPlantCharInfo.potColor"
             class="pa-4"
             mandatory
-            show-arrows
           >
             <v-slide-item
               v-for="(value, key, index) in itemPot[selectPlantCharInfo.pot]"
@@ -126,12 +132,14 @@
             </v-slide-item>
           </v-slide-group>
         </v-tab-item>
+        <!-- pot color tab end -->
+
+        <!-- character tab start -->
         <v-tab-item value="tab-char">
           <v-slide-group
             v-model="selectPlantCharInfo.character"
             class="pa-4"
             mandatory
-            show-arrows
           >
             <v-slide-item
               v-for="(value, key, index) in itemCharacter"
@@ -156,12 +164,14 @@
             </v-slide-item>
           </v-slide-group>
         </v-tab-item>
+        <!-- character tab end -->
+
+        <!-- bgimage start -->
         <v-tab-item value="tab-bgimage">
           <v-slide-group
             v-model="selectPlantCharInfo.bgimage"
             class="pa-4"
             mandatory
-            show-arrows
           >
             <v-slide-item
               v-for="(value, key, index) in itemBGImage"
@@ -183,8 +193,10 @@
             </v-slide-item>
           </v-slide-group>
         </v-tab-item>
+        <!-- bgimage end -->
       </v-tabs-items>
     </v-row>
+    <!-- tabs slider group end -->
   </v-container>
 </template>
 
@@ -209,7 +221,6 @@ export default {
         bgimage: "1",
       },
       tab: null,
-      slideChar: null,
     };
   },
   components: {
@@ -252,7 +263,7 @@ export default {
 }
 
 .nbn--btn {
-  color: #5b3016;
+  color: var(--font1-color);
   font-size: 20px;
   font-family: "Jua", sans-serif;
 }

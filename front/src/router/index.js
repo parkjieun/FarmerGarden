@@ -1,12 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import Layout from "../views/Layout.vue";
+
 import Test from "../views/Test.vue";
+import SplashScreen from "../views/SplashScreen.vue";
 
 // user
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
 import Register from "../views/user/Register.vue";
+import Mypage from "../views/user/Mypage.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
@@ -23,72 +27,98 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "About",
-    component: () => import("../views/About.vue"),
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: Test,
-  },
-  // user start
-  {
-    path: "/login",
-    name: "Login",
-    component: Login,
-  },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
-  },
-  // user end
+    path: "/bottom",
+    name: "default",
+    component: Layout,
+    children: [
+      {
+        path: "/about",
+        name: "About",
+        component: () => import("../views/About.vue"),
+      },
+      {
+        path: "/test",
+        name: "Test",
+        component: Test,
+      },
 
-  // plant start
-  {
-    path: "/main",
-    name: "PlantMain",
-    component: PlantMain,
+      // plant start
+      {
+        path: "/main",
+        name: "PlantMain",
+        component: PlantMain,
+      },
+      {
+        path: "/empty",
+        name: "PlantEmpty",
+        component: PlantEmpty,
+      },
+      {
+        path: "/tutorial",
+        name: "Tutorial",
+        component: Tutorial,
+      },
+      {
+        path: "/choice",
+        name: "PlantChoice",
+        component: PlantChoice,
+      },
+      {
+        path: "/calendar",
+        name: "PlantCalendar",
+        component: PlantCalendar,
+      },
+      {
+        path: "/calendar2",
+        name: "PlantCalendar2",
+        component: PlantCalendar2,
+      },
+      // plant end
+      // seed start
+      {
+        path: "/list",
+        name: "SeedList",
+        component: SeedList,
+      },
+      // seed end
+      {
+        path: "/mypage",
+        name: "Mypage",
+        component: Mypage,
+      },
+    ],
   },
   {
-    path: "/empty",
-    name: "PlantEmpty",
-    component: PlantEmpty,
+    path: "/",
+    component: Layout,
+    props: { bottomnav: false },
+    children: [
+      {
+        path: "/",
+        name: "SplashScreen",
+        component: SplashScreen,
+      },
+      // user start
+      {
+        path: "/login",
+        name: "Login",
+        component: Login,
+        props: { bottomnav: false },
+      },
+      {
+        path: "/signup",
+        name: "Signup",
+        component: Signup,
+      },
+      {
+        path: "/register",
+        name: "Register",
+        component: Register,
+        props: { bottomnav: false },
+      },
+      // user end
+    ],
   },
-  {
-    path: "/tutorial",
-    name: "Tutorial",
-    component: Tutorial,
-  },
-  {
-    path: "/choice",
-    name: "PlantChoice",
-    component: PlantChoice,
-  },
-  {
-    path: "/calendar",
-    name: "PlantCalendar",
-    component: PlantCalendar,
-  },
-  {
-    path: "/calendar2",
-    name: "PlantCalendar2",
-    component: PlantCalendar2,
-  },
-  // plant end
-  // seed start
-  {
-    path: "/list",
-    name: "SeedList",
-    component: SeedList,
-  },
-  // plant end
 ];
 
 const router = new VueRouter({

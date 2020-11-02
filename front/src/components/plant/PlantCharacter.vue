@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- sprout layer -->
     <v-img
       style="
         position: absolute;
@@ -12,6 +13,7 @@
       v-if="itemSprout[sprout][sproutType]"
       :src="require('@/assets/plant/sprout/' + itemSprout[sprout][sproutType])"
     />
+    <!-- pot layer -->
     <v-img
       style="
         position: absolute;
@@ -25,6 +27,7 @@
       v-if="itemPot[pot][potColor]"
       :src="require('@/assets/plant/pot/' + itemPot[pot][potColor])"
     />
+    <!-- character layer -->
     <v-img
       style="
         position: relative;

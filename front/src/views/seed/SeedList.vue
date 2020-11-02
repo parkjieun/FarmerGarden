@@ -76,15 +76,12 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <CoreBottomNav />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-import CoreBottomNav from "@/components/core/BottomNav.vue";
 import CoreInfoCard from "@/components/core/InfoCard.vue";
 
 import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
@@ -92,7 +89,6 @@ import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
 export default {
   name: "SeedList",
   components: {
-    CoreBottomNav,
     CoreInfoCard,
     SeedRecipeList,
   },
@@ -120,7 +116,14 @@ export default {
         bgimage: "1",
       };
       await this.setPlantCharInfo(plantCharInfo);
+      await this.delay(500);
       await this.$router.push({ name: "PlantMain" });
+    },
+    delay(ms) {
+      const startPoint = new Date().getTime();
+      while (new Date().getTime() - startPoint <= ms) {
+        /* wait */
+      }
     },
   },
   data() {
