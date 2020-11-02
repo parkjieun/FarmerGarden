@@ -263,7 +263,7 @@ export default {
 }
 
 .nbn--btn {
-  color: #5b3016;
+  color: var(--font1-color);
   font-size: 20px;
   font-family: "Jua", sans-serif;
 }

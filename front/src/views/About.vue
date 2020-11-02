@@ -2,17 +2,11 @@
   <v-container>
     <div class="text-h1">About</div>
     About 페이지가 될 예정
-    <CoreBottomNav />
   </v-container>
 </template>
 
 <script>
-import CoreBottomNav from "@/components/core/BottomNav.vue";
-export default {
-  components: {
-    CoreBottomNav,
-  },
-};
+export default {};
 </script>
 
 <style>

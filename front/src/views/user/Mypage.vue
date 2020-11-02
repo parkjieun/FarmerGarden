@@ -1,17 +1,10 @@
 <template>
-  <v-container>
-    <CoreBottomNav />
-  </v-container>
+  <v-container> mypage </v-container>
 </template>
 
 <script>
-import CoreBottomNav from "@/components/core/BottomNav.vue";
-
 export default {
   name: "Mypage",
-  components: {
-    CoreBottomNav,
-  },
 };
 </script>
 

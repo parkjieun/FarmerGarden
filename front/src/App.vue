@@ -1,37 +1,22 @@
 <template>
   <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
+    <router-view />
   </v-app>
 </template>
 
 <script>
-// import CoreTopToolbar from "@/components/core/TopToolbar.vue";
-
 export default {
   name: "App",
-  components: {
-    // CoreTopToolbar,
-  },
-
-  data() {
-    return {};
-  },
-  beforeMount() {
-    this.delay(100);
-  },
-  methods: {
-    delay(ms) {
-      const startPoint = new Date().getTime();
-      while (new Date().getTime() - startPoint <= ms) {
-        /* wait */
-      }
-    },
-  },
 };
 </script>
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+:root {
+  --primary-color: #56c156;
+  --white-color: #ffffff;
+
+  --font1-color: #5b3016;
+}
 </style>

@@ -76,15 +76,12 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <CoreBottomNav />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-import CoreBottomNav from "@/components/core/BottomNav.vue";
 import CoreInfoCard from "@/components/core/InfoCard.vue";
 
 import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
@@ -92,7 +89,6 @@ import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
 export default {
   name: "SeedList",
   components: {
-    CoreBottomNav,
     CoreInfoCard,
     SeedRecipeList,
   },

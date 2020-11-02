@@ -5,8 +5,7 @@
     :style="{
       backgroundImage:
         'url(' +
-        require('@/assets/plant/bgimage/' +
-          itemBGImage[plantCharInfo.bgimage]) +
+        require('@/assets/plant/bgimage/' + itemBGImage[bgimage]) +
         ')',
     }"
   >
@@ -54,11 +53,10 @@
         <v-progress-linear
           value="60"
           height="25"
-          :color="itemProgressColor[plantCharInfo.potColor]"
+          :color="itemProgressColor[potColor]"
         ></v-progress-linear>
       </v-col>
     </v-row>
-    <CoreBottomNav />
   </v-container>
 </template>
 
@@ -67,7 +65,6 @@ import { mapGetters } from "vuex";
 
 import { mixinPlantCharInfo } from "@/mixins/mixinPlantCharInfo";
 
-import CoreBottomNav from "@/components/core/BottomNav.vue";
 // import CoreInfoCard from "@/components/core/InfoCard.vue";
 import PlantCharacter from "@/components/plant/PlantCharacter.vue";
 
@@ -75,17 +72,20 @@ export default {
   name: "PlantMain",
   mixins: [mixinPlantCharInfo],
   components: {
-    CoreBottomNav,
     // CoreInfoCard,
     PlantCharacter,
   },
-  mounted() {
+  created() {
     // if (!this.isLoggedIn) {
     //   this.$router.push({ name: "Login" });
     // }
     if (!this.plantCharInfo) {
       this.$router.push({ name: "PlantEmpty" });
     }
+  },
+  mounted() {
+    this.bgimage = this.plantCharInfo.bgimage;
+    this.potColor = this.plantCharInfo.potColor;
   },
   data() {
     return {
@@ -95,6 +95,8 @@ export default {
         dday: "11월 7일",
         percent: "36",
       },
+      bgimage: "배경1.jpg",
+      potColor: "orange",
       items: [
         {
           subtitle: "새싹 채소란?",
