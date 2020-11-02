@@ -10,10 +10,25 @@
           <CoreInfoCard
             :subtitle="item.subtitle"
             :title="item.title"
-            :btn="item.btn"
             :src="item.src"
-            @click.native="$set(sheet, index - 1, true)"
-          />
+          >
+            <template #btn>
+              <v-btn
+                dark
+                class="px-5 ml-2 font-weight-black"
+                color="#00B17B"
+                v-text="'선택'"
+                @click.native="choicePlant(item.title)"
+              />
+              <v-btn
+                dark
+                class="px-5 ml-2 font-weight-black"
+                color="#00B17B"
+                v-text="'정보'"
+                @click.native="$set(sheet, index - 1, true)"
+              />
+            </template>
+          </CoreInfoCard>
           <!-- bottom sheet start -->
           <v-bottom-sheet v-model="sheet[index - 1]">
             <v-sheet class="rounded-t-xl" :height="$vuetify.breakpoint.height">
@@ -67,6 +82,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import CoreBottomNav from "@/components/core/BottomNav.vue";
 import CoreInfoCard from "@/components/core/InfoCard.vue";
 
@@ -78,6 +95,33 @@ export default {
     CoreBottomNav,
     CoreInfoCard,
     SeedRecipeList,
+  },
+  methods: {
+    ...mapActions(["setPlantCharInfo"]),
+    async choicePlant(plantname) {
+      var sprout;
+
+      if (plantname == "옥수수싹") {
+        sprout = "옥";
+      } else if (plantname == "무순") {
+        sprout = "무";
+      } else if (plantname == "밀싹") {
+        sprout = "싹";
+      } else if (plantname == "보리싹") {
+        sprout = "싹";
+      }
+
+      var plantCharInfo = {
+        character: "기본",
+        pot: "기본",
+        potColor: "orange",
+        sprout: sprout,
+        sproutType: "1",
+        bgimage: "1",
+      };
+      await this.setPlantCharInfo(plantCharInfo);
+      await this.$router.push({ name: "PlantMain" });
+    },
   },
   data() {
     return {

@@ -1,16 +1,259 @@
 <template>
-  <PlantCharacter />
+  <v-container>
+    <v-row>
+      <v-col cols="1"></v-col>
+      <v-col cols="5">
+        <v-btn class="nbn--btn" block text :to="{ name: 'PlantMain' }">
+          취소
+        </v-btn>
+      </v-col>
+      <v-col cols="5">
+        <v-btn class="nbn--btn" block text @click="savePlantCharCostume"
+          >저장</v-btn
+        >
+      </v-col>
+      <v-col cols="1"></v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="10" class="mx-auto">
+        <v-container
+          fluid
+          class="fill-height nbn--preview"
+          :style="{
+            backgroundImage:
+              'url(' +
+              require('@/assets/plant/bgimage/' +
+                itemBGImage[selectPlantCharInfo.bgimage]) +
+              ')',
+          }"
+        >
+          <v-row>
+            <v-col></v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mx-auto"
+              ><PlantCharacter
+                v-if="plantCharInfo"
+                v-bind="selectPlantCharInfo"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col></v-col>
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-tabs v-model="tab" centered>
+        <v-tabs-slider></v-tabs-slider>
+
+        <v-tab href="#tab-pot"> 화분 </v-tab>
+
+        <v-tab
+          href="#tab-color"
+          v-if="!oneColor.includes(selectPlantCharInfo.pot)"
+        >
+          색깔
+        </v-tab>
+
+        <v-tab href="#tab-char"> 캐릭터 </v-tab>
+
+        <v-tab href="#tab-bgimage"> 배경 </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item value="tab-pot">
+          <v-slide-group
+            v-model="selectPlantCharInfo.pot"
+            class="pa-4"
+            mandatory
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(value, key, index) in itemPot"
+              :key="index"
+              :value="key"
+              v-slot="{ active }"
+            >
+              <v-card
+                :color="active ? 'primary' : ''"
+                class="ma-4"
+                height="210"
+                width="120"
+                @click="selectPotSlider(key)"
+              >
+                <v-img
+                  :src="
+                    require('@/assets/plant/pot/' +
+                      itemPot[key][selectPlantCharInfo.potColor])
+                  "
+                />
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-tab-item>
+        <v-tab-item
+          value="tab-color"
+          v-if="!oneColor.includes(selectPlantCharInfo.pot)"
+        >
+          <v-slide-group
+            v-model="selectPlantCharInfo.potColor"
+            class="pa-4"
+            mandatory
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(value, key, index) in itemPot[selectPlantCharInfo.pot]"
+              :key="index"
+              :value="key"
+              v-slot="{ active }"
+            >
+              <v-card
+                :color="active ? 'primary' : ''"
+                class="ma-4"
+                height="210"
+                width="120"
+                @click="selectPlantCharInfo.potColor = key"
+              >
+                <v-img
+                  :src="
+                    require('@/assets/plant/pot/' +
+                      itemPot[selectPlantCharInfo.pot][key])
+                  "
+                />
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-tab-item>
+        <v-tab-item value="tab-char">
+          <v-slide-group
+            v-model="selectPlantCharInfo.character"
+            class="pa-4"
+            mandatory
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(value, key, index) in itemCharacter"
+              :key="index"
+              :value="key"
+              v-slot="{ active }"
+            >
+              <v-card
+                :color="active ? 'primary' : ''"
+                class="ma-4"
+                height="210"
+                width="120"
+                @click="selectPlantCharInfo.character = key"
+              >
+                <v-img
+                  :src="
+                    require('@/assets/plant/character/' +
+                      itemCharacter[key]['평범'])
+                  "
+                />
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-tab-item>
+        <v-tab-item value="tab-bgimage">
+          <v-slide-group
+            v-model="selectPlantCharInfo.bgimage"
+            class="pa-4"
+            mandatory
+            show-arrows
+          >
+            <v-slide-item
+              v-for="(value, key, index) in itemBGImage"
+              :key="index"
+              :value="key"
+              v-slot="{ active }"
+            >
+              <v-card
+                :color="active ? 'primary' : ''"
+                class="ma-4"
+                height="210"
+                width="120"
+                @click="selectPlantCharInfo.bgimage = key"
+              >
+                <v-img
+                  :src="require('@/assets/plant/bgimage/' + itemBGImage[key])"
+                />
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
+import { mixinPlantCharInfo } from "@/mixins/mixinPlantCharInfo";
+
 import PlantCharacter from "@/components/plant/PlantCharacter.vue";
 
 export default {
+  name: "PlantChoice",
+  mixins: [mixinPlantCharInfo],
+  data() {
+    return {
+      selectPlantCharInfo: {
+        character: "기본",
+        pot: "기본",
+        potColor: "orange",
+        sprout: "싹",
+        sproutType: "1",
+        bgimage: "1",
+      },
+      tab: null,
+      slideChar: null,
+    };
+  },
   components: {
     PlantCharacter,
+  },
+  mounted() {
+    if (!this.plantCharInfo) {
+      this.$router.push({ name: "PlantEmpty" });
+    }
+    this.selectPlantCharInfo = this.plantCharInfo;
+  },
+  computed: {
+    ...mapGetters(["plantCharInfo"]),
+  },
+  methods: {
+    ...mapActions(["setPlantCharInfo"]),
+    selectPotSlider(key) {
+      this.selectPlantCharInfo.pot = key;
+      if (this.oneColor.includes(this.selectPlantCharInfo.pot)) {
+        this.selectPlantCharInfo.potColor = "orange";
+      }
+    },
+    selectPotColorSilder(key) {
+      this.selectPlantCharInfo.potColor = key;
+    },
+    savePlantCharCostume() {
+      this.setPlantCharInfo(this.selectPlantCharInfo);
+      this.$router.push({ name: "PlantMain" });
+    },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nbn--preview {
+  border: 5px solid #593016;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.nbn--btn {
+  color: #5b3016;
+  font-size: 20px;
+  font-family: "Jua", sans-serif;
+}
 </style>
