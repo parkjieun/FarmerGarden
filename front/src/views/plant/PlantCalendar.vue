@@ -1,8 +1,6 @@
 <template>
   <div>
-    <PlantMonthCalendar/>
-    <PlantWeekCalendar/>
-    <!-- <v-sheet tile height="54" class="d-flex">
+    <v-sheet tile height="54" class="d-flex">
       <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
@@ -45,7 +43,7 @@
         :event-color="getEventColor"
         @change="getEvents"
       ></v-calendar>
-    </v-sheet> -->
+    </v-sheet>
     <v-timeline align-top dense class="mt-3">
       <v-timeline-item color="pink" small>
         <v-row class="pt-1">
@@ -113,13 +111,7 @@
 </template>
 
 <script>
-import PlantMonthCalendar from '@/components/plant/PlantMonthCalendar.vue'
-import PlantWeekCalendar from '@/components/plant/PlantWeekCalendar.vue'
 export default {
-  components: {
-    PlantMonthCalendar,
-    PlantWeekCalendar
-  },
   data: () => ({
     type: "month",
     typeToLabel: {
