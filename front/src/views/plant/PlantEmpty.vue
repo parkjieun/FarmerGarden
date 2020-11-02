@@ -48,12 +48,22 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import CoreBottomNav from "@/components/core/BottomNav.vue";
 
 export default {
   name: "PlantMain",
   components: {
     CoreBottomNav,
+  },
+  mounted() {
+    if (this.plantCharInfo) {
+      this.$router.push({ name: "PlantMain" });
+    }
+  },
+  computed: {
+    ...mapGetters(["plantCharInfo"]),
   },
   data() {
     return {

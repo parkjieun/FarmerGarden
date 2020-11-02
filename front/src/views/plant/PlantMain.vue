@@ -10,8 +10,8 @@
         ')',
     }"
   >
-    <v-row>
-      <v-col cols="12">
+    <v-row class="d-flex align-self-start">
+      <v-col cols="12" class="pb-0">
         <v-img src="@/assets/icon/info.svg" contain>
           <v-row>
             <v-col cols="2" />
@@ -33,11 +33,7 @@
         </v-img>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="2"></v-col>
-      <v-col
-        ><PlantCharacter v-if="plantCharInfo" v-bind="plantCharInfo" />
-      </v-col>
+    <v-row class="d-flex align-self-start justify-end">
       <v-col cols="2" class="py-0">
         <v-img src="@/assets/icon/paper.svg" class="mb-2" contain />
         <router-link :to="{ name: 'PlantChoice' }">
@@ -45,8 +41,22 @@
         </router-link>
       </v-col>
     </v-row>
-    <v-row style="border: 1px solid #ff0000">
-      <v-col cols="12" style="border: 1px solid #ff0000">재배 예정일</v-col>
+    <v-row class="d-flex align-self-stretch">
+      <v-col cols="2"></v-col>
+      <v-col>
+        <PlantCharacter v-if="plantCharInfo" v-bind="plantCharInfo" />
+      </v-col>
+      <v-col cols="2"></v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="1"></v-col>
+      <v-col cols="9">
+        <v-progress-linear
+          value="60"
+          height="25"
+          :color="itemProgressColor[plantCharInfo.potColor]"
+        ></v-progress-linear>
+      </v-col>
     </v-row>
     <CoreBottomNav />
   </v-container>

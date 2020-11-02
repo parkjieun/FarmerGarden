@@ -2,6 +2,13 @@ export const mixinPlantCharInfo = {
   data() {
     return {
       oneColor: ["고양이", "토끼"],
+      itemProgressColor: {
+        orange: "orange accent-2",
+        green: "lime lighten-1",
+        pink: "purple accent-1",
+        purple: "indigo lighten-2",
+        welsh: "deep-orange darken-2",
+      },
       itemBGImage: {
         1: "배경1.jpg",
         2: "배경2.jpg",
