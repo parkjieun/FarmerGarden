@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
-import { preset } from 'vue-cli-plugin-vuetify-preset-crane/preset'
+import Vue from "vue";
+import Vuetify from "vuetify/lib";
+import { preset } from "vue-cli-plugin-vuetify-preset-crane/preset";
 
 Vue.use(Vuetify);
 

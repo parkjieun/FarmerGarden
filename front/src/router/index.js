@@ -11,6 +11,7 @@ import Register from "../views/user/Register.vue";
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
 import PlantMain from "../views/plant/PlantMain.vue";
+import PlantEmpty from "../views/plant/PlantEmpty.vue";
 import Tutorial from "../views/plant/Tutorial.vue";
 import PlantCalendar from "../views/plant/PlantCalendar.vue";
 import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
@@ -54,6 +55,11 @@ const routes = [
     path: "/main",
     name: "PlantMain",
     component: PlantMain,
+  },
+  {
+    path: "/empty",
+    name: "PlantEmpty",
+    component: PlantEmpty,
   },
   {
     path: "/tutorial",
