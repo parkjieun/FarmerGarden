@@ -2,11 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Test from "../views/Test.vue";
+import SplashScreen from "../views/SplashScreen.vue";
 
 // user
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
 import Register from "../views/user/Register.vue";
+import Mypage from "../views/user/Mypage.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
@@ -24,6 +26,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    name: "SplashScreen",
+    component: SplashScreen,
+  },
+  {
+    path: "/about",
     name: "About",
     component: () => import("../views/About.vue"),
   },
@@ -47,6 +54,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/mypage",
+    name: "Mypage",
+    component: Mypage,
   },
   // user end
 
@@ -88,7 +100,7 @@ const routes = [
     name: "SeedList",
     component: SeedList,
   },
-  // plant end
+  // seed end
 ];
 
 const router = new VueRouter({

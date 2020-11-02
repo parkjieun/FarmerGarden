@@ -25,7 +25,7 @@
       <v-icon>mdi-message-processing</v-icon>
     </v-btn>
 
-    <v-btn value="account">
+    <v-btn value="account" :to="{ name: 'Mypage' }">
       <span>MY</span>
       <v-icon>mdi-account-circle</v-icon>
     </v-btn>

@@ -120,7 +120,14 @@ export default {
         bgimage: "1",
       };
       await this.setPlantCharInfo(plantCharInfo);
+      await this.delay(500);
       await this.$router.push({ name: "PlantMain" });
+    },
+    delay(ms) {
+      const startPoint = new Date().getTime();
+      while (new Date().getTime() - startPoint <= ms) {
+        /* wait */
+      }
     },
   },
   data() {

@@ -80,6 +80,9 @@ export default {
     PlantCharacter,
   },
   mounted() {
+    // if (!this.isLoggedIn) {
+    //   this.$router.push({ name: "Login" });
+    // }
     if (!this.plantCharInfo) {
       this.$router.push({ name: "PlantEmpty" });
     }
@@ -104,10 +107,18 @@ export default {
           btn: "더보기",
         },
       ],
+      charInfo: {
+        character: "기본",
+        pot: "기본",
+        potColor: "orange",
+        sprout: "싹",
+        sproutType: "1",
+        bgimage: "1",
+      },
     };
   },
   computed: {
-    ...mapGetters(["plantCharInfo"]),
+    ...mapGetters(["plantCharInfo", "isLoggedIn"]),
   },
 };
 </script>

@@ -15,6 +15,9 @@ export default new Vuex.Store({
     plantCharInfo(state) {
       return state.plantCharInfo;
     },
+    isLoggedIn(state) {
+      return !!state.authorization;
+    },
   },
   mutations: {
     SET_USER(state, value) {
@@ -37,7 +40,7 @@ export default new Vuex.Store({
     setAuth({ commit }, value) {
       commit("SET_AUTH", value);
     },
-    setPlantCharInfo({ commit }, value) {
+    async setPlantCharInfo({ commit }, value) {
       commit("SET_PLANTCHARINFO", value);
     },
   },
