@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.IoTBackend.model.User;
@@ -45,14 +43,13 @@ public class CalendarController {
 	private UserService userService;
 	
 	@GetMapping
-	@ApiOperation(value = "유저의 전체 재배 일정 목록 조회", 
-		notes = "유저의 재배 일정 리스트 반환")
+	@ApiOperation(value = "유저의 전체 재배 일정 목록 조회", notes = "유저의 재배 일정 리스트 반환")
 	public ResponseEntity<Object> selectCalendars(Authentication authentication) {
 		String userId = authentication.getPrincipal().toString();
 		List<Calendar> calendars = null;
 		try {
 			User user = userService.selectUser(userId);
-			if(user != null) {				
+			if(user != null) {
 				calendars = calendarService.selectCalendar(userId);
 				return new ResponseEntity<>(calendars, HttpStatus.OK);
 			}else {
@@ -62,16 +59,4 @@ public class CalendarController {
 			return new ResponseEntity<>(calendars, HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PutMapping
-	@ApiOperation(value = "수확하기 전 재배 일정 중단", notes = "성공시 'success' 실패시 'fail' 반환")
-	public ResponseEntity<String> stopCalendar(@RequestParam Integer calendar_id) {
-		try {
-			calendarService.stopCalendar(calendar_id);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
-		}
-	}
-
 }

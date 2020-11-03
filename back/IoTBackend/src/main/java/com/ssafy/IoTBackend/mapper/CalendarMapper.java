@@ -12,9 +12,11 @@ import com.ssafy.IoTBackend.model.calendar.CreateCalendarRequestDTO;
 @Mapper
 public interface CalendarMapper {
 	
-	void insertCalendar(CreateCalendarRequestDTO calendarDTO) throws Exception;
+	public int insertCalendar(CreateCalendarRequestDTO calendarDTO) throws Exception;
 	
-	List<Calendar> selectCalendar(String user_id) throws Exception;
+	public List<Calendar> selectCalendar(String user_id) throws Exception;
 	
-	void stopCalendar(Integer calendar_id) throws Exception;
+	public int stopCalendar(Integer calendar_id) throws Exception;
+	
+	public Calendar selectCalendarByChoiceId(String calendar_id) throws Exception;
 }
