@@ -2,10 +2,18 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.IoTBackend.mapper.ChoiceMapper">
     
-	<insert id="insertChoice">
+    <!-- 재배 작물 선택 -->
+	<insert id="insertChoice" useGeneratedKeys="true" keyProperty="choice_id">
 		insert into plant_choice (user_id, plant_id)
 		values (#{user_id}, #{plant_id})
 	</insert>
+	
+	<!-- 작물 재배 중단 -->
+	<update id="stopChoice">
+		update plant_choice
+		 set grow_flag = false
+		where choice_id=#{choice_id} 
+	</update>
 
 </mapper>
 

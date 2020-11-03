@@ -11,4 +11,5 @@ public interface ChoiceMapper {
 	
 	public int insertChoice(Choice choice) throws Exception;
 	
+	public int stopChoice(String choice_id) throws Exception;
 }
