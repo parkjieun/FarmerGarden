@@ -51,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.addFilter(filter)
 		.authorizeRequests()
 		.antMatchers("/oauth/**").permitAll()
-		.antMatchers("/tmp/**").permitAll()
 		.antMatchers(HttpMethod.GET,"/plant/**").permitAll()
 		.antMatchers(
 	            "/v2/api-docs", 
