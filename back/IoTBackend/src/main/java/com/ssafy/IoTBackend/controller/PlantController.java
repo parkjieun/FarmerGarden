@@ -38,14 +38,12 @@ public class PlantController {
 	@ApiOperation(value = "식물 리스트 가져오기", notes = "성공시  'Plant list' 반환")
 	@GetMapping
 	public ResponseEntity<List<Plant>> doGetPlant() throws Exception {
-		LOGGER.info("--------------------------------------doGetPlant");
 		return new ResponseEntity<List<Plant>>(service.selectPlant(), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "식물 상세 정보 가져오기", notes = "성공시  'Plant' 반환")
 	@GetMapping("/{plant_id}")
 	public ResponseEntity<Plant> doGetPlantById(HttpServletRequest req, @PathVariable Integer plant_id) throws Exception {
-		LOGGER.info("--------------------------------------doGetPlantById");
 		return new ResponseEntity<Plant>(service.selectPlantById(plant_id), HttpStatus.OK);
 	}
 	
