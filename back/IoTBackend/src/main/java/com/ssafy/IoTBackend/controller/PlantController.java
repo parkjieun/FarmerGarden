@@ -46,11 +46,7 @@ public class PlantController {
 	@GetMapping("/{plant_id}")
 	public ResponseEntity<Plant> doGetPlantById(HttpServletRequest req, @PathVariable Integer plant_id) throws Exception {
 		LOGGER.info("--------------------------------------doGetPlantById");
-		Plant dto = service.selectPlantById(plant_id);
-		String realPath = req.getSession().getServletContext().getRealPath("static/image/");
-		dto.setPlant_img(realPath+dto.getPlant_img());
-		System.out.println(">>>>>>>>>>>"+realPath);
-		return new ResponseEntity<Plant>(dto, HttpStatus.OK);
+		return new ResponseEntity<Plant>(service.selectPlantById(plant_id), HttpStatus.OK);
 	}
 	
 }
