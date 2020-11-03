@@ -16,7 +16,9 @@
 	</insert>
 	
 	<select id="selectUser" resultType="User">
-		select * from user where user_id=#{user_id} 
+		SELECT * , (SELECT choice_id FROM plant_choice WHERE user_id=#{user_id} AND grow_flag=1) AS 'choice_id'
+		from user  
+		WHERE user_id=#{user_id}
 	</select>
 	
 	<update id="updateUser">
