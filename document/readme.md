@@ -24,4 +24,6 @@ https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs
 
 # 중간발표 ppt
 https://docs.google.com/presentation/d/1oHrPjXpgUPbQikc0eiUJi-2U-zGdoKlDX2d-pNNKD24/edit?usp=sharing
+
+젠킨스 테스트
  
