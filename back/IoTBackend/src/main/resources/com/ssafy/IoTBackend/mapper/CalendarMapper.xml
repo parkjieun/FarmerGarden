@@ -3,7 +3,7 @@
 <mapper namespace="com.ssafy.IoTBackend.mapper.CalendarMapper">
     
     <!-- 재배 일정 생성 -->
-	<insert id="insertCalendar" parameterType="calendar">
+	<insert id="insertCalendar">
 	insert into calendar
 		 (calendar_eat_day, calendar_start_day, choice_id, user_id, plant_id)
 	values
@@ -24,8 +24,15 @@
 		where c.user_id = #{user_id}
 	</select>
 	
+	<!-- 일정 아이디로 재배 일정 조회 -->
+	<select id="selectCalendarByChoiceId" parameterType="String" resultMap="calendarBasic">
+		select *
+		from calendar
+		where choice_id = #{choice_id}
+	</select>
+	
 	<!-- 재배 일정 중단 -->
-	<update id="stopCalendar" parameterType="Integer">
+	<update id="stopCalendar">
 		update calendar
 		 set calendar_stop_day = curdate()
 		where calendar_id = #{calendar_id}

@@ -18,8 +18,8 @@ public class CalendarServiceImpl implements CalendarService {
 	private CalendarMapper calendarMapper;
 	
 	@Override
-	public void insertCalendar(CreateCalendarRequestDTO calendarDTO) throws Exception {
-		calendarMapper.insertCalendar(calendarDTO);
+	public int insertCalendar(CreateCalendarRequestDTO calendarDTO) throws Exception {
+		return calendarMapper.insertCalendar(calendarDTO);
 	}
 	
 	@Override
@@ -28,8 +28,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public void stopCalendar(Integer calendar_id) throws Exception {
-		calendarMapper.stopCalendar(calendar_id);
+	public int stopCalendar(Integer calendar_id) throws Exception {
+		return calendarMapper.stopCalendar(calendar_id);
 	}
 
 }

@@ -16,7 +16,7 @@ public class CreateCalendarRequestDTO {
     
     @ApiModelProperty(required = true)
     @NotBlank(message = "선택 아이디는 필수 입력값입니다.")
-	private Integer choice_id;
+	private String choice_id;
     
     @ApiModelProperty(required = true)
     @NotBlank(message = "유저 아이디는 필수 입력값입니다.")
@@ -24,5 +24,5 @@ public class CreateCalendarRequestDTO {
     
     @ApiModelProperty(required = true)
     @NotBlank(message = "식물 아이디는 필수 입력값입니다.")
-	private Integer plant_id;
+	private String plant_id;
 }
