@@ -2,6 +2,7 @@
 # pwd : /project_name/app/test/test.py
 import datetime
 import os
+import json
 from flask import Flask, Blueprint, send_file, request, render_template, flash, redirect, url_for
 
 from flask_cors import CORS
@@ -79,8 +80,7 @@ def tempAndHum():
             order by r.rb_create"
     row = db_class.executeAll(sql)
 
-    result = row.to_json(orient='result', force_ascii=False)
-
+    result = json.dumps(row, indent=3)
     print("/temp-and-hum의 결과", result)
     return result
 
