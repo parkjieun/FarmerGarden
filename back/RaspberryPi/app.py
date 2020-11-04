@@ -79,8 +79,10 @@ def tempAndHum():
             order by r.rb_create"
     row = db_class.executeAll(sql)
 
-    print("/temp-and-hum의 결과", row)
-    return row
+    result = row.to_json(orient='result', force_ascii=False)
+
+    print("/temp-and-hum의 결과", result)
+    return result
 
 if __name__ == '__main__':
     app.run()
