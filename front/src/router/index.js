@@ -41,7 +41,16 @@ const routes = [
         name: "Test",
         component: Test,
       },
-
+      {
+        path: "/mypage",
+        name: "Mypage",
+        component: Mypage,
+      },
+      {
+        path: "/tutorial",
+        name: "Tutorial",
+        component: Tutorial,
+      },
       // plant start
       {
         path: "/main",
@@ -52,11 +61,6 @@ const routes = [
         path: "/empty",
         name: "PlantEmpty",
         component: PlantEmpty,
-      },
-      {
-        path: "/tutorial",
-        name: "Tutorial",
-        component: Tutorial,
       },
       {
         path: "/choice",
@@ -81,11 +85,6 @@ const routes = [
         component: SeedList,
       },
       // seed end
-      {
-        path: "/mypage",
-        name: "Mypage",
-        component: Mypage,
-      },
     ],
   },
   {

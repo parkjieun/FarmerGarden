@@ -27,6 +27,8 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "v-calendar": "^2.0.1",
+    "velocity": "^0.7.2",
+    "velocity-animate": "^1.5.2",
     "vue": "^2.6.11",
     "vue-router": "^3.4.6",
     "vuetify": "^2.2.11",
