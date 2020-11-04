@@ -18,5 +18,7 @@ public interface UserMapper {
 	public User selectUser(String user_id) throws Exception;
 
 	public int updateUser(User dto);
+	
+	public int updateUserPot(User dto) throws Exception;
 }
 

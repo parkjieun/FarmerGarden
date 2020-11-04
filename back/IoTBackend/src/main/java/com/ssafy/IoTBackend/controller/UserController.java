@@ -68,4 +68,16 @@ public class UserController {
 		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "회원 화분 정보 수정", notes = "성공시 'success' 실패시 'fail' 반환")
+	@PutMapping("/pot")
+	public ResponseEntity<String> doUpdateUserPot(Authentication authentication, @RequestBody User dto) throws Exception {
+		String userId = authentication.getPrincipal().toString();
+		dto.setUser_id(userId);
+
+		int flag = service.updateUserPot(dto);
+
+		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
+	}
 }
