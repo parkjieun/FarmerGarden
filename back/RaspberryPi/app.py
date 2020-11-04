@@ -32,7 +32,7 @@ def recentImgs():
 
     sql = "select r.rb_img from raspberry as r \
             join plant_choice p \
-            on" + choice_id + "= r.choice_id \
+            on " + choice_id + " = r.choice_id \
             where p.grow_flag = 1 \
             order by r.rb_create desc \
             limit 10"
@@ -55,7 +55,7 @@ def supplyWaterLogs():
 
     sql = "select w.watering_time from watering_log as w \
             join plant_choice p \
-            on " + choice_id + "= w.choice_id \
+            on " + choice_id + " = w.choice_id \
             where p.grow_flag = 1 \
             order by w.watering_time desc \
             limit 1"
@@ -74,7 +74,7 @@ def tempAndHum():
 
     sql = "select r.rb_temperature, r.rb_humidity, r.rb_create from raspberry as r \
             join plant_choice p \
-            on" + choice_id + "= r.choice_id \
+            on " + choice_id + " = r.choice_id \
             where p.grow_flag = 1 \
             order by r.rb_create"
     row = db_class.executeAll(sql)
