@@ -1,47 +1,7 @@
 <template>
-  <div>
-    <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 220px);"><v-img :src="require('@/assets/nong-typo-logo.svg')" width="150px" class="mx-auto mb-5"/></div>
-
-    <v-form ref="form" style="width:300px;" class="mx-auto">
-      <v-text-field
-        label="아이디"
-        name="email"
-        type="text"
-        v-model="signupData.username"
-        :rules="emailRules"
-        required
-        autofocus
-        autocapitalize="off"
-        autocorrect="off"
-        autocomplete="off"
-      />
-      <v-text-field
-        label="비밀번호"
-        name="password"
-        :type="isShowPW ? 'text' : 'password'"
-        v-model="signupData.password"
-        :rules="passwordRules"
-        @click:append="isShowPW = !isShowPW"
-        @focus="isWrong = false"
-        required
-        autocomplete="off"
-        :append-icon="isShowPW ? 'mdi-eye' : 'mdi-eye-off'"
-        append-outer-icon
-      />
-      <v-text-field
-        label="비밀번호 확인"
-        name="passwordConfirm"
-        :type="isShowPW2 ? 'text' : 'password'"
-        v-model="signupData.passwordConfirm"
-        :rules="[...passwordConfirmRules, isMatchPasswordConfirm]"
-        append-outer-icon
-        :append-icon="isShowPW2 ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="isShowPW2 = !isShowPW2"
-      />
-      <!-- 주소 -->
-      <br/>
-      <v-divider></v-divider>
-      <div class="text-h6 mt-4">배송정보</div>
+<div class="mx-auto" style="width: 300px; margin-top: calc(40vh - 120px)">
+  <v-form ref="form">
+      <div class="text-h5 my-4 text-center">추가 정보</div>
       <v-row>
         <v-col cols="7" class="py-0"><v-text-field id="postcode" label="우편번호" v-model="addressData.postcode" required @click="execDaumPostcode()"/></v-col>
         <v-col cols="5" class="py-0"><v-btn color="primary" small @click="execDaumPostcode()" class="mt-4 float-right">우편번호 찾기</v-btn></v-col>
@@ -56,66 +16,55 @@
         <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:5px;top:-3px;z-index:1" @click="closeDaumPostcode()" alt="닫기 버튼">
       </div>
       <v-btn @click="checkForm()" color="primary" width="100%" class="mt-5"> 회원가입 </v-btn>
-    </v-form>
-  </div>
+  </v-form>
+</div>
 </template>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import http from '@/utils/http-common'
-
+import { mapState } from 'vuex'
 export default {
-  name: "Signup",
   data() {
-    return {
-      isShowPW: false,
-      isShowPW2: false,
-      signupData: {
-        email: null,
-        password: null,
-        passwordConfirm: null,
-      },
-      addressData: {
-        postcode: '',
-        address: '',
-        detailAddress: '',
-        extraAddress: '',
-      },
-      detailAddressRules: [
-        (value) => !!value || "상세 주소를 입력해주세요."
-      ],
-      emailRules: [
-        (value) => !!value || "이메일을 입력해주세요",
-        (value) =>
-          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(
-            value
-          ) || "올바른 양식의 이메일을 입력해주세요",
-      ],
-      passwordRules: [
-        (value) => !!value || "비밀번호를 입력해주세요",
-        (value) =>
-          (value && value.length >= 8) || "비밀번호는 8글자 이상 입력해주세요",
-      ],
-      passwordConfirmRules: [
-        (v) => !!v || "비밀번호를 다시 한번 입력해주세요.",
-      ],
-    };
+      return {
+        addressData: {
+          postcode: '',
+          address: '',
+          detailAddress: '',
+          extraAddress: ''
+        },
+        detailAddressRules: [
+            (value) => !!value || "상세 주소를 입력해주세요."
+        ],
+      }
+  },
+  computed: {
+      ...mapState(['socialData'])
   },
   methods: {
-    isMatchPasswordConfirm() {
-      return (
-        this.signupData.password === this.signupData.passwordConfirm ||
-        "비밀번호가 일치하지 않습니다."
-      );
-    },
-    checkForm() {
-      if (this.$refs.form.validate()) {
-        var addr = this.addressData.address + ' ' +this.addressData.detailAddress
-        // password가 없네..? 회원가입 연결..
-        // http.post('user/signup', {user_id: this.signupData.email, user_address: addr})
-      }
-    },
-    addressForm(data) {
+      checkForm() {
+        if (this.$refs.form.validate()) {
+            var addr = this.addressData.address + ' ' +this.addressData.detailAddress
+            const data = this.socialData
+            const frm = new FormData();
+            frm.append("user_address", addr)
+            frm.append("social_id", data.socialId)
+            frm.append("user_name", data.userName)
+            http.post("/user/signup", frm, {
+                headers: {
+                    Authorization: "Bearer "+data.accessToken
+                }
+            })
+            .then(res => {
+                console.log(res, "회원가입 결과")
+                this.$router.push({name: "PlantMain"})
+            })    
+            .catch(res => {
+                console.log("회원가입 catch"+res)
+            })
+        }
+      },
+      addressForm(data) {
       var element_layer = document.getElementById('layer');
       var addr = ''; // 주소 변수
       var extraAddr = ''; // 참고항목 변수
@@ -187,10 +136,10 @@ export default {
       element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     },
   
-    
-  },
-};
+  }
+}
 </script>
 
 <style>
+
 </style>
