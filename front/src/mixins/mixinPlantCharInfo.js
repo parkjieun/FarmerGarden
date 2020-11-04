@@ -26,12 +26,12 @@ export const mixinPlantCharInfo = {
         },
         전자: {
           기쁨: "전자-기쁨.png",
-          놀람: "전자-놀람.png",
+          놀람: "전자-놀람.gif",
           뽀: "전자-뽀.gif",
-          슬픔: "전자-슬픔.png",
+          슬픔: "전자-슬픔.gif",
           잠: "전자-잠.gif",
           죽음: "전자-죽음.gif",
-          평범: "전자-평범.png",
+          평범: "전자-평범.gif",
         },
       },
       itemPot: {
