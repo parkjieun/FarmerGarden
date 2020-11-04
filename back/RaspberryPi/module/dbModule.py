@@ -6,7 +6,7 @@ import pymysql
 
 class Database():
     def __init__(self):
-        self.db = pymysql.connect(host='localhost',
+        self.db = pymysql.connect(host='3.35.131.33',
                                   user='root',
                                   password='ssafy',
                                   db='ssafy_iot',

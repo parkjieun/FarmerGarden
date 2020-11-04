@@ -2,7 +2,7 @@
 # pwd : /project_name/app/test/test.py
 import datetime
 import os
-import json
+import json,datetime
 from flask import Flask, Blueprint, send_file, request, render_template, flash, redirect, url_for
 
 from flask_cors import CORS
@@ -39,12 +39,27 @@ def recentImgs():
             limit 10"
     row = db_class.executeAll(sql)
 
+    for data in row:
+        print(data['rb_img'])
+
     print("/recent-imgs의 결과", row)
 
     path_dir = './static/data/img/'
     file_list = os.listdir(path_dir)  # path 에 존재하는 파일 목록 가져오기
-    result = path_dir+file_list[0]
-    return result[1:]
+
+    i = 0
+    result = []
+
+    for data in row:
+        imgname = data['rb_img']
+        for filename in file_list:
+            if imgname in filename:
+                data['rb_img'] = (path_dir[1:]+imgname)
+            else:
+                data['rb_img'] = (path_dir[1:]+"error.jpg")
+                break
+
+    return json.dumps(row)
 
 @app.route('/supply-water-logs', methods = ['GET'])
 def supplyWaterLogs():
@@ -62,14 +77,17 @@ def supplyWaterLogs():
             limit 1"
     row = db_class.executeAll(sql)
 
+    t = row[0]["watering_time"]
+    row[0]["watering_time"] = t.strftime('%Y-%m-%d %H:%M:%S')
+
     print("/supply-water-logs의 결과", row)
-    return row
+    return row[0]
 
 @app.route('/temp-and-hum', methods = ['GET'])
 def tempAndHum():
     choice_id = request.args.get('choice_id') #작물선택 기본키
 
-    # 가장 최근 급수 시간 출력
+    # 온/습도/시간 반환
 
     db_class = dbModule.Database()
 
@@ -80,8 +98,12 @@ def tempAndHum():
             order by r.rb_create"
     row = db_class.executeAll(sql)
 
+
+    for datas in row:
+        t = datas["rb_create"]
+        datas["rb_create"] = t.strftime('%Y-%m-%d %H:%M:%S')
+    print("결과", row)
     result = json.dumps(row, indent=3)
-    print("/temp-and-hum의 결과", result)
     return result
 
 if __name__ == '__main__':
