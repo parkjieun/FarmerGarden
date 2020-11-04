@@ -17,10 +17,10 @@ export const mixinPlantCharInfo = {
       itemCharacter: {
         기본: {
           기쁨: "기본-기쁨.gif",
-          놀람: "기본-놀람.png",
-          뽀: "기본-뽀.png",
+          놀람: "기본-놀람.gif",
+          뽀: "기본-뽀.gif",
           슬픔: "기본-슬픔.gif",
-          잠: "기본-잠.png",
+          잠: "기본-잠.gif",
           죽음: "기본-죽음.gif",
           평범: "기본-평범.gif",
         },
