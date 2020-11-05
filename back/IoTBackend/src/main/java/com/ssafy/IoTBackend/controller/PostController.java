@@ -91,8 +91,9 @@ public class PostController {
 			User user = userService.selectUser(userId);
 			if(user != null) {
 				postDto.setUser_id(userId);
-				postService.insertPost(postDto);
-				return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+				int result = postService.insertPost(postDto);
+				if(result == 0) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+				else return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
 			}else {
 				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
 			}
@@ -105,8 +106,9 @@ public class PostController {
 	@ApiOperation(value = "게시글 수정", notes = "성공시 'success' 실패시 'fail' 반환")
 	public ResponseEntity<String> updatePost(@RequestBody UpdatePostRequestDTO postDto) {
 		try {
-			postService.updatePost(postDto);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+			int result = postService.updatePost(postDto);
+			if(result == 0) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+			else return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
@@ -117,8 +119,9 @@ public class PostController {
 	@ApiOperation(value = "게시글 삭제", notes = "성공시 'success' 실패시 'fail' 반환")
 	public ResponseEntity<String> deletePost(@RequestParam Integer post_id) {
 		try {
-			postService.deletePost(post_id);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+			int result = postService.deletePost(post_id);
+			if(result == 0) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+			else return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
