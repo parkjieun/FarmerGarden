@@ -29,18 +29,18 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void insertPost(CreatePostRequestDTO postDto) throws Exception {
-		postMapper.insertPost(postDto);
+	public int insertPost(CreatePostRequestDTO postDto) throws Exception {
+		return postMapper.insertPost(postDto);
 	}
 
 	@Override
-	public void updatePost(UpdatePostRequestDTO postDto) throws Exception {
-		postMapper.updatePost(postDto);
+	public int updatePost(UpdatePostRequestDTO postDto) throws Exception {
+		return postMapper.updatePost(postDto);
 	}
 
 	@Override
-	public void deletePost(Integer post_id) throws Exception {
-		postMapper.deletePost(post_id);
+	public int deletePost(Integer post_id) throws Exception {
+		return postMapper.deletePost(post_id);
 	}
 
 }
