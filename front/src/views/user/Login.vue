@@ -84,15 +84,25 @@ export default {
         http.post("/api/oauth/kakao", {}, {headers: {accessToken: authInfo.access_token}})
         .then(response => {
           const data = response.data
+          console.log(data)
           if (data.isOlder>0) {
             //회원정보 가져오기 
-              http.get("/user" , {
+            console.log("로그인은 했고.")
+              http.get("/api/user" , {
                 headers: {
                     Authorization: "Bearer "+data.accessToken
                 }
               })
               .then(res => {
-                console.log("회원정보"+JSON.stringify(res.data))
+                this.setUser(res.data)
+                this.setAuth("Bearer "+data.accessToken)
+                // 등록된 기기가 없으면
+                if (res.data.user_pot == null) {
+                  this.$router.push({name: 'PlantEmpty'})
+                }
+                // 등록된 기기가 있으면
+                else {this.$router.push({name: "PlantMain"})}
+                
               })    
               .catch(res => {
                   console.log("회원정보 catch"+res.data)
@@ -100,10 +110,9 @@ export default {
 
           } else {
               //회원가입 시키기
+              console.log(data)
               this.setSocial(data)
               this.$router.push({name: "AddressForm"})
-
-
               }
           
         })

@@ -7,7 +7,7 @@
         <v-col cols="5" class="py-0"><v-btn color="primary" small @click="execDaumPostcode()" class="mt-4 float-right">우편번호 찾기</v-btn></v-col>
       </v-row>
 
-      <v-text-field id="address" v-model="addressData.address" label="주소" class="mt-0 pt-0" required @click="execDaumPostcode()"/>
+      <v-text-field id="address" v-model="addressData.address" label="주소" class="mt-0 pt-0" required @click="execDaumPostcode()" :rules="addressRules"/>
       <v-row>
         <v-col cols="7" class="pt-0"><v-text-field id="detailAddress" v-model="addressData.detailAddress" label="상세주소" class="mt-0 pt-0" required :rules="detailAddressRules"/></v-col>
         <v-col cols="5" class="pt-0"><v-text-field id="extraAddress" v-model="addressData.extraAddress" label="참고항목" class="mt-0 pt-0"/></v-col>
@@ -23,48 +23,59 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import http from '@/utils/http-common'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
-      return {
-        addressData: {
-          postcode: '',
-          address: '',
-          detailAddress: '',
-          extraAddress: ''
-        },
-        detailAddressRules: [
-            (value) => !!value || "상세 주소를 입력해주세요."
-        ],
-      }
+    return {
+      addressData: {
+        postcode: '',
+        address: '',
+        detailAddress: '',
+        extraAddress: ''
+      },
+      addressRules: [
+        (value) => !!value || "주소를 입력해주세요."
+      ],
+      detailAddressRules: [
+          (value) => !!value || "상세 주소를 입력해주세요."
+      ],
+    }
   },
   computed: {
-      ...mapState(['socialData'])
+    ...mapState(['socialData'])
   },
   methods: {
-      checkForm() {
-        if (this.$refs.form.validate()) {
-            var addr = this.addressData.address + ' ' +this.addressData.detailAddress
-            const data = this.socialData
-            const frm = new FormData();
-            frm.append("user_address", addr)
-            frm.append("social_id", data.socialId)
-            frm.append("user_name", data.userName)
-            http.post("/user/signup", frm, {
-                headers: {
-                    Authorization: "Bearer "+data.accessToken
-                }
+    ...mapActions(['setUser', 'setAuth']),
+    checkForm() {
+      if (this.$refs.form.validate()) {
+        var addr = this.addressData.address + ' ' +this.addressData.detailAddress
+        const data = this.socialData
+        const frm = new FormData();
+        frm.append("user_address", addr)
+        frm.append("social_id", data.socialId)
+        frm.append("user_name", data.userName)
+        http.post("/api/user/signup", frm, { headers: { Authorization: "Bearer "+data.accessToken }})
+        .then(res => {
+            console.log(res, "회원가입 결과")
+            http.get("/api/user" , {
+            headers: {
+                Authorization: "Bearer "+data.accessToken
+              }
             })
             .then(res => {
-                console.log(res, "회원가입 결과")
-                this.$router.push({name: "PlantMain"})
-            })    
-            .catch(res => {
-                console.log("회원가입 catch"+res)
+              console.log(res, "조회")
+              this.setUser(res.data)
+              this.setAuth("Bearer "+data.accessToken)
             })
-        }
-      },
-      addressForm(data) {
+            // 
+            this.$router.push({name: "PlantEmpty"})
+        })    
+        .catch(res => {
+            console.log("회원가입 catch"+res)
+        })
+      }
+    },
+    addressForm(data) {
       var element_layer = document.getElementById('layer');
       var addr = ''; // 주소 변수
       var extraAddr = ''; // 참고항목 변수
