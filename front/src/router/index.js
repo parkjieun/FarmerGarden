@@ -11,6 +11,7 @@ import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
 import Register from "../views/user/Register.vue";
 import Mypage from "../views/user/Mypage.vue";
+import AddressForm from "../views/user/AddressForm.vue";
 
 // plant
 import PlantChoice from "../views/plant/PlantChoice.vue";
@@ -108,6 +109,11 @@ const routes = [
         path: "/signup",
         name: "Signup",
         component: Signup,
+      },
+      {
+        path: "/address",
+        name: "AddressForm",
+        component: AddressForm
       },
       {
         path: "/register",
