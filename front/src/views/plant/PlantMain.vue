@@ -3,12 +3,34 @@
     fluid
     class="fill-height nbn--bgimage"
     :style="{
-      backgroundImage:
-        'url(' +
-        require('@/assets/plant/bgimage/' + itemBGImage[bgimage]) +
-        ')',
+      backgroundImage: itemBGImage[bgimage]
+        ? 'url(' +
+          require('@/assets/plant/bgimage/' + itemBGImage[bgimage]) +
+          ')'
+        : '',
     }"
   >
+    <v-btn
+      fab
+      small
+      style="position: absolute; right: 16px; top: 80px; border-radius: 50%"
+    >
+      <v-img src="@/assets/icon/paper.svg" width="42px" height="42px" />
+    </v-btn>
+    <v-btn
+      fab
+      small
+      :to="{ name: 'PlantChoice' }"
+      style="position: absolute; right: 16px; top: 140px; border-radius: 50%"
+    >
+      <v-img
+        src="@/assets/icon/change.svg"
+        width="42px"
+        height="42px"
+        contain
+      />
+    </v-btn>
+
     <v-row class="d-flex align-self-start">
       <v-col cols="12" class="py-0 px-3">
         <v-row
@@ -42,48 +64,37 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-row class="d-flex align-self-start justify-end">
-      <v-col cols="2" class="py-0">
-        <v-img
-          src="@/assets/icon/paper.svg"
-          height="36px"
-          class="mb-2"
-          contain
-        />
-        <router-link :to="{ name: 'PlantChoice' }">
-          <v-img
-            src="@/assets/icon/change.svg"
-            height="36px"
-            class="mb-2"
-            contain
-          />
-        </router-link>
-      </v-col>
-    </v-row>
-    <v-row class="d-flex align-self-stretch">
-      <v-col cols="2"></v-col>
+    <v-row>
       <v-col>
         <PlantCharacter v-if="plantCharInfo" v-bind="plantCharInfo" />
       </v-col>
-      <v-col cols="2"></v-col>
     </v-row>
-    <v-row>
-      <div
-        class="pa-0 ml-auto mr-4"
-        style="border-radius: 50%; background-color: rgba(255, 255, 255, 0.5)"
+    <v-btn
+      v-if="plantInfo.percent < 100"
+      style="position: absolute; right: 0%; bottom: 30px; border-radius: 50%"
+      text
+      disabled
+    >
+      <v-progress-circular
+        :rotate="-90"
+        :size="60"
+        :width="10"
+        :value="plantInfo.percent"
+        :color="itemProgressColor[potColor]"
       >
-        <v-progress-circular
-          :rotate="-90"
-          :size="80"
-          :width="20"
-          :value="plantInfo.percent"
-          :color="itemProgressColor[potColor]"
-        >
-          <span class="nbn--progress">{{ plantInfo.percent }}</span>
-          <span class="nbn--info">%</span>
-        </v-progress-circular>
-      </div>
-    </v-row>
+        <span class="nbn--progress">{{ plantInfo.percent }}</span>
+        <span class="nbn--info">%</span>
+      </v-progress-circular>
+    </v-btn>
+    <v-btn
+      v-if="plantInfo.percent >= 100"
+      style="position: absolute; right: 14px; bottom: 16px; border-radius: 50%"
+      class="nbn--harvest-btn pa-0 nbn--harvest"
+      :style="{ width: '60px', height: '64px' }"
+      text
+    >
+      수확
+    </v-btn>
   </v-container>
 </template>
 
@@ -116,6 +127,7 @@ export default {
   },
   data() {
     return {
+      dialFab: true,
       plantInfo: {
         name: "밀싹",
         sprout: "밀",
@@ -153,16 +165,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nbn--harvest {
+  color: #5b3016;
+  font-size: 28px;
+  font-weight: 900;
+  font-family: "Jua", sans-serif;
+
+  &:hover {
+    font-size: 30px;
+  }
+
+  &-btn {
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+  }
+
+  &-disable {
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
 .nbn--progress {
   color: #5b3016;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 900;
   font-family: "Jua", sans-serif;
 }
 
 .nbn--info {
   color: #5b3016;
-  font-size: 18px;
+  font-size: 16px;
   font-family: "Jua", sans-serif;
 
   &-subtitle {
