@@ -16,7 +16,7 @@
 <script>
 export default {
   created() {
-    setTimeout(() => this.$router.push({ name: "Login" }), 4000);
+    setTimeout(() => this.$router.push({ name: "Login" }), 3000);
   },
 };
 </script>

@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-carousel
-      height="500px"
+      height="700px"
       :hide-delimiter-background="true"
       :show-arrows="false"
       :continuous="false"
