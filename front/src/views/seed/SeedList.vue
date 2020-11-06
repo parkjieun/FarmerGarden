@@ -1,82 +1,76 @@
 <template>
-  <div style="background-color: #fff8f3">
-    <v-container>
-      <v-row dense>
-        <v-col cols="12">
-          <div class="pl-3 text-h6">새싹 목록</div>
-        </v-col>
+  <v-container
+    class="fill-height align-start pa-0"
+    style="background-color: #efefef"
+  >
+    <v-row no-gutters>
+      <v-col v-for="(item, index) in items" :key="index" cols="12">
+        <CoreInfoCard
+          :subtitle="item.subtitle"
+          :title="item.title"
+          :src="item.src"
+          @click.native="$set(sheet, index - 1, true)"
+        >
+          <template #btn>
+            <v-btn
+              v-if="choice"
+              dark
+              class="px-5 ml-2 font-weight-black"
+              color="#00B17B"
+              v-text="'선택'"
+              @click.stop="choicePlant(item.title)"
+            />
+          </template>
+        </CoreInfoCard>
 
-        <v-col v-for="(item, index) in items" :key="index" cols="12">
-          <CoreInfoCard
-            :subtitle="item.subtitle"
-            :title="item.title"
-            :src="item.src"
-          >
-            <template #btn>
-              <v-btn
-                dark
-                class="px-5 ml-2 font-weight-black"
-                color="#00B17B"
-                v-text="'선택'"
-                @click.native="choicePlant(item.title)"
-              />
-              <v-btn
-                dark
-                class="px-5 ml-2 font-weight-black"
-                color="#00B17B"
-                v-text="'정보'"
-                @click.native="$set(sheet, index - 1, true)"
-              />
-            </template>
-          </CoreInfoCard>
-          <!-- bottom sheet start -->
-          <v-bottom-sheet v-model="sheet[index - 1]">
-            <v-sheet class="rounded-t-xl" :height="$vuetify.breakpoint.height">
-              <!-- bottom sheet title start -->
-              <v-row>
-                <v-col cols="2"></v-col>
-                <div
-                  class="headline align-self-center teal--text font-weight-bold"
-                >
-                  {{ item.title }}
-                </div>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="mr-3"
-                  fab
-                  text
-                  @click="$set(sheet, index - 1, false)"
-                >
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </v-row>
-              <!-- bottom sheet title end -->
-              <v-tabs v-model="tab">
-                <v-tab href="#nbn--info">
-                  <span>정보</span>
-                </v-tab>
-                <v-tab href="#nbn--recipe">
-                  <span>요리법</span>
-                </v-tab>
-              </v-tabs>
+        <!-- dialog start -->
+        <v-dialog
+          v-model="sheet[index - 1]"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-app-bar flat dark dense color="primary">
+              <v-btn icon @click="$set(sheet, index - 1, false)">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title
+                class="text-body-1 nbn--list-font-bold"
+                v-text="item.title"
+              >
+              </v-toolbar-title>
+              <template v-slot:extension>
+                <v-tabs v-model="tab">
+                  <v-tab href="#nbn--info">
+                    <span>정보</span>
+                  </v-tab>
+                  <v-tab href="#nbn--recipe">
+                    <span>요리법</span>
+                  </v-tab>
+                </v-tabs>
+              </template>
+            </v-app-bar>
+            <!-- dialog title end -->
+            <v-card-text class="pa-0">
               <v-tabs-items v-model="tab">
-                <v-tab-item
-                  id="nbn--info"
-                  class="pa-3 text-body-1"
-                  v-html="item.info.text"
-                />
+                <v-tab-item id="nbn--info" class="text-body-1">
+                  <div v-html="item.info.text"></div>
+                </v-tab-item>
                 <v-tab-item id="nbn--recipe">
                   <!-- recipe part of tab start -->
                   <SeedRecipeList :recipes="item.recipes" />
                 </v-tab-item>
               </v-tabs-items>
-            </v-sheet>
-          </v-bottom-sheet>
-          <!-- bottom sheet end -->
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <!-- dialog end -->
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -91,6 +85,12 @@ export default {
   components: {
     CoreInfoCard,
     SeedRecipeList,
+  },
+  props: {
+    choice: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     ...mapActions(["setPlantCharInfo"]),
@@ -216,5 +216,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nbn--list-font {
+  font-family: "Handon3gyeopsal300g";
+  font-size: 15px;
+
+  &-bold {
+    font-family: "Handon3gyeopsal600g";
+  }
+}
 </style>

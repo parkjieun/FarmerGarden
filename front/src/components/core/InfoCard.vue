@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <div class="d-flex flex-no-wrap justify-space-between my-2">
+    <div class="d-flex flex-no-wrap justify-space-between">
       <div>
         <v-card-subtitle
           class="pb-0 teal--text font-weight-bold"
@@ -22,7 +22,7 @@
       </div>
 
       <v-avatar class="ma-3" size="125" tile>
-        <v-img :src="'@/assets/logo.png'"></v-img>
+        <v-img :src="require('@/assets/logo.png')"></v-img>
       </v-avatar>
     </div>
   </v-card>

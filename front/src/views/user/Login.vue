@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-h5 text-center pb-5 login" style="margin-top: calc(40vh - 200px);">로그인</div>
+    <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 220px);"><v-img :src="require('@/assets/nong-typo-logo.svg')" width="150px" class="mx-auto mb-5"/></div>
 
     <v-form ref="form" style="width: 300px;" class="mx-auto">
       <v-text-field
@@ -39,8 +39,8 @@
 
 
 <script>
-import axios from 'axios'
 import { mapActions } from 'vuex'
+import http from '@/utils/http-common'
 export default {
   name: "Login",
   data() {
@@ -65,10 +65,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setAuth', 'setUser']),
+    ...mapActions(['setAuth', 'setUser', 'setSocial']),
     checkForm() {
       if (this.$refs.form.validate()) {
         // 로그인 메소드 호출
+        http.get('user', )
       }
     },
     kakaoLogin() {
@@ -80,16 +81,40 @@ export default {
       })
     },
     getKaKaoInfo(authInfo) {
-        axios.post("http://k3a105.p.ssafy.io/api/oauth/kakao", {}, {headers: {accessToken: authInfo.access_token}})
+        http.post("/api/oauth/kakao", {}, {headers: {accessToken: authInfo.access_token}})
         .then(response => {
-          this.setAuth("JWT " + response.data.accessToken)
-          if (response.data.isOlder=="1") {
-            this.setUser(response.data)
-          }
-          else {
-            // 주소입력 폼으로 연결
-            console.log("you have to signup")
-          }
+          const data = response.data
+          console.log(data)
+          if (data.isOlder>0) {
+            //회원정보 가져오기 
+            console.log("로그인은 했고.")
+              http.get("/api/user" , {
+                headers: {
+                    Authorization: "Bearer "+data.accessToken
+                }
+              })
+              .then(res => {
+                this.setUser(res.data)
+                this.setAuth("Bearer "+data.accessToken)
+                // 등록된 기기가 없으면
+                if (res.data.user_pot == null) {
+                  this.$router.push({name: 'PlantEmpty'})
+                }
+                // 등록된 기기가 있으면
+                else {this.$router.push({name: "PlantMain"})}
+                
+              })    
+              .catch(res => {
+                  console.log("회원정보 catch"+res.data)
+              })
+
+          } else {
+              //회원가입 시키기
+              console.log(data)
+              this.setSocial(data)
+              this.$router.push({name: "AddressForm"})
+              }
+          
         })
     },
     signup() {
