@@ -9,7 +9,7 @@ import VCalendar from 'v-calendar';
 
 Vue.use(Vuex)
 Vue.use(axios)
-Vue.use(VCalendar, {componentPrefix: 'vc'})
+Vue.use(VCalendar, {componentPrefix: 'vc', masks: {title: 'YYYY MMMM'}})
 
 Vue.config.productionTip = false;
 window.Kakao.init('ccef2764def2c00faa00ebd5e4583007');
