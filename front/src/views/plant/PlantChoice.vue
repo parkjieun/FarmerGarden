@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- btn toolbar start -->
-    <v-row>
+    <v-row no-gutters>
       <v-col cols="1"></v-col>
       <v-col cols="5">
         <v-btn class="nbn--btn" block text :to="{ name: 'PlantMain' }">
@@ -19,7 +19,7 @@
 
     <!-- preview image start -->
     <v-row>
-      <v-col cols="10" class="mx-auto">
+      <v-col cols="7" class="mx-auto">
         <v-container
           fluid
           class="fill-height nbn--preview"
@@ -32,18 +32,13 @@
           }"
         >
           <v-row>
-            <v-col></v-col>
-          </v-row>
-          <v-row>
-            <v-col class="mx-auto"
-              ><PlantCharacter
+            <v-col class="mx-auto">
+              <PlantCharacter
                 v-if="plantCharInfo"
                 v-bind="selectPlantCharInfo"
+                width="100px"
               />
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col></v-col>
           </v-row>
         </v-container>
       </v-col>
@@ -83,11 +78,14 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="210"
+                height="160"
                 width="120"
                 @click="selectPotSlider(key)"
               >
                 <v-img
+                  height="160"
+                  width="120"
+                  position="bottom"
                   :src="
                     require('@/assets/plant/pot/' +
                       itemPot[key][selectPlantCharInfo.potColor])
@@ -118,11 +116,14 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="210"
+                height="160"
                 width="120"
                 @click="selectPlantCharInfo.potColor = key"
               >
                 <v-img
+                  height="160"
+                  width="120"
+                  position="bottom"
                   :src="
                     require('@/assets/plant/pot/' +
                       itemPot[selectPlantCharInfo.pot][key])
@@ -150,11 +151,14 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="210"
+                height="160"
                 width="120"
                 @click="selectPlantCharInfo.character = key"
               >
                 <v-img
+                  height="160"
+                  width="120"
+                  position="bottom"
                   :src="
                     require('@/assets/plant/character/' +
                       itemCharacter[key]['평범'])
@@ -182,11 +186,13 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="210"
+                height="160"
                 width="120"
                 @click="selectPlantCharInfo.bgimage = key"
               >
                 <v-img
+                  height="160"
+                  width="120"
                   :src="require('@/assets/plant/bgimage/' + itemBGImage[key])"
                 />
               </v-card>
@@ -264,7 +270,7 @@ export default {
 
 .nbn--btn {
   color: var(--font1-color);
-  font-size: 20px;
+  font-size: 16px;
   font-family: "Jua", sans-serif;
 }
 </style>
