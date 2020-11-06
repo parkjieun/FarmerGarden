@@ -1,19 +1,13 @@
 <template>
-  <v-timeline align-top dense class="mt-3" style="">
+  <v-timeline align-top dense class="mt-3" style="overflow: scroll; height: calc(100vh - 200px); width: 100%">
     <v-timeline-item small v-for="(item, index) in items" :key="index" :color="colors[index%2]">
-      <v-row class="pt-1">
-        <v-col cols="3">
-          <strong>{{item.day}}</strong>
-        </v-col>
-        <v-col>
-          <strong>{{item.title}}</strong>
+          <div class="text-h6">{{item.day}}</div>
+          <div><strong>{{item.title}}</strong></div>
           <div class="caption">{{item.content}}</div>
-        </v-col>
-      </v-row>
     </v-timeline-item>
       
       
-      <v-timeline-item color="pink" small>
+      <!-- <v-timeline-item color="pink" small>
         <v-row class="pt-1">
           <v-col cols="3">
             <strong>5pm</strong>
@@ -73,7 +67,7 @@
             <div class="caption">Web App</div>
           </v-col>
         </v-row>
-      </v-timeline-item>
+      </v-timeline-item> -->
     </v-timeline>
 </template>
 

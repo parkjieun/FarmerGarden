@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: JSON.parse(sessionStorage.getItem("user")),
+    socialData: JSON.parse(sessionStorage.getItem("socialData")),
     authorization: sessionStorage.getItem("authorization"),
     plantCharInfo: JSON.parse(sessionStorage.getItem("plantCharInfo")),
   },
@@ -28,6 +29,10 @@ export default new Vuex.Store({
       sessionStorage.setItem("authorization", value);
       state.authorization = value;
     },
+    SET_SOCIAL(state, value) {
+      sessionStorage.setItem("socialData", JSON.stringify(value));
+      state.socialData = value;
+    },
     SET_PLANTCHARINFO(state, value) {
       sessionStorage.setItem("plantCharInfo", JSON.stringify(value));
       state.plant = value;
@@ -39,6 +44,9 @@ export default new Vuex.Store({
     },
     setAuth({ commit }, value) {
       commit("SET_AUTH", value);
+    },
+    setSocial({ commit }, value) {
+      commit("SET_SOCIAL", value)
     },
     async setPlantCharInfo({ commit }, value) {
       commit("SET_PLANTCHARINFO", value);
