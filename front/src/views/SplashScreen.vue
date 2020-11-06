@@ -2,7 +2,7 @@
   <v-container fluid class="fill-height">
     <v-row class="my-auto">
       <v-col cols="10">
-        <v-img :src="require('@/assets/농부네텃밭.png')" />
+        <v-img :src="require('@/assets/농부네텃밭.gif')" />
       </v-col>
     </v-row>
     <v-row class="mt-auto mb-4">
