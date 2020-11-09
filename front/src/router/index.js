@@ -24,6 +24,9 @@ import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
 // seed
 import SeedList from "../views/seed/SeedList.vue";
 
+// diary
+import DiaryCreate from "../views/diary/DiaryCreate.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -86,6 +89,12 @@ const routes = [
         component: SeedList,
       },
       // seed end
+      // diary start
+      {
+        path: "/diary",
+        name: "DiaryCreate",
+        component: DiaryCreate
+      },
     ],
   },
   {
