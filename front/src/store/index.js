@@ -1,15 +1,18 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import router from '../router';
+
+import cookies from "vue-cookies";
+import router from "@/router";
+import http from "@/utils/http-common";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: JSON.parse(sessionStorage.getItem("user")),
+    user: cookies.get("user"),
     socialData: JSON.parse(sessionStorage.getItem("socialData")),
-    authorization: sessionStorage.getItem("authorization"),
-    plantCharInfo: JSON.parse(sessionStorage.getItem("plantCharInfo")),
+    authorization: cookies.get("authorization"),
+    plantCharInfo: cookies.get("plantCharInfo"),
   },
   getters: {
     config: (state) => ({ headers: { Authorization: state.authorization } }),
@@ -22,19 +25,19 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USER(state, value) {
-      sessionStorage.setItem("user", JSON.stringify(value));
+      cookies.set("user", value, 60 * 60 * 60);
       state.user = value;
     },
     SET_AUTH(state, value) {
-      sessionStorage.setItem("authorization", value);
+      cookies.set("authorization", value, 60 * 60 * 60);
       state.authorization = value;
     },
     SET_SOCIAL(state, value) {
-      sessionStorage.setItem("socialData", JSON.stringify(value));
+      sessionStorage.setItem("socialData", value);
       state.socialData = value;
     },
     SET_PLANTCHARINFO(state, value) {
-      sessionStorage.setItem("plantCharInfo", JSON.stringify(value));
+      cookies.set("plantCharInfo", value, 60 * 60 * 60);
       state.plant = value;
     },
   },
@@ -46,10 +49,20 @@ export default new Vuex.Store({
       commit("SET_AUTH", value);
     },
     setSocial({ commit }, value) {
-      commit("SET_SOCIAL", value)
+      commit("SET_SOCIAL", value);
     },
-    async setPlantCharInfo({ commit }, value) {
-      commit("SET_PLANTCHARINFO", value);
+    setPlantCharInfo({ commit, getters }, value) {
+      http
+        .put(
+          "/api/user/pot",
+          { user_pot: JSON.stringify(value) },
+          getters.config
+        )
+        .then(() => {
+          commit("SET_PLANTCHARINFO", value);
+          router.push({ name: "PlantMain" });
+          location.reload();
+        });
     },
   },
 });
