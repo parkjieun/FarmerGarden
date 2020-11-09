@@ -19,6 +19,9 @@ export default new Vuex.Store({
     plantCharInfo(state) {
       return state.plantCharInfo;
     },
+    user(state) {
+      return state.user;
+    },
     isLoggedIn(state) {
       return !!state.authorization;
     },
@@ -52,16 +55,25 @@ export default new Vuex.Store({
       commit("SET_SOCIAL", value);
     },
     setPlantCharInfo({ commit, getters }, value) {
+      console.log(getters.config);
       http
-        .put(
-          "/api/user/pot",
-          { user_pot: JSON.stringify(value) },
-          getters.config
-        )
-        .then(() => {
-          commit("SET_PLANTCHARINFO", value);
-          router.push({ name: "PlantMain" });
-          location.reload();
+        .post("/api/choice?plant_id=" + value.sprout, getters.config)
+        .then((res) => {
+          console.log(res);
+          http
+            .put(
+              "/api/user/pot",
+              { user_pot: JSON.stringify(value) },
+              getters.config
+            )
+            .then(() => {
+              commit("SET_PLANTCHARINFO", value);
+              router.push({ name: "PlantMain" });
+              location.reload();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
