@@ -122,8 +122,10 @@ export default {
     }
   },
   mounted() {
-    this.bgimage = this.plantCharInfo.bgimage;
-    this.potColor = this.plantCharInfo.potColor;
+    if (this.plantCharInfo) {
+      this.bgimage = this.plantCharInfo.bgimage;
+      this.potColor = this.plantCharInfo.potColor;
+    }
   },
   data() {
     return {

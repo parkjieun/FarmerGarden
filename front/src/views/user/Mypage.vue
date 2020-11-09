@@ -32,6 +32,13 @@
             <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item :to="{ name: 'Tutorial' }">
+          <v-list-item-content>
+            <v-list-item-title class="nbn--list-font font-weight-bold">
+              튜토리얼
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="nbn--list-font font-weight-bold">
