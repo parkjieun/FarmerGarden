@@ -1,73 +1,75 @@
 <template>
   <v-container
-    class="fill-height align-start pa-0"
+    class="fill-height pa-0 align-start"
     style="background-color: #efefef"
   >
     <v-row no-gutters>
       <v-col v-for="(item, index) in items" :key="index" cols="12">
-        <CoreInfoCard
-          :subtitle="item.subtitle"
-          :title="item.title"
-          :src="item.src"
-          @click.native="$set(sheet, index - 1, true)"
-        >
-          <template #btn>
-            <v-btn
-              v-if="choice"
-              dark
-              class="px-5 ml-2 font-weight-black"
-              color="#00B17B"
-              v-text="'선택'"
-              @click.stop="choicePlant(item.title)"
-            />
-          </template>
-        </CoreInfoCard>
-
-        <!-- dialog start -->
-        <v-dialog
-          v-model="sheet[index - 1]"
-          scrollable
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-        >
-          <v-card class="rounded-0">
-            <!-- dialog title start -->
-            <v-app-bar flat dark dense color="primary">
-              <v-btn icon @click="$set(sheet, index - 1, false)">
-                <v-icon>mdi-chevron-left</v-icon>
-              </v-btn>
-              <v-toolbar-title
-                class="text-body-1 nbn--list-font-bold"
+        <v-card class="rounded-0" outlined>
+          <v-list-item
+            two-line
+            @click="$set(sheet, index - 1, !sheet[index - 1])"
+          >
+            <v-list-item-avatar tile size="80">
+              <v-img
+                :src="require(`@/assets/plant/info/${item.info.image}`)"
+                contain
+              ></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title
+                class="nbn--list-font-bold mb-1"
                 v-text="item.title"
+              />
+              <v-list-item-subtitle
+                class="nbn--list-font"
+                v-text="item.subtitle"
+              />
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-btn
+                v-if="choice"
+                outlined
+                @click.stop="choicePlant(item.title)"
               >
-              </v-toolbar-title>
-              <template v-slot:extension>
-                <v-tabs v-model="tab">
-                  <v-tab href="#nbn--info">
-                    <span>정보</span>
-                  </v-tab>
-                  <v-tab href="#nbn--recipe">
-                    <span>요리법</span>
-                  </v-tab>
-                </v-tabs>
-              </template>
-            </v-app-bar>
-            <!-- dialog title end -->
-            <v-card-text class="pa-0">
-              <v-tabs-items v-model="tab">
-                <v-tab-item id="nbn--info" class="text-body-1">
-                  <div v-html="item.info.text"></div>
-                </v-tab-item>
-                <v-tab-item id="nbn--recipe">
-                  <!-- recipe part of tab start -->
-                  <SeedRecipeList :recipes="item.recipes" />
-                </v-tab-item>
-              </v-tabs-items>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-        <!-- dialog end -->
+                선택
+              </v-btn>
+              <v-btn icon class="ml-auto">
+                <v-icon>{{
+                  sheet[index - 1] ? "mdi-chevron-up" : "mdi-chevron-down"
+                }}</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+
+          <v-expand-transition>
+            <div v-show="sheet[index - 1]">
+              <v-divider></v-divider>
+              <v-tabs v-model="tab[index - 1]">
+                <v-tab href="#nbn--info">
+                  <span>정보</span>
+                </v-tab>
+                <v-tab href="#nbn--recipe">
+                  <span>요리법</span>
+                </v-tab>
+              </v-tabs>
+
+              <v-card-text class="pa-0">
+                <v-tabs-items v-model="tab[index - 1]">
+                  <v-tab-item id="nbn--info" class="text-body-1">
+                    <div v-html="item.info.text"></div>
+                  </v-tab-item>
+                  <v-tab-item id="nbn--recipe">
+                    <!-- recipe part of tab start -->
+                    <div class="ma-0">
+                      <SeedRecipeList :recipes="item.recipes" />
+                    </div>
+                  </v-tab-item>
+                </v-tabs-items>
+              </v-card-text>
+            </div>
+          </v-expand-transition>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -76,14 +78,11 @@
 <script>
 import { mapActions } from "vuex";
 
-import CoreInfoCard from "@/components/core/InfoCard.vue";
-
 import SeedRecipeList from "@/components/seed/SeedRecipeList.vue";
 
 export default {
   name: "SeedList",
   components: {
-    CoreInfoCard,
     SeedRecipeList,
   },
   props: {
@@ -94,7 +93,7 @@ export default {
   },
   methods: {
     ...mapActions(["setPlantCharInfo"]),
-    async choicePlant(plantname) {
+    choicePlant(plantname) {
       var sprout;
 
       if (plantname == "옥수수싹") {
@@ -115,9 +114,7 @@ export default {
         sproutType: "1",
         bgimage: "1",
       };
-      await this.setPlantCharInfo(plantCharInfo);
-      await this.delay(500);
-      await this.$router.push({ name: "PlantMain" });
+      this.setPlantCharInfo(plantCharInfo);
     },
     delay(ms) {
       const startPoint = new Date().getTime();
@@ -128,13 +125,14 @@ export default {
   },
   data() {
     return {
-      tab: null,
+      tab: [],
       sheet: [],
       items: [
         {
           title: "밀싹",
+          subtitle: "7~14일",
           info: {
-            image: "",
+            image: "info_밀싹.png",
             text:
               "<div>밀싹에는 각종 미네랄이 풍부하게 들었습니다. " +
               "밀이 싹을 틔우는 과정에서 다양한 영양분이 싹 부위에 응축됐기 때문입니다.</div>" +
@@ -157,8 +155,9 @@ export default {
         },
         {
           title: "보리싹",
+          subtitle: "7~14일",
           info: {
-            image: "",
+            image: "info_보리싹.png",
             text: "",
           },
           recipes: [
@@ -184,8 +183,9 @@ export default {
         },
         {
           title: "무순",
+          subtitle: "7~14일",
           info: {
-            image: "",
+            image: "info_무.png",
             text: "",
           },
           recipes: [
@@ -198,8 +198,9 @@ export default {
         },
         {
           title: "옥수수싹",
+          subtitle: "7~14일",
           info: {
-            image: "",
+            image: "info_옥수수싹.png",
             text: "",
           },
           recipes: [

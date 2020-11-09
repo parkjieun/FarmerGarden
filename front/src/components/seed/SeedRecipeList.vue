@@ -1,25 +1,27 @@
 <template>
-  <div style="background-color: #efefef" class="pt-3">
-    <v-card
-      class="mb-3 rounded-0 elevation-0"
-      width="100%"
-      target="_blank"
-      v-for="(recipe, index) in recipes"
-      :key="index"
-      :href="youtubeLink(recipe.url)"
-    >
-      <v-img :src="youtubeThumbnailLink(recipe.url)" height="200px"></v-img>
+  <v-slide-group class="pa-2">
+    <v-slide-item v-for="(recipe, index) in recipes" :key="index">
+      <v-card
+        class="ma-2 rounded-lg"
+        height="160"
+        width="200"
+        target="_blank"
+        :href="youtubeLink(recipe.url)"
+      >
+        <v-img
+          height="120"
+          width="200"
+          :src="youtubeThumbnailLink(recipe.url)"
+        ></v-img>
 
-      <v-card-actions>
-        <span class="nbn--font font-weight-bold text-truncate">{{
-          recipe.title
-        }}</span>
-        <v-btn icon>
-          <v-icon class="text-h4 grey--text">mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </div>
+        <v-card-actions>
+          <span class="nbn--font font-weight-bold text-truncate">{{
+            recipe.title
+          }}</span>
+        </v-card-actions>
+      </v-card>
+    </v-slide-item>
+  </v-slide-group>
 </template>
 
 <script>
