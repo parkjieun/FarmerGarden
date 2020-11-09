@@ -1,12 +1,12 @@
 <template>
 <div>
-  <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 220px);">재배일기 작성</div>
-  <v-form ref="form" style="width: 300px;" class="mx-auto">
+  <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 220px);">재배일기 수정</div>
+	<v-form ref="form" style="width: 300px;" class="mx-auto">
 		<v-text-field
 			label="제목"
 			name="title"
 			type="text"
-			v-model="title"
+			v-model="post.post_title"
 			required
 			autofocus
 			outlined
@@ -19,7 +19,7 @@
 			label="내용"
 			name="content"
 			hint="100자 이내로 작성해주세요."
-			v-model="content"
+			v-model="post.post_contents"
 			required
 			outlined
 			:rules="contentRules"
@@ -34,7 +34,7 @@
 				:lazy-src="image.src"
 				width="150" 
 				@click="selectImage(index)" 
-				class="mr-2 rounded-lg" 
+				class="mr-2 rounded-lg"
 				:id="'image-'+index"
 			>
 				<template v-slot:placeholder>
@@ -69,6 +69,7 @@
 			<v-btn color="primary" class="ml-1" @click="checkForm">작성완료</v-btn>
 		</div>
   </v-form>
+ 
 </div>
 </template>
 
@@ -78,9 +79,7 @@ import { mapGetters } from 'vuex'
 export default {  
 	data() {
 		return {
-			title: null,
-			content: null,
-			image: null,
+			post: [],
 			initialSelected: [],
 			titleRules: [
 				(value) => !!value || "제목을 입력해주세요",
@@ -136,23 +135,36 @@ export default {
 		checkForm() {
 			if (this.$refs.form.validate()) {
 				const data = {
+					post_id: this.post.id,
 					post_title: this.title,
 					post_contents: this.content,
 					post_img: this.selectImage
 				}
-				http.post('/api/post', data, this.config)
+				http.put('/api/post', data, this.config)
 				.then(res => {
 					if (res.data == "success") {
 						this.router.push({name: "PlantCalendar2"})
 					}
 				})
-				.catch(err => console.log(err))
-					
+				.catch(err => console.log(err))	
 			}
+		},
+		getPostInfo() {
+			http.get(`/api/post/${this.$route.params.id}`, this.config)
+			.then(res => {
+				this.post = res.data
+				this.selectedImage = res.data.post_img
+			})
 		}
+	},
+	created() {
+		this.getPostInfo()
 	}
 }
 </script>
 
 <style>
+#div {
+	background-color: rgba(#ffffff, 0,7);
+}
 </style>
