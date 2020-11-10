@@ -24,13 +24,13 @@ public class DeviceServiceImpl implements DeviceService {
 
 	@Override
 	public int insertDevice(Device dto) throws Exception {
-		dto.setDevice_id(toHash(dto.getDevice_id()));
+		//dto.setDevice_id(toHash(dto.getDevice_id()));
 		return mapper.insertDevice(dto);
 	}
 
 	@Override
 	public int updateDevice(Device dto) throws Exception {
-		dto.setDevice_id(toHash(dto.getDevice_id()));
+		//dto.setDevice_id(toHash(dto.getDevice_id()));
 		return mapper.updateDevice(dto);
 	}
 	
