@@ -95,6 +95,9 @@
     >
       수확
     </v-btn>
+    <div class="nbn--wave-wrapper">
+      <div class="nbn--wave"></div>
+    </div>
   </v-container>
 </template>
 
@@ -225,5 +228,58 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+.nbn--wave {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+
+  &-wrapper {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    left: 20px;
+    background: #ccc;
+    overflow: hidden;
+    clip-path: url("~@/assets/leaf.svg");
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+  }
+
+  &:before {
+    border-radius: 45%;
+    background: rgba(255, 255, 255, 1);
+    animation: animate 5s linear infinite;
+  }
+
+  &:after {
+    border-radius: 40%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: animate 10s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
 }
 </style>
