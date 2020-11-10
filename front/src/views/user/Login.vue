@@ -40,8 +40,12 @@
       </v-btn>
       <v-divider class="my-3" /> 
      </v-form> -->
-      <v-btn @click="kakaoLogin" color="yellow"  width="100%" class="mt-5">카카오톡 로그인</v-btn>
-       <v-btn @click="testLogin" color="yellow"  width="100%" class="mt-5">테스트계정 로그인</v-btn>
+    <v-btn @click="kakaoLogin" color="yellow" width="100%" class="mt-5"
+      >카카오톡 로그인</v-btn
+    >
+    <v-btn @click="testLogin" color="yellow" width="100%" class="mt-5"
+      >테스트계정 로그인</v-btn
+    >
     <v-row class="mt-auto mb-4">
       <v-col cols="8" class="mx-auto pt-0">
         <v-img :src="require('@/assets/슬기로운.png')" contain />
@@ -87,28 +91,32 @@ export default {
       }
     },
     testLogin() {
-      console.log("회원정보가져오기")
-      const jwt = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzNzRlNjkzYTMxMGM0NTA0MTJjMjkxYjgwODY1MTEyMCJ9.IFUT0sKvVtwcskUKbq1xgNUk4GEgSa9l2sLaYYOGRIA"
-      http.get("/api/user" , {
-        headers: {
-            Authorization: "Bearer "+jwt
-        }
-      })
-      .then(res => {
-        console.log("test 계정:"+JSON.stringify(res.data));
-        this.setUser(res.data)
-        this.setAuth("Bearer "+jwt)
-        // 등록된 기기가 없으면
-        if (res.data.user_pot == null) {
-          this.$router.push({name: 'PlantEmpty'})
-        }
-        // 등록된 기기가 있으면
-        else {this.$router.push({name: "PlantMain"})}
-        
-      })    
-      .catch(res => {
-          console.log("회원정보 catch"+res.data)
-      })
+      console.log("회원정보가져오기");
+      const jwt =
+        "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzNzRlNjkzYTMxMGM0NTA0MTJjMjkxYjgwODY1MTEyMCJ9.IFUT0sKvVtwcskUKbq1xgNUk4GEgSa9l2sLaYYOGRIA";
+      http
+        .get("/api/user", {
+          headers: {
+            Authorization: "Bearer " + jwt,
+          },
+        })
+        .then((res) => {
+          console.log("test 계정:" + JSON.stringify(res.data));
+          this.setUser(res.data);
+          this.SET_PLANTCHARINFO(JSON.parse(res.data.user_pot));
+          this.setAuth("Bearer " + jwt);
+          // 등록된 기기가 없으면
+          if (res.data.user_pot == null) {
+            this.$router.push({ name: "PlantEmpty" });
+          }
+          // 등록된 기기가 있으면
+          else {
+            this.$router.push({ name: "PlantMain" });
+          }
+        })
+        .catch((res) => {
+          console.log("회원정보 catch" + res.data);
+        });
     },
     kakaoLogin() {
       window.Kakao.Auth.login({

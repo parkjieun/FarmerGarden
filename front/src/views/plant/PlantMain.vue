@@ -99,6 +99,8 @@
 </template>
 
 <script>
+import http from "@/utils/http-common";
+
 import { mapGetters } from "vuex";
 
 import { mixinPlantCharInfo } from "@/mixins/mixinPlantCharInfo";
@@ -114,12 +116,20 @@ export default {
     PlantCharacter,
   },
   created() {
-    // if (!this.isLoggedIn) {
-    //   this.$router.push({ name: "Login" });
-    // }
+    if (!this.isLoggedIn) {
+      this.$router.push({ name: "Login" });
+    }
     if (!this.plantCharInfo) {
       this.$router.push({ name: "PlantEmpty" });
     }
+    console.log(this.user.choice_id);
+    http
+      // .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
+      .get("iot/temp-and-hum?choice_id=1000")
+      .then((res) => {
+        console.log(res.data);
+        this.iotData = res.data;
+      });
   },
   mounted() {
     if (this.plantCharInfo) {
@@ -129,6 +139,7 @@ export default {
   },
   data() {
     return {
+      iotData: null,
       dialFab: true,
       plantInfo: {
         name: "밀싹",
@@ -161,7 +172,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["plantCharInfo", "isLoggedIn"]),
+    ...mapGetters(["plantCharInfo", "isLoggedIn", "user"]),
   },
 };
 </script>

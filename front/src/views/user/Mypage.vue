@@ -43,7 +43,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click="logout">
           <v-list-item-content>
             <v-list-item-title class="nbn--list-font font-weight-bold">
               로그아웃
@@ -237,7 +237,7 @@
 
 <script>
 import http from '@/utils/http-common';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import PrivacyPolicy from "@/views/user/PrivacyPolicy.vue";
 import SeedList from "@/views/seed/SeedList.vue";
@@ -298,6 +298,16 @@ export default {
           alert("fail")
         })
     }
+  },
+  methods: {
+    ...mapActions(["setAuth", "setUser"]),
+    ...mapMutations(["SET_PLANTCHARINFO"]),
+    logout() {
+      this.setUser(null);
+      this.setAuth(null);
+      this.SET_PLANTCHARINFO(null);
+      this.$router.push({ name: "Login" });
+    },
   },
 };
 </script>

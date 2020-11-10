@@ -1,23 +1,23 @@
 <template>
-  <v-slide-group class="pa-2">
+  <v-slide-group style="width: 100vw;">
     <v-slide-item v-for="(recipe, index) in recipes" :key="index">
       <v-card
-        class="ma-2 rounded-lg"
+        class="rounded-lg ma-2"
         height="160"
         width="200"
         target="_blank"
         :href="youtubeLink(recipe.url)"
       >
         <v-img
-          height="120"
+          height="110"
           width="200"
           :src="youtubeThumbnailLink(recipe.url)"
         ></v-img>
 
         <v-card-actions>
-          <span class="nbn--font font-weight-bold text-truncate">{{
-            recipe.title
-          }}</span>
+          <span class="nbn--font font-weight-bold text-truncate">
+            {{ recipe.title }}
+          </span>
         </v-card-actions>
       </v-card>
     </v-slide-item>
