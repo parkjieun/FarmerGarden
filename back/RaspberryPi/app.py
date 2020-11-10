@@ -22,6 +22,10 @@ CORS(app)
 def index():
     return render_template('test.html')
 
+@app.route('/test', methods=['GET'])
+def test():
+    return "testpage"
+
 @app.route('/imgUpload', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -37,19 +41,25 @@ def upload_file():
 @app.route('/iot-actions', methods=['GET'])
 def iotActions():
     action = request.args.get('action')  # 사용자 액션
-    # led on/off
+    # led => on/off
+    # waterpump
+    # picture
 
-    async def my_connect():
-        async with websockets.connect("ws://localhost:3000") as websocket:
-            for i in range(1, 100, 1):
-                await websocket.send("Hi server. I'm client");
-                data_rcv = await websocket.recv();
-                #            print("data received from server : " + data_rcv);
+    # call back for websockets.serve(accept,
+    async def accept(websocket, path):
+        while True:
+            data_rcv = await websocket.recv()  # receiving the data from client.
+            print("received data = " + data_rcv)
+            await websocket.send("server data~ = " + action)  # send received data
 
-    # connect to server
-    asyncio.get_event_loop().run_until_complete(my_connect());
+    # websocket server creation
+    websoc_svr = websockets.serve(accept, "0.0.0.0", 443)
 
-    return render_template('test.html')
+    # waiting
+    asyncio.get_event_loop().run_until_complete(websoc_svr)
+    asyncio.get_event_loop().run_forever()
+
+    return action
 
 
 @app.route('/recent-imgs', methods = ['GET'])
