@@ -1,5 +1,8 @@
 # file name : test.py
 # pwd : /project_name/app/test/test.py
+import asyncio
+import websockets
+from werkzeug.utils import secure_filename
 import datetime
 import os
 import json,datetime
@@ -17,11 +20,36 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('test.html',
-                           result=None,
-                           resultData=None,
-                           resultUPDATE=None)
+    return render_template('test.html')
 
+@app.route('/imgUpload', methods = ['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        print("이미지 업로드 시작해요")
+        f = request.files['file']
+        fname = secure_filename(f.filename)
+        path = os.path.join(app.config['UPLOAD_DIR'], fname)
+        f.save(path)
+        return 'Img upload complete (%s)' % path
+
+    return "img upload FAIL"
+
+@app.route('/iot-actions', methods=['GET'])
+def iotActions():
+    action = request.args.get('action')  # 사용자 액션
+    # led on/off
+
+    async def my_connect():
+        async with websockets.connect("ws://localhost:3000") as websocket:
+            for i in range(1, 100, 1):
+                await websocket.send("Hi server. I'm client");
+                data_rcv = await websocket.recv();
+                #            print("data received from server : " + data_rcv);
+
+    # connect to server
+    asyncio.get_event_loop().run_until_complete(my_connect());
+
+    return render_template('test.html')
 
 
 @app.route('/recent-imgs', methods = ['GET'])
