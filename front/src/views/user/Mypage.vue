@@ -10,17 +10,41 @@
       <div class="px-4"><v-divider></v-divider></div>
 
       <v-list-item-group>
-        <v-list-item @click="goDevice()">
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
-              기기등록 및 변경
-            </v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
-          </v-list-item-action>
-          <device-update :dialogDevice="dialogDevice" @closeForm="typeUpdate" />
-        </v-list-item>
+        <v-dialog
+          v-model="dialogDevice.privacy"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold">기기등록 및 변경</v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar  flat dark dense color="primary">
+              <v-btn icon @click="dialogDevice.privacy = !dialogDevice.privacy">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                기기등록 및 변경
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <DeviceUpdate v-if="dialogDevice.privacy" />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
         <v-list-item
           href="https://frogue.danbee.ai/?chatbot_id=8ac8ca73-ec86-4dd1-ba66-388919215cf5"
         >
@@ -244,7 +268,10 @@ export default {
   name: "Mypage",
   data() {
     return {
-      dialogDevice: false,
+      dialogDevice: {
+        privacy: false,
+        seedList: false,
+      },
       dialog: {
         privacy: false,
         seedList: false,
@@ -285,12 +312,6 @@ export default {
       this.setAuth(null);
       this.SET_PLANTCHARINFO(null);
       this.$router.push({ name: "Login" });
-    },
-    goDevice() {
-      this.dialogDevice = true;
-    },
-    typeUpdate() {
-      this.dialogDevice = false;
     },
     stopGrowPlant() {
       let params = new URLSearchParams();
