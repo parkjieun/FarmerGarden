@@ -92,12 +92,12 @@ const routes = [
       // seed end
       // diary start
       {
-        path: "/diary",
+        path: "/diary/create",
         name: "DiaryCreate",
         component: DiaryCreate
       },
       {
-        path: "/diary/:id",
+        path: "/diary/update/:id",
         name: "DiaryUpdate",
         component: DiaryUpdate
       },

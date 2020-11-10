@@ -1,13 +1,31 @@
 <template>
 <div>
-  <div class="text-h5 text-center pb-5" style="margin-top: calc(40vh - 220px);">재배일기 수정</div>
+	<!-- 네브바 -->
+	<v-app-bar
+		color="primary"
+		dense
+		dark
+	>
+		<v-app-bar-nav-icon @click="cancelForm"><v-icon>mdi-chevron-left</v-icon></v-app-bar-nav-icon>
+    <v-spacer></v-spacer>
+		<v-toolbar-title>{{createDate}}</v-toolbar-title>
+		<v-spacer></v-spacer>
+		<v-btn color="primary" @click="checkForm" style="min-width:48px;" class="pa-0">수정</v-btn>
+	</v-app-bar>
+  
 	<v-form ref="form" style="width: 300px;" class="mx-auto">
+		<div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true"><v-img :src="selectedImage" alt="selected_image" width="300" class="rounded-lg"/></div>
+		<v-row v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-5 mx-auto" align="center" justify="center">
+      <v-icon size="60" color="lightgray" @click="showPhoto=true">mdi-camera-outline</v-icon>
+    </v-row>
 		<v-text-field
 			label="제목"
 			name="title"
 			type="text"
+			hint="100자 이내로 작성해주세요."
 			v-model="post.post_title"
 			required
+			dense
 			autofocus
 			outlined
 			:rules="titleRules"
@@ -18,107 +36,50 @@
 		<v-textarea
 			label="내용"
 			name="content"
-			hint="100자 이내로 작성해주세요."
 			v-model="post.post_contents"
 			required
+			dense
 			outlined
 			:rules="contentRules"
 			autocapitalize="off"
 			autocorrect="off"
 			autocomplete="off"
 		/>
-		<div class="text-subtitle-1 mb-3">작물 사진 선택</div>
-		<div style="overflow-x: scroll; display:flex; margin-bottom: 30px; height: 100px;">
-			<v-img v-for="(image, index) in images" :key="index" 
-				:src="image.src" :alt="image.alt" 
-				:lazy-src="image.src"
-				width="150" 
-				@click="selectImage(index)" 
-				class="mr-2 rounded-lg"
-				:id="'image-'+index"
-			>
-				<template v-slot:placeholder>
-					<v-row
-						class="fill-height ma-0"
-						align="center"
-						justify="center"
-					>
-						<v-progress-circular
-						indeterminate
-						color="primary lighten-5"
-						></v-progress-circular>
-					</v-row>
-				</template>
-				<template v-slot:default>
-					<v-row
-						v-if="selectedImage==image"
-						class="fill-height ma-0"
-						align="center"
-						justify="center"
-						style="background-color:rgba(255, 255, 255, 0.5); "
-					>
-						<v-icon
-						color="primary" size="2rem"
-						>mdi-check-circle-outline</v-icon>
-					</v-row>
-				</template>
-			</v-img>
-		</div>
-		<div class="text-right">
-			<v-btn color="secondary" @click="cancelForm">취소</v-btn>
-			<v-btn color="primary" class="ml-1" @click="checkForm">작성완료</v-btn>
-		</div>
+		
   </v-form>
- 
+  <div v-if="showPhoto" style="position:absolute; left:0; top:0;">
+    <PhotoSelect id="picture_select" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
+  </div>
 </div>
 </template>
 
 <script>
 import http from '@/utils/http-common'
 import { mapGetters } from 'vuex'
+
+import PhotoSelect from '@/components/diary/PhotoSelect.vue'
+
 export default {  
+  components: {
+    PhotoSelect
+  },
 	data() {
 		return {
-			post: [],
-			initialSelected: [],
+      post: [],
+      createDate: '',
 			titleRules: [
 				(value) => !!value || "제목을 입력해주세요",
+				(value) => (value && value.length) < 100 || '제목의 길이가 100자 이내여야 합니다.'
 			],
 			contentRules: [
 				(value) => !!value || "내용을 입력해주세요",
 			],
-			images: [
-				{   
-					id: 1,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image1"
-				},
-				{
-					id: 2,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image2"
-				},
-				{
-					id: 3,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image3"
-				},
-				{
-					id: 4,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image4"
-				},
-				{
-					id: 5,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image5"
-				},
-			],
+			showPhoto: false,
 			selectedImage: null ,
 		}
 	},
 	computed: {
-		...mapGetters(['config']),
+    ...mapGetters(['config']),
 	},
 	methods: {
 		selectImage(index) {
@@ -135,15 +96,15 @@ export default {
 		checkForm() {
 			if (this.$refs.form.validate()) {
 				const data = {
-					post_id: this.post.id,
-					post_title: this.title,
-					post_contents: this.content,
+					post_id: this.post.post_id,
+					post_title: this.post.post_title,
+					post_contents: this.post.post_contents,
 					post_img: this.selectImage
 				}
 				http.put('/api/post', data, this.config)
 				.then(res => {
 					if (res.data == "success") {
-						this.router.push({name: "PlantCalendar2"})
+            this.$router.push({name: "PlantCalendar2"})
 					}
 				})
 				.catch(err => console.log(err))	
@@ -153,12 +114,13 @@ export default {
 			http.get(`/api/post/${this.$route.params.id}`, this.config)
 			.then(res => {
 				this.post = res.data
-				this.selectedImage = res.data.post_img
+        this.selectedImage = res.data.post_img
+        this.createDate = res.data.post_create.substring(0,4)+'년 '+res.data.post_create.substring(5,7)+'월 '+res.data.post_create.substring(8,10)+'일'
 			})
 		}
 	},
 	created() {
-		this.getPostInfo()
+    this.getPostInfo()
 	}
 }
 </script>
@@ -166,5 +128,6 @@ export default {
 <style>
 #div {
 	background-color: rgba(#ffffff, 0,7);
+	color:lightgray
 }
 </style>
