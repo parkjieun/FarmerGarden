@@ -10,15 +10,19 @@
       <div class="px-4"><v-divider></v-divider></div>
 
       <v-list-item-group>
-        <v-list-item>
+        <v-list-item @click="goDevice()">
           <v-list-item-content>
             <v-list-item-title class="nbn--list-font font-weight-bold">
-              기기등록 및 변경
+             기기등록 및 변경
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
             <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
           </v-list-item-action>
+          <device-update :dialogDevice="dialogDevice"  @closeForm="typeUpdate" />
+
+
+
         </v-list-item>
         <v-list-item
           href="https://frogue.danbee.ai/?chatbot_id=8ac8ca73-ec86-4dd1-ba66-388919215cf5"
@@ -82,7 +86,10 @@
         </v-list-item>
         <v-list-item v-if="plantCharInfo">
           <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
+            <v-list-item-title 
+              class="nbn--list-font font-weight-bold"
+              @click.prevent="stopGrowPlant"  
+            >
               재배작물 취소
             </v-list-item-title>
           </v-list-item-content>
@@ -229,15 +236,18 @@
 </template>
 
 <script>
+import http from '@/utils/http-common';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import PrivacyPolicy from "@/views/user/PrivacyPolicy.vue";
 import SeedList from "@/views/seed/SeedList.vue";
+import DeviceUpdate from "@/views/device/DeviceUpdate.vue"
 
 export default {
   name: "Mypage",
   data() {
     return {
+      dialogDevice: false,
       dialog: {
         privacy: false,
         seedList: false,
@@ -265,9 +275,29 @@ export default {
   components: {
     PrivacyPolicy,
     SeedList,
+    DeviceUpdate,
   },
   computed: {
-    ...mapGetters(["plantCharInfo"]),
+    ...mapGetters(["plantCharInfo", "user", "config"]),
+  },
+  methods: {
+    goDevice(){
+       this.dialogDevice = true;
+    },
+    typeUpdate() {
+      this.dialogDevice = false;
+    },
+    stopGrowPlant(){
+      let params = new URLSearchParams();
+      params.append('choice_id', this.user.choice_id);
+      http.put('/api/choice', params, this.config)
+        .then(() => {
+          alert("success")
+        })
+        .catch(() => {
+          alert("fail")
+        })
+    }
   },
   methods: {
     ...mapActions(["setAuth", "setUser"]),

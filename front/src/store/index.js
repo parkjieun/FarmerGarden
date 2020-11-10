@@ -16,6 +16,9 @@ export default new Vuex.Store({
   },
   getters: {
     config: (state) => ({ headers: { Authorization: state.authorization } }),
+    user(state) {
+      return state.user;
+    },
     plantCharInfo(state) {
       return state.plantCharInfo;
     },
