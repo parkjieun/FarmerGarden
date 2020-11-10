@@ -45,18 +45,14 @@ def iotActions():
     # waterpump
     # picture
 
-    # call back for websockets.serve(accept,
-    async def accept(websocket, path):
-        while True:
-            data_rcv = await websocket.recv()  # receiving the data from client.
-            print("received data = " + data_rcv)
-            await websocket.send("server data~ = " + action)  # send received data
+    async def my_connect():
+        async with websockets.connect("ws://115.143.115.9:443") as websocket:
+            await websocket.send(action)
+            data_rcv = await websocket.recv()
+            print("data received from server : " + data_rcv)
 
-    # websocket server creation
-    websoc_svr = websockets.serve(accept, "0.0.0.0", 443)
-
-    # waiting
-    asyncio.get_event_loop().run_until_complete(websoc_svr)
+    # connect to server
+    asyncio.get_event_loop().run_until_complete(my_connect())
 
     return action
 
