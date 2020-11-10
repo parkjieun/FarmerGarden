@@ -57,7 +57,6 @@ def iotActions():
 
     # waiting
     asyncio.get_event_loop().run_until_complete(websoc_svr)
-    asyncio.get_event_loop().run_forever()
 
     return action
 
