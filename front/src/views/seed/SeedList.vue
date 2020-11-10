@@ -60,10 +60,7 @@
                     <div v-html="item.plant_explanation"></div>
                   </v-tab-item>
                   <v-tab-item id="nbn--recipe">
-                    <!-- recipe part of tab start -->
-                    <div class="ma-0 pa-0">
-                      <SeedRecipeList :recipes="youtubeItems[item.plant_id]" />
-                    </div>
+                    <SeedRecipeList :recipes="youtubeItems[item.plant_id]" />
                   </v-tab-item>
                 </v-tabs-items>
               </v-card-text>

@@ -20,6 +20,7 @@ import PlantEmpty from "../views/plant/PlantEmpty.vue";
 import Tutorial from "../views/plant/Tutorial.vue";
 import PlantCalendar from "../views/plant/PlantCalendar.vue";
 import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
+import PlantReport from "../views/plant/PlantReport.vue";
 
 // seed
 import SeedList from "../views/seed/SeedList.vue";
@@ -77,6 +78,11 @@ const routes = [
         path: "/calendar2",
         name: "PlantCalendar2",
         component: PlantCalendar2,
+      },
+      {
+        path: "/report",
+        name: "PlantReport",
+        component: PlantReport,
       },
       // plant end
       // seed start
