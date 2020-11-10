@@ -86,7 +86,10 @@
         </v-list-item>
         <v-list-item v-if="plantCharInfo">
           <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
+            <v-list-item-title 
+              class="nbn--list-font font-weight-bold"
+              @click.prevent="stopGrowPlant"  
+            >
               재배작물 취소
             </v-list-item-title>
           </v-list-item-content>
@@ -233,6 +236,7 @@
 </template>
 
 <script>
+import http from '@/utils/http-common';
 import { mapGetters } from "vuex";
 
 import PrivacyPolicy from "@/views/user/PrivacyPolicy.vue";
@@ -274,7 +278,7 @@ export default {
     DeviceUpdate,
   },
   computed: {
-    ...mapGetters(["plantCharInfo"]),
+    ...mapGetters(["plantCharInfo", "user", "config"]),
   },
   methods: {
     goDevice(){
@@ -283,6 +287,17 @@ export default {
     typeUpdate() {
       this.dialogDevice = false;
     },
+    stopGrowPlant(){
+      let params = new URLSearchParams();
+      params.append('choice_id', this.user.choice_id);
+      http.put('/api/choice', params, this.config)
+        .then(() => {
+          alert("success")
+        })
+        .catch(() => {
+          alert("fail")
+        })
+    }
   },
 };
 </script>
