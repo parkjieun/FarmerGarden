@@ -15,7 +15,13 @@
       small
       style="position: absolute; right: 16px; top: 80px; border-radius: 50%"
     >
-      <v-img src="@/assets/icon/paper.svg" width="42px" height="42px" />
+      <!-- <v-img
+        src="@/assets/icon/camera.svg"
+        width="28px"
+        height="28px"
+        contain
+      /> -->
+      <v-icon v-text="'$vuetify.icons.camera'"></v-icon>
     </v-btn>
     <v-btn
       fab
@@ -69,7 +75,34 @@
         <PlantCharacter v-if="plantCharInfo" v-bind="plantCharInfo" />
       </v-col>
     </v-row>
-    <v-btn
+    <div class="nbn--progress pa-2">
+      <div class="nbn--wave-wrapper-border">
+        <div class="nbn--wave-wrapper">
+          <div class="nbn--wave">
+            <div
+              class="nbn--wave-before"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+            <div
+              class="nbn--wave-after"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <span v-if="plantInfo.percent < 100" class="ml-1">
+        <div class="nbn--info-subtitle nbn--info-bold">
+          {{ plantInfo.dday }}
+        </div>
+        <div class="nbn--info-subtitle nbn--info-bold">예정</div>
+      </span>
+      <span v-else class="ml-1 mr-2">
+        <div class="nbn--info-lg nbn--info-bold">수확</div>
+      </span>
+      <v-icon>mdi-chevron-right</v-icon>
+    </div>
+    <!-- <v-btn
       v-if="plantInfo.percent < 100"
       style="position: absolute; right: 0%; bottom: 30px; border-radius: 50%"
       text
@@ -94,7 +127,7 @@
       text
     >
       수확
-    </v-btn>
+    </v-btn> -->
   </v-container>
 </template>
 
@@ -145,7 +178,7 @@ export default {
         name: "밀싹",
         sprout: "밀",
         dday: "11월 7일",
-        percent: "36",
+        percent: "50",
       },
       bgimage: "배경1.jpg",
       potColor: "orange",
@@ -203,13 +236,6 @@ export default {
   }
 }
 
-.nbn--progress {
-  color: #5b3016;
-  font-size: 20px;
-  font-weight: 900;
-  font-family: "Jua", sans-serif;
-}
-
 .nbn--info {
   color: #5b3016;
   font-size: 16px;
@@ -217,6 +243,17 @@ export default {
 
   &-subtitle {
     font-size: 12px;
+    color: #5c3016;
+  }
+
+  &-lg {
+    color: #5b3016;
+    font-size: 24px;
+    font-family: "Jua", sans-serif;
+  }
+
+  &-bold {
+    font-weight: 900;
   }
 }
 
@@ -225,5 +262,76 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+.nbn--progress {
+  width: 130px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  display: flex;
+
+  &:hover {
+    background-color: rgba(255, 255, 255);
+  }
+}
+
+.nbn--wave {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.3);
+
+  &-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    top: 2px;
+    left: 2px;
+    background: #ccc;
+    mask-image: url("~@/assets/leaf.svg");
+  }
+  &-wrapper-border {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: #468b54;
+    mask-image: url("~@/assets/leaf-border.svg");
+  }
+
+  &-before,
+  &-after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+  }
+
+  &-before {
+    border-radius: 45%;
+    background: rgba(255, 255, 255, 1);
+    animation: animate 5s linear infinite;
+  }
+
+  &-after {
+    border-radius: 40%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: animate 10s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
 }
 </style>
