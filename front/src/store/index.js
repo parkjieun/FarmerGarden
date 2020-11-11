@@ -13,6 +13,7 @@ export default new Vuex.Store({
     socialData: JSON.parse(sessionStorage.getItem("socialData")),
     authorization: cookies.get("authorization"),
     plantCharInfo: cookies.get("plantCharInfo"),
+    posts: JSON.parse(cookies.get("posts")),
   },
   getters: {
     config: (state) => ({ headers: { Authorization: state.authorization } }),
@@ -42,6 +43,10 @@ export default new Vuex.Store({
     SET_PLANTCHARINFO(state, value) {
       cookies.set("plantCharInfo", value, 60 * 60 * 60);
       state.plant = value;
+    },
+    SET_POSTS(state, value) {
+      cookies.set("posts", JSON.stringify(value), 60 * 60 * 60);
+      state.posts = value;
     },
   },
   actions: {
@@ -76,5 +81,13 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    setPosts( { commit, getters }) {
+      http.get("/api/post", getters.config)
+      .then((res) => {
+        commit("SET_POSTS", res.data.reverse())
+      })
+      .catch(err => console.log(err))
+    },
+
   },
 });

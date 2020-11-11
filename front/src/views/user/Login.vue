@@ -82,7 +82,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setAuth", "setUser", "setSocial"]),
+    ...mapActions(["setAuth", "setUser", "setSocial", "setPosts"]),
     ...mapMutations(["SET_PLANTCHARINFO"]),
     checkForm() {
       if (this.$refs.form.validate()) {
@@ -113,10 +113,13 @@ export default {
           else {
             this.$router.push({ name: "PlantMain" });
           }
+          this.setPosts()
         })
         .catch((res) => {
           console.log("회원정보 catch" + res.data);
         });
+      
+
     },
     kakaoLogin() {
       window.Kakao.Auth.login({
@@ -138,7 +141,6 @@ export default {
           console.log(data);
           if (data.isOlder > 0) {
             //회원정보 가져오기
-            console.log("로그인은 했고.");
             http
               .get("/api/user", {
                 headers: {
@@ -157,6 +159,7 @@ export default {
                 else {
                   this.$router.push({ name: "PlantMain" });
                 }
+                this.setPosts()
               })
               .catch((res) => {
                 console.log("회원정보 catch" + res.data);

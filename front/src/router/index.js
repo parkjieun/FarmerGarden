@@ -28,6 +28,7 @@ import SeedList from "../views/seed/SeedList.vue";
 // diary
 import DiaryCreate from "../views/diary/DiaryCreate.vue";
 import DiaryUpdate from "../views/diary/DiaryUpdate.vue";
+import DiaryDetail from "../views/diary/DiaryDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -106,6 +107,11 @@ const routes = [
         path: "/diary/update/:id",
         name: "DiaryUpdate",
         component: DiaryUpdate
+      },
+      {
+        path: "/diary/:id",
+        name: "DiaryDetail",
+        component: DiaryDetail
       },
     ],
   },

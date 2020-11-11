@@ -55,7 +55,7 @@
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import PhotoSelect from '@/components/diary/PhotoSelect.vue'
 
@@ -65,8 +65,8 @@ export default {
   },
 	data() {
 		return {
-      post: [],
-      createDate: '',
+			post: [],
+			createDate: '',
 			titleRules: [
 				(value) => !!value || "제목을 입력해주세요",
 				(value) => (value && value.length) < 100 || '제목의 길이가 100자 이내여야 합니다.'
@@ -82,6 +82,7 @@ export default {
     ...mapGetters(['config']),
 	},
 	methods: {
+    ...mapActions(['setPosts']),
 		selectImage(index) {
 			if (this.selectedImage == this.images[index]) {   
 				this.selectedImage = null
@@ -104,6 +105,7 @@ export default {
 				http.put('/api/post', data, this.config)
 				.then(res => {
 					if (res.data == "success") {
+            this.setPosts()
             this.$router.push({name: "PlantCalendar2"})
 					}
 				})

@@ -2,7 +2,7 @@
 <div class="mt-5">
     <v-btn v-if="!isShow" text small @click="showMonth" width="100%"><v-icon small>mdi-chevron-down</v-icon></v-btn>
     <v-btn v-else text small @click="showMonth" width="100%"><v-icon small>mdi-chevron-up</v-icon></v-btn>
-    <div  style="position:absolute; top: 50px; z-index: 99; width:100%;">
+    <div  style="position:absolute; top: 50px; z-index: 10; width:100%;">
     <PlantMonthCalendar id="monthCalendar"/>
     </div>
     <div style="position: absolute; top: 60px; width:100%;">
@@ -12,6 +12,7 @@
     <CalendarTimeLine/>
     </div>
     <div v-if="isShow" id="backdrop" @click="onClick"></div>
+    <v-btn fab small @click="createPage" color="primary" style="z-index: 99; position: absolute; z-index: 99; bottom: 30px; right: 30px;"><v-icon>mdi-lead-pencil</v-icon></v-btn>
 </div>
  
 </template>
@@ -21,31 +22,35 @@
 import PlantMonthCalendar from '@/components/calendar/PlantMonthCalendar.vue'
 import PlantWeekCalendar from '@/components/calendar/PlantWeekCalendar.vue'
 import CalendarTimeLine from '@/components/calendar/CalendarTimeLine.vue'
-export default {
-    components: {
-        PlantMonthCalendar,
-        PlantWeekCalendar,
-        CalendarTimeLine
-    },
-    data() {
-        return {
-            isShow: false,
-        }
-    },
-    methods: {
-        showMonth() {
-            $('#monthCalendar').slideToggle()
-            this.isShow = !this.isShow
 
-        },
-        onClick() {
-            this.isShow = false
-            $('#monthCalendar').hide()
-        }
-    },
-    mounted() {
-        $('#monthCalendar').hide()
+
+export default {
+  components: {
+    PlantMonthCalendar,
+    PlantWeekCalendar,
+    CalendarTimeLine
+  },
+  data() {
+    return {
+        isShow: false,
     }
+  },
+  methods: {
+    showMonth() {
+      $('#monthCalendar').slideToggle()
+      this.isShow = !this.isShow
+    },
+    onClick() {
+      this.isShow = false
+      $('#monthCalendar').hide()
+    },
+    createPage() {
+      this.$router.push({name:'DiaryCreate'})
+    }
+  },
+  mounted() {
+    $('#monthCalendar').hide()
+  }
 }
 </script>
 

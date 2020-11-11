@@ -306,11 +306,12 @@ export default {
   },
   methods: {
     ...mapActions(["setAuth", "setUser"]),
-    ...mapMutations(["SET_PLANTCHARINFO"]),
+    ...mapMutations(["SET_PLANTCHARINFO", "SET_POST"]),
     logout() {
       this.setUser(null);
       this.setAuth(null);
       this.SET_PLANTCHARINFO(null);
+      this.SET_POSTS(null);
       this.$router.push({ name: "Login" });
     },
     stopGrowPlant() {
