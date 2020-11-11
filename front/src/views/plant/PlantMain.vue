@@ -15,12 +15,6 @@
       small
       style="position: absolute; right: 16px; top: 80px; border-radius: 50%"
     >
-      <!-- <v-img
-        src="@/assets/icon/camera.svg"
-        width="28px"
-        height="28px"
-        contain
-      /> -->
       <v-icon v-text="'$vuetify.icons.camera'"></v-icon>
     </v-btn>
     <v-btn
