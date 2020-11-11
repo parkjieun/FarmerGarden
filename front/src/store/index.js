@@ -22,9 +22,6 @@ export default new Vuex.Store({
     plantCharInfo(state) {
       return state.plantCharInfo;
     },
-    user(state) {
-      return state.user;
-    },
     isLoggedIn(state) {
       return !!state.authorization;
     },
