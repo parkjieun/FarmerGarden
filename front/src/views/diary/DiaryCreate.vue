@@ -57,7 +57,7 @@
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import PhotoSelect from '@/components/diary/PhotoSelect.vue'
 
@@ -84,6 +84,7 @@ export default {
 		...mapGetters(['config']),
 	},
 	methods: {
+		...mapActions(['setPosts']),
 		selectImage(index) {
 			if (this.selectedImage == this.images[index]) {   
 				this.selectedImage = null
@@ -105,6 +106,7 @@ export default {
 				http.post('/api/post', data, this.config)
 				.then(res => {
 					if (res.data == "success") {
+						this.setPosts()
 						this.$router.push({name: "PlantCalendar2"})
 					}
 				})
