@@ -85,7 +85,7 @@
       @click="
         plantInfo.percent < 100 ? $router.push({ name: 'PlantReport' }) : null
       "
-      class="nbn--progress pa-2"
+      class="nbn--progress py-2 pl-2"
       :style="{ opacity: isHidden ? 0 : 1 }"
     >
       <div class="nbn--wave-wrapper-border">
@@ -105,7 +105,7 @@
 
       <span v-if="plantInfo.percent < 100" class="ml-1">
         <div class="nbn--info-subtitle nbn--info-bold">
-          {{ plantInfo.dday }}
+          {{ getFormatMonthDay(plantInfo.calendar_eat_day) }}
         </div>
         <div class="nbn--info-subtitle nbn--info-bold">예정</div>
       </span>
@@ -161,6 +161,19 @@ export default {
       .then((res) => {
         this.headerInfo.hum = res.data.rb_humidity;
       });
+    http
+      .get("api/calendar/" + this.user.choice_id, this.config)
+      // .get("api/calendar/1000", this.config)
+      .then((res) => {
+        this.plantInfo.calendar_start_day = res.data.calendar_start_day;
+        this.plantInfo.calendar_eat_day = res.data.calendar_eat_day;
+        var today = new Date();
+        var start = new Date(this.plantInfo.calendar_start_day);
+        var end = new Date(this.plantInfo.calendar_eat_day);
+        this.plantInfo.percent = Math.floor(
+          (100 * (today - start)) / (end - start)
+        );
+      });
   },
   mounted() {
     if (this.plantCharInfo) {
@@ -170,7 +183,6 @@ export default {
   },
   data() {
     return {
-      iotData: null,
       headerInfo: {
         waterTime: null,
         temp: null,
@@ -179,10 +191,9 @@ export default {
       isHidden: false,
       dialFab: true,
       plantInfo: {
-        name: "밀싹",
-        sprout: "밀",
-        dday: "11월 7일",
-        percent: "50",
+        calendar_start_day: "",
+        calendar_eat_day: "",
+        percent: 0,
       },
       bgimage: "배경1.jpg",
       potColor: "orange",
@@ -209,7 +220,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["plantCharInfo", "isLoggedIn", "user"]),
+    ...mapGetters(["plantCharInfo", "isLoggedIn", "user", "config"]),
   },
   methods: {
     getFormatDate(date) {
@@ -219,6 +230,13 @@ export default {
       var min = date.getMinutes();
 
       return month + "월 " + day + "일 " + hour + ":" + min;
+    },
+    getFormatMonthDay(dateString) {
+      var date = new Date(dateString);
+      var month = 1 + date.getMonth();
+      var day = date.getDate();
+
+      return month + "월 " + day + "일";
     },
   },
 };
@@ -272,8 +290,6 @@ export default {
 }
 
 .nbn--bgimage {
-  background-position: center;
-  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }

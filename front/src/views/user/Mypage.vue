@@ -1,7 +1,7 @@
 <template>
   <v-container
     class="fill-height px-0 align-start"
-    style="background-color: #efefef"
+    style="background-color: #2bc77e13"
   >
     <v-list width="100%" class="nbn--list-font pb-0">
       <div class="nbn--list-font-bold text-overline text--disabled px-4">
@@ -11,7 +11,7 @@
 
       <v-list-item-group>
         <v-dialog
-          v-model="dialogDevice.privacy"
+          v-model="dialog.device"
           scrollable
           fullscreen
           hide-overlay
@@ -20,7 +20,9 @@
           <template #activator="{ attrs, on }">
             <v-list-item v-bind="attrs" v-on="on">
               <v-list-item-content>
-                <v-list-item-title class="nbn--list-font font-weight-bold">기기등록 및 변경</v-list-item-title>
+                <v-list-item-title class="nbn--list-font font-weight-bold"
+                  >기기등록 및 변경</v-list-item-title
+                >
               </v-list-item-content>
               <v-list-item-action>
                 <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
@@ -30,8 +32,8 @@
 
           <v-card class="rounded-0">
             <!-- dialog title start -->
-            <v-toolbar  flat dark dense color="primary">
-              <v-btn icon @click="dialogDevice.privacy = !dialogDevice.privacy">
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.device = !dialog.device">
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
               <v-toolbar-title class="text-body-1 nbn--list-font-bold">
@@ -40,7 +42,7 @@
             </v-toolbar>
             <!-- dialog title end -->
             <v-card-text>
-              <DeviceUpdate v-if="dialogDevice.privacy" />
+              <DeviceUpdate />
             </v-card-text>
           </v-card>
         </v-dialog>
@@ -63,6 +65,9 @@
               튜토리얼
             </v-list-item-title>
           </v-list-item-content>
+          <v-list-item-action>
+            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+          </v-list-item-action>
         </v-list-item>
         <v-list-item @click="logout">
           <v-list-item-content>
@@ -91,12 +96,15 @@
             <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item>
+        <v-list-item v-if="plantCharInfo" :to="{ name: 'PlantReport' }">
           <v-list-item-content>
             <v-list-item-title class="nbn--list-font font-weight-bold">
               재배작물 정보
             </v-list-item-title>
           </v-list-item-content>
+          <v-list-item-action>
+            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+          </v-list-item-action>
         </v-list-item>
         <v-list-item v-if="!plantCharInfo">
           <v-list-item-content>
@@ -268,13 +276,10 @@ export default {
   name: "Mypage",
   data() {
     return {
-      dialogDevice: {
-        privacy: false,
-        seedList: false,
-      },
       dialog: {
         privacy: false,
         seedList: false,
+        device: false,
       },
       teamListItems: [
         {

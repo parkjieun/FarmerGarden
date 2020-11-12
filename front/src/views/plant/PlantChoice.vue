@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container :style="{ backgroundColor: '#2bc77e13' }">
     <!-- btn toolbar start -->
     <v-row no-gutters>
       <v-col cols="1"></v-col>
