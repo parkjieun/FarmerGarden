@@ -20,9 +20,15 @@ import PlantEmpty from "../views/plant/PlantEmpty.vue";
 import Tutorial from "../views/plant/Tutorial.vue";
 import PlantCalendar from "../views/plant/PlantCalendar.vue";
 import PlantCalendar2 from "../views/plant/PlantCalendar2.vue";
+import PlantReport from "../views/plant/PlantReport.vue";
 
 // seed
 import SeedList from "../views/seed/SeedList.vue";
+
+// diary
+import DiaryCreate from "../views/diary/DiaryCreate.vue";
+import DiaryUpdate from "../views/diary/DiaryUpdate.vue";
+import DiaryDetail from "../views/diary/DiaryDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -78,6 +84,11 @@ const routes = [
         name: "PlantCalendar2",
         component: PlantCalendar2,
       },
+      {
+        path: "/report",
+        name: "PlantReport",
+        component: PlantReport,
+      },
       // plant end
       // seed start
       {
@@ -86,6 +97,22 @@ const routes = [
         component: SeedList,
       },
       // seed end
+      // diary start
+      {
+        path: "/diary/create",
+        name: "DiaryCreate",
+        component: DiaryCreate,
+      },
+      {
+        path: "/diary/update/:id",
+        name: "DiaryUpdate",
+        component: DiaryUpdate,
+      },
+      {
+        path: "/diary/:id",
+        name: "DiaryDetail",
+        component: DiaryDetail
+      },
     ],
   },
   {
@@ -113,7 +140,7 @@ const routes = [
       {
         path: "/address",
         name: "AddressForm",
-        component: AddressForm
+        component: AddressForm,
       },
       {
         path: "/register",
@@ -130,7 +157,7 @@ const router = new VueRouter({
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,
   routes,
 });

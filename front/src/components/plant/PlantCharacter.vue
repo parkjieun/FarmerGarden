@@ -1,38 +1,38 @@
 <template>
-  <div>
-    <transition name="bounce">
-      <!-- sprout layer -->
+  <!-- sprout layer -->
+  <v-img
+    style="position: relative; bottom: 5%"
+    class="mx-auto"
+    :class="{ 'bounce animated': animated }"
+    @animationend="animated = false"
+    :width="width"
+    v-if="itemSprout[sprout][sproutType]"
+    :src="require('@/assets/plant/sprout/' + itemSprout[sprout][sproutType])"
+  >
+    <!-- pot layer -->
+    <v-img
+      :class="{ 'bounce animated': animated }"
+      @animationend="animated = false"
+      style="position: relative; z-index: 2"
+      :width="width"
+      v-if="itemPot[pot][potColor]"
+      :src="require('@/assets/plant/pot/' + itemPot[pot][potColor])"
+    >
+      <!-- character layer -->
       <v-img
-        style="position: relative; bottom: 5%"
-        class="mx-auto"
+        :class="{ 'bounce animated': animated }"
+        @animationend="animated = false"
+        style="position: relative; z-index: 3"
         :width="width"
-        v-if="show && itemSprout[sprout][sproutType]"
+        v-if="itemCharacter[character][characterType]"
         :src="
-          require('@/assets/plant/sprout/' + itemSprout[sprout][sproutType])
+          require('@/assets/plant/character/' +
+            itemCharacter[character][characterType])
         "
-      >
-        <!-- pot layer -->
-        <v-img
-          style="position: relative; z-index: 2"
-          :width="width"
-          v-if="itemPot[pot][potColor]"
-          :src="require('@/assets/plant/pot/' + itemPot[pot][potColor])"
-        >
-          <!-- character layer -->
-          <v-img
-            style="position: relative; z-index: 3"
-            :width="width"
-            v-if="itemCharacter[character][characterType]"
-            :src="
-              require('@/assets/plant/character/' +
-                itemCharacter[character][characterType])
-            "
-            @click="changeRandomCharacterType"
-          />
-        </v-img>
-      </v-img>
-    </transition>
-  </div>
+        @click="changeRandomCharacterType"
+      />
+    </v-img>
+  </v-img>
 </template>
 
 <script>
@@ -53,36 +53,33 @@ export default {
   },
   data() {
     return {
-      show: true,
+      animated: false,
       characterType: "평범",
     };
   },
   methods: {
-    async changeRandomCharacterType() {
-      this.show = false;
+    changeRandomCharacterType() {
+      this.animated = true;
+
       var keys = Object.keys(this.itemCharacter[this.character]);
-
       this.characterType = keys[(keys.length * Math.random()) << 0];
-
-      this.show = true;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
+.bounce {
+  transform-origin: bottom;
+  animation: bounce 0.5s;
 }
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
+
+@keyframes bounce {
   0% {
-    transform: scale(0);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);

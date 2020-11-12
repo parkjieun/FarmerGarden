@@ -13,9 +13,13 @@ export default new Vuex.Store({
     socialData: JSON.parse(sessionStorage.getItem("socialData")),
     authorization: cookies.get("authorization"),
     plantCharInfo: cookies.get("plantCharInfo"),
+    posts: JSON.parse(cookies.get("posts")),
   },
   getters: {
     config: (state) => ({ headers: { Authorization: state.authorization } }),
+    user(state) {
+      return state.user;
+    },
     plantCharInfo(state) {
       return state.plantCharInfo;
     },
@@ -40,6 +44,10 @@ export default new Vuex.Store({
       cookies.set("plantCharInfo", value, 60 * 60 * 60);
       state.plant = value;
     },
+    SET_POSTS(state, value) {
+      cookies.set("posts", JSON.stringify(value), 60 * 60 * 60);
+      state.posts = value;
+    },
   },
   actions: {
     setUser({ commit }, value) {
@@ -52,17 +60,34 @@ export default new Vuex.Store({
       commit("SET_SOCIAL", value);
     },
     setPlantCharInfo({ commit, getters }, value) {
+      console.log(getters.config);
       http
-        .put(
-          "/api/user/pot",
-          { user_pot: JSON.stringify(value) },
-          getters.config
-        )
-        .then(() => {
-          commit("SET_PLANTCHARINFO", value);
-          router.push({ name: "PlantMain" });
-          location.reload();
+        .post("/api/choice?plant_id=" + value.sprout, getters.config)
+        .then((res) => {
+          console.log(res);
+          http
+            .put(
+              "/api/user/pot",
+              { user_pot: JSON.stringify(value) },
+              getters.config
+            )
+            .then(() => {
+              commit("SET_PLANTCHARINFO", value);
+              router.push({ name: "PlantMain" });
+              location.reload();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
+    setPosts( { commit, getters }) {
+      http.get("/api/post", getters.config)
+      .then((res) => {
+        commit("SET_POSTS", res.data.reverse())
+      })
+      .catch(err => console.log(err))
+    },
+
   },
 });

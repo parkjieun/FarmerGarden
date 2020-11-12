@@ -10,16 +10,41 @@
       <div class="px-4"><v-divider></v-divider></div>
 
       <v-list-item-group>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
-              기기등록 및 변경
-            </v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
-          </v-list-item-action>
-        </v-list-item>
+        <v-dialog
+          v-model="dialogDevice.privacy"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold">기기등록 및 변경</v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar  flat dark dense color="primary">
+              <v-btn icon @click="dialogDevice.privacy = !dialogDevice.privacy">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                기기등록 및 변경
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <DeviceUpdate v-if="dialogDevice.privacy" />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
         <v-list-item
           href="https://frogue.danbee.ai/?chatbot_id=8ac8ca73-ec86-4dd1-ba66-388919215cf5"
         >
@@ -39,7 +64,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click="logout">
           <v-list-item-content>
             <v-list-item-title class="nbn--list-font font-weight-bold">
               로그아웃
@@ -82,7 +107,10 @@
         </v-list-item>
         <v-list-item v-if="plantCharInfo">
           <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
+            <v-list-item-title
+              class="nbn--list-font font-weight-bold"
+              @click.prevent="stopGrowPlant"
+            >
               재배작물 취소
             </v-list-item-title>
           </v-list-item-content>
@@ -229,15 +257,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import http from "@/utils/http-common";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import PrivacyPolicy from "@/views/user/PrivacyPolicy.vue";
 import SeedList from "@/views/seed/SeedList.vue";
+import DeviceUpdate from "@/views/device/DeviceUpdate.vue";
 
 export default {
   name: "Mypage",
   data() {
     return {
+      dialogDevice: {
+        privacy: false,
+        seedList: false,
+      },
       dialog: {
         privacy: false,
         seedList: false,
@@ -265,9 +299,33 @@ export default {
   components: {
     PrivacyPolicy,
     SeedList,
+    DeviceUpdate,
   },
   computed: {
-    ...mapGetters(["plantCharInfo"]),
+    ...mapGetters(["plantCharInfo", "user", "config"]),
+  },
+  methods: {
+    ...mapActions(["setAuth", "setUser"]),
+    ...mapMutations(["SET_PLANTCHARINFO", "SET_POST"]),
+    logout() {
+      this.setUser(null);
+      this.setAuth(null);
+      this.SET_PLANTCHARINFO(null);
+      this.SET_POSTS(null);
+      this.$router.push({ name: "Login" });
+    },
+    stopGrowPlant() {
+      let params = new URLSearchParams();
+      params.append("choice_id", this.user.choice_id);
+      http
+        .put("/api/choice", params, this.config)
+        .then(() => {
+          alert("success");
+        })
+        .catch(() => {
+          alert("fail");
+        });
+    },
   },
 };
 </script>
