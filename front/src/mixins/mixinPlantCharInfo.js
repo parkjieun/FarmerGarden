@@ -10,9 +10,17 @@ export const mixinPlantCharInfo = {
         welsh: "deep-orange darken-2",
       },
       itemBGImage: {
-        1: "배경1.jpg",
-        2: "배경2.jpg",
-        3: "배경3.jpg",
+        1: "배경1.png",
+        2: "배경2.png",
+        3: "배경3.png",
+        4: "배경4.png",
+        5: "배경5.png",
+        6: "배경6.png",
+        7: "배경7.png",
+        8: "배경8.png",
+        9: "배경9.png",
+        10: "배경10.png",
+        11: "배경11.png",
       },
       itemCharacter: {
         기본: {
