@@ -101,12 +101,12 @@ const routes = [
       {
         path: "/diary/create",
         name: "DiaryCreate",
-        component: DiaryCreate
+        component: DiaryCreate,
       },
       {
         path: "/diary/update/:id",
         name: "DiaryUpdate",
-        component: DiaryUpdate
+        component: DiaryUpdate,
       },
       {
         path: "/diary/:id",
@@ -140,7 +140,7 @@ const routes = [
       {
         path: "/address",
         name: "AddressForm",
-        component: AddressForm
+        component: AddressForm,
       },
       {
         path: "/register",
@@ -157,7 +157,7 @@ const router = new VueRouter({
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,
   routes,
 });

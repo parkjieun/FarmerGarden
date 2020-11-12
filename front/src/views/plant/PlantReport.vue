@@ -1,257 +1,222 @@
 <template>
-  <div id="wrapper">
-    <div id="chart-months">
-      <apexchart
-        height="160"
-        :options="chartOptions"
-        :series="series"
-      ></apexchart>
-    </div>
-    <div id="chart-years">
-      <apexchart
-        height="200"
-        :options="chartOptionsYears"
-        :series="seriesYears"
-      ></apexchart>
-    </div>
-  </div>
+  <v-container fluid class="fill-height pt-0" style="background: #2bc77e13">
+    <div class="nbn--report-header"></div>
+    <v-row class="d-flex align-self-start w-100">
+      <div class="nbn--wave-wrapper-border">
+        <div class="nbn--wave-wrapper">
+          <div class="nbn--wave">
+            <div
+              class="nbn--wave-before"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+            <div
+              class="nbn--wave-after"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+          </div>
+        </div>
+        <div style="position: absolute; top: 160px; right: 20px">
+          <span class="nbn--percent nbn--percent-black">
+            {{ plantInfo.percent }}
+          </span>
+          <span class="nbn--percent">%</span>
+          <div class="nbn--percent nbn--percent-sm">
+            {{ plantInfo.dday }} 예정
+          </div>
+        </div>
+      </div>
+    </v-row>
+    <v-row class="px-4">
+      <v-card class="mt-4" width="100%" height="160px">
+        <v-row no-gutters>
+          <v-col cols="4">
+            <PlantCharacter width="100px" v-bind="plantCharInfo" />
+          </v-col>
+          <v-col cols="8">
+            <v-list-item>
+              <v-list-item-content class="pb-0">
+                <v-list-item-subtitle class="text-caption text--secondary">
+                  선택작물
+                </v-list-item-subtitle>
+                <v-list-item-title class="nbn--list-font font-weight-bold">
+                  {{ sproutCodeTable[plantCharInfo.sprout] }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content class="pb-0">
+                <v-list-item-subtitle class="text-caption text--secondary">
+                  재배 시작일
+                </v-list-item-subtitle>
+                <v-list-item-title class="nbn--list-font font-weight-bold">
+                  2020년 11월 12일
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content class="pb-0">
+                <v-list-item-subtitle class="text-caption text--secondary">
+                  수확 예정일
+                </v-list-item-subtitle>
+                <v-list-item-title class="nbn--list-font font-weight-bold">
+                  2020년 11월 12일
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+      </v-card>
+      <v-card class="mt-4" width="100%" height="160px"> test </v-card>
+      <v-card class="mt-4" width="100%" height="160px"> test </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import http from "@/utils/http-common";
+
+import { mapGetters } from "vuex";
+
+import PlantCharacter from "@/components/plant/PlantCharacter.vue";
+
 export default {
   data() {
     return {
-      series: [
-        {
-          name: "commits",
-          data: [
-            [1327359600000, 30.95],
-            [1327446000000, 31.34],
-            [1327532400000, 31.18],
-            [1327618800000, 31.05],
-            [1327878000000, 31.0],
-            [1327964400000, 30.95],
-            [1328050800000, 31.24],
-            [1328137200000, 31.29],
-            [1328223600000, 31.85],
-            [1328482800000, 31.86],
-            [1328569200000, 32.28],
-            [1328655600000, 32.1],
-            [1328742000000, 32.65],
-            [1328828400000, 32.21],
-            [1329087600000, 32.35],
-            [1329174000000, 32.44],
-            [1329260400000, 32.46],
-            [1329346800000, 32.86],
-            [1329433200000, 32.75],
-            [1329778800000, 32.54],
-            [1329865200000, 32.33],
-            [1329951600000, 32.97],
-            [1330038000000, 33.41],
-            [1330297200000, 33.27],
-            [1330383600000, 33.27],
-            [1330470000000, 32.89],
-            [1330556400000, 33.1],
-            [1330642800000, 33.73],
-            [1330902000000, 33.22],
-            [1330988400000, 31.99],
-            [1331074800000, 32.41],
-            [1331161200000, 33.05],
-            [1331247600000, 33.64],
-            [1331506800000, 33.56],
-            [1331593200000, 34.22],
-            [1331679600000, 33.77],
-            [1331766000000, 34.17],
-            [1331852400000, 33.82],
-            [1332111600000, 34.51],
-            [1332198000000, 33.16],
-            [1332284400000, 33.56],
-            [1332370800000, 33.71],
-            [1332457200000, 33.81],
-            [1332712800000, 34.4],
-            [1332799200000, 34.63],
-            [1332885600000, 34.46],
-            [1332972000000, 34.48],
-            [1333058400000, 34.31],
-            [1333317600000, 34.7],
-            [1333404000000, 34.31],
-            [1333490400000, 33.46],
-            [1333576800000, 33.59],
-            [1333922400000, 33.22],
-            [1334008800000, 32.61],
-            [1334095200000, 33.01],
-            [1334181600000, 33.55],
-            [1334268000000, 33.18],
-            [1334527200000, 32.84],
-            [1334613600000, 33.84],
-            [1334700000000, 33.39],
-            [1334786400000, 32.91],
-            [1334872800000, 33.06],
-            [1335132000000, 32.62],
-          ],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          id: "chartyear",
-          type: "area",
-          height: 160,
-          toolbar: {
-            show: false,
-            autoSelected: "pan",
-          },
-        },
-        colors: ["#FF1654"],
-        stroke: {
-          width: 0,
-          curve: "smooth",
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 100],
-          },
-        },
-        yaxis: {
-          show: false,
-          tickAmount: 3,
-        },
-        xaxis: {
-          type: "datetime",
-        },
+      plantInfo: {
+        name: "밀싹",
+        sprout: "밀",
+        dday: "11월 7일",
+        percent: "50",
       },
-
-      seriesYears: [
-        {
-          name: "commits",
-          data: [
-            [1327359600000, 30.95],
-            [1327446000000, 31.34],
-            [1327532400000, 31.18],
-            [1327618800000, 31.05],
-            [1327878000000, 31.0],
-            [1327964400000, 30.95],
-            [1328050800000, 31.24],
-            [1328137200000, 31.29],
-            [1328223600000, 31.85],
-            [1328482800000, 31.86],
-            [1328569200000, 32.28],
-            [1328655600000, 32.1],
-            [1328742000000, 32.65],
-            [1328828400000, 32.21],
-            [1329087600000, 32.35],
-            [1329174000000, 32.44],
-            [1329260400000, 32.46],
-            [1329346800000, 32.86],
-            [1329433200000, 32.75],
-            [1329778800000, 32.54],
-            [1329865200000, 32.33],
-            [1329951600000, 32.97],
-            [1330038000000, 33.41],
-            [1330297200000, 33.27],
-            [1330383600000, 33.27],
-            [1330470000000, 32.89],
-            [1330556400000, 33.1],
-            [1330642800000, 33.73],
-            [1330902000000, 33.22],
-            [1330988400000, 31.99],
-            [1331074800000, 32.41],
-            [1331161200000, 33.05],
-            [1331247600000, 33.64],
-            [1331506800000, 33.56],
-            [1331593200000, 34.22],
-            [1331679600000, 33.77],
-            [1331766000000, 34.17],
-            [1331852400000, 33.82],
-            [1332111600000, 34.51],
-            [1332198000000, 33.16],
-            [1332284400000, 33.56],
-            [1332370800000, 33.71],
-            [1332457200000, 33.81],
-            [1332712800000, 34.4],
-            [1332799200000, 34.63],
-            [1332885600000, 34.46],
-            [1332972000000, 34.48],
-            [1333058400000, 34.31],
-            [1333317600000, 34.7],
-            [1333404000000, 34.31],
-            [1333490400000, 33.46],
-            [1333576800000, 33.59],
-            [1333922400000, 33.22],
-            [1334008800000, 32.61],
-            [1334095200000, 33.01],
-            [1334181600000, 33.55],
-            [1334268000000, 33.18],
-            [1334527200000, 32.84],
-            [1334613600000, 33.84],
-            [1334700000000, 33.39],
-            [1334786400000, 32.91],
-            [1334872800000, 33.06],
-            [1335132000000, 32.62],
-          ],
-        },
-      ],
-      chartOptionsYears: {
-        chart: {
-          height: 200,
-          type: "area",
-          toolbar: {
-            autoSelected: "selection",
-          },
-          brush: {
-            enabled: true,
-            target: "chartyear",
-          },
-          selection: {
-            enabled: true,
-            xaxis: {
-              min: 1327359600000,
-              max: 1335132000000,
-            },
-          },
-        },
-        colors: ["#FF1654"],
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          width: 0,
-          curve: "smooth",
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 100],
-          },
-        },
-        legend: {
-          position: "top",
-          horizontalAlign: "left",
-        },
-        xaxis: {
-          type: "datetime",
-        },
+      sproutCodeTable: {
+        1000: "밀싹",
+        1001: "메밀싹",
+        1002: "루꼴라",
+        1003: "옥수수싹",
+        1004: "무순",
+        1005: "적무순",
       },
     };
+  },
+  created() {
+    http
+      // .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
+      .get("iot/temp-and-hum?choice_id=1000")
+      .then((res) => {
+        console.log(res.data);
+        this.iotData = res.data;
+      });
+  },
+  components: {
+    PlantCharacter,
+  },
+  computed: {
+    ...mapGetters(["plantCharInfo"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// #wrapper {
-//   background-image: linear-gradient(
-//       rgba(255, 255, 255, 0.2),
-//       rgba(255, 255, 255, 0.2)
-//     ),
-//     url("https://www.toptal.com/designers/subtlepatterns/patterns/palm-leaf.png");
-// }
+.nbn--report-header {
+  position: absolute;
+  width: 100%;
+  height: 300px;
+  top: 0;
+  left: 0;
+  background: #2bc77e98;
+  background-image: linear-gradient(
+      rgba(44, 200, 200, 0.6),
+      rgba(44, 200, 200, 0.6)
+    ),
+    url("~@/assets/report-header.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nbn--list-font {
+  font-family: "Handon3gyeopsal300g";
+  font-size: 15px;
+
+  &-bold {
+    font-family: "Handon3gyeopsal600g";
+  }
+}
+
+.nbn--percent {
+  color: #fff;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
+
+  &-black {
+    font-size: 40px;
+    font-weight: 900;
+  }
+
+  &-sm {
+    font-size: 16px;
+  }
+}
+
+.nbn--wave {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.3);
+
+  &-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    top: 50px;
+    left: -40px;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ccc;
+    mask-image: url("~@/assets/leaf.svg");
+  }
+  &-wrapper-border {
+    position: relative;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 320px;
+    height: 240px;
+  }
+
+  &-before,
+  &-after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+  }
+
+  &-before {
+    border-radius: 45%;
+    background: rgba(255, 255, 255, 1);
+    animation: animate 10s linear infinite;
+  }
+
+  &-after {
+    border-radius: 40%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: animate 20s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
 </style>

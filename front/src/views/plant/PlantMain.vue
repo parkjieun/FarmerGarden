@@ -13,15 +13,22 @@
     <v-btn
       fab
       small
-      style="position: absolute; right: 16px; top: 80px; border-radius: 50%"
+      :text="isHidden"
+      style="position: absolute; right: 16px; border-radius: 50%; z-index: 3"
+      :style="{ top: isHidden ? '20px' : '80px' }"
+      @click="isHidden = !isHidden"
     >
-      <v-img src="@/assets/icon/paper.svg" width="42px" height="42px" />
+      <v-icon
+        v-text="isHidden ? 'mdi-close' : '$vuetify.icons.camera'"
+      ></v-icon>
     </v-btn>
     <v-btn
       fab
       small
+      :disabled="isHidden"
       :to="{ name: 'PlantChoice' }"
       style="position: absolute; right: 16px; top: 140px; border-radius: 50%"
+      :style="{ opacity: isHidden ? 0 : 1 }"
     >
       <v-img
         src="@/assets/icon/change.svg"
@@ -31,7 +38,10 @@
       />
     </v-btn>
 
-    <v-row class="d-flex align-self-start">
+    <v-row
+      class="d-flex align-self-start"
+      :style="{ opacity: isHidden ? 0 : 1 }"
+    >
       <v-col cols="12" class="py-0 px-3">
         <v-row
           no-gutters
@@ -40,26 +50,28 @@
             background-color: rgba(255, 255, 255, 0.5);
           "
         >
-          <v-col cols="2" class="d-flex align-center">
+          <v-col cols="1" class="d-flex align-center ml-auto">
             <v-img src="@/assets/icon/thermometer.svg" height="36px" contain />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="2" class="pl-2">
             <div class="nbn--info nbn--info-subtitle text-left">온도</div>
-            <div class="nbn--info">100˚C</div>
+            <div class="nbn--info">{{ headerInfo.temp }}˚C</div>
           </v-col>
-          <v-col cols="2" class="d-flex align-center">
+          <v-col cols="1" class="d-flex align-center">
             <v-img src="@/assets/icon/hygrometer.svg" height="36px" contain />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="2" class="pl-2">
             <div class="nbn--info nbn--info-subtitle text-left">습도</div>
-            <div class="nbn--info">100%</div>
+            <div class="nbn--info">{{ headerInfo.hum }}%</div>
           </v-col>
-          <v-col cols="2" class="d-flex align-center">
+          <v-col cols="1" class="d-flex align-center">
             <v-img src="@/assets/icon/watering.svg" height="36px" contain />
           </v-col>
-          <v-col cols="2">
-            <div class="nbn--info nbn--info-subtitle text-left">자동급수</div>
-            <div class="nbn--info">13:06</div>
+          <v-col cols="4" class="mr-auto pl-2">
+            <div class="nbn--info nbn--info-subtitle text-left">
+              다음 자동급수
+            </div>
+            <div class="nbn--info">{{ headerInfo.waterTime }}</div>
           </v-col>
         </v-row>
       </v-col>
@@ -69,32 +81,39 @@
         <PlantCharacter v-if="plantCharInfo" v-bind="plantCharInfo" />
       </v-col>
     </v-row>
-    <v-btn
-      v-if="plantInfo.percent < 100"
-      style="position: absolute; right: 0%; bottom: 30px; border-radius: 50%"
-      text
-      disabled
+    <div
+      @click="
+        plantInfo.percent < 100 ? $router.push({ name: 'PlantReport' }) : null
+      "
+      class="nbn--progress pa-2"
+      :style="{ opacity: isHidden ? 0 : 1 }"
     >
-      <v-progress-circular
-        :rotate="-90"
-        :size="60"
-        :width="10"
-        :value="plantInfo.percent"
-        :color="itemProgressColor[potColor]"
-      >
-        <span class="nbn--progress">{{ plantInfo.percent }}</span>
-        <span class="nbn--info">%</span>
-      </v-progress-circular>
-    </v-btn>
-    <v-btn
-      v-if="plantInfo.percent >= 100"
-      style="position: absolute; right: 14px; bottom: 16px; border-radius: 50%"
-      class="nbn--harvest-btn pa-0 nbn--harvest"
-      :style="{ width: '60px', height: '64px' }"
-      text
-    >
-      수확
-    </v-btn>
+      <div class="nbn--wave-wrapper-border">
+        <div class="nbn--wave-wrapper">
+          <div class="nbn--wave">
+            <div
+              class="nbn--wave-before"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+            <div
+              class="nbn--wave-after"
+              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <span v-if="plantInfo.percent < 100" class="ml-1">
+        <div class="nbn--info-subtitle nbn--info-bold">
+          {{ plantInfo.dday }}
+        </div>
+        <div class="nbn--info-subtitle nbn--info-bold">예정</div>
+      </span>
+      <span v-else class="ml-1 mr-2">
+        <div class="nbn--info-lg nbn--info-bold">수확</div>
+      </span>
+      <v-icon>mdi-chevron-right</v-icon>
+    </div>
   </v-container>
 </template>
 
@@ -122,13 +141,25 @@ export default {
     if (!this.plantCharInfo) {
       this.$router.push({ name: "PlantEmpty" });
     }
-    console.log(this.user.choice_id);
     http
-      // .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
-      .get("iot/temp-and-hum?choice_id=1000")
+      // .get("iot/supply-water-logs?choice_id=" + this.user.choice_id)
+      .get("iot/supply-water-logs?choice_id=1000")
       .then((res) => {
-        console.log(res.data);
-        this.iotData = res.data;
+        var dt = new Date(res.data.watering_time);
+        dt.setHours(dt.getHours() + 6);
+        this.headerInfo.waterTime = this.getFormatDate(dt);
+      });
+    http
+      // .get("iot/recent-temp?choice_id=" + this.user.choice_id)
+      .get("iot/recent-temp?choice_id=1000")
+      .then((res) => {
+        this.headerInfo.temp = res.data.rb_temperature;
+      });
+    http
+      // .get("iot/recent-hum?choice_id=" + this.user.choice_id)
+      .get("iot/recent-hum?choice_id=1000")
+      .then((res) => {
+        this.headerInfo.hum = res.data.rb_humidity;
       });
   },
   mounted() {
@@ -140,12 +171,18 @@ export default {
   data() {
     return {
       iotData: null,
+      headerInfo: {
+        waterTime: null,
+        temp: null,
+        hum: null,
+      },
+      isHidden: false,
       dialFab: true,
       plantInfo: {
         name: "밀싹",
         sprout: "밀",
         dday: "11월 7일",
-        percent: "36",
+        percent: "50",
       },
       bgimage: "배경1.jpg",
       potColor: "orange",
@@ -173,6 +210,16 @@ export default {
   },
   computed: {
     ...mapGetters(["plantCharInfo", "isLoggedIn", "user"]),
+  },
+  methods: {
+    getFormatDate(date) {
+      var month = 1 + date.getMonth();
+      var day = date.getDate();
+      var hour = date.getHours();
+      var min = date.getMinutes();
+
+      return month + "월 " + day + "일 " + hour + ":" + min;
+    },
   },
 };
 </script>
@@ -203,13 +250,6 @@ export default {
   }
 }
 
-.nbn--progress {
-  color: #5b3016;
-  font-size: 20px;
-  font-weight: 900;
-  font-family: "Jua", sans-serif;
-}
-
 .nbn--info {
   color: #5b3016;
   font-size: 16px;
@@ -217,6 +257,17 @@ export default {
 
   &-subtitle {
     font-size: 12px;
+    color: #5c3016;
+  }
+
+  &-lg {
+    color: #5b3016;
+    font-size: 24px;
+    font-family: "Jua", sans-serif;
+  }
+
+  &-bold {
+    font-weight: 900;
   }
 }
 
@@ -225,5 +276,76 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+.nbn--progress {
+  width: 130px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  display: flex;
+
+  &:hover {
+    background-color: rgba(255, 255, 255);
+  }
+}
+
+.nbn--wave {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.3);
+
+  &-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    top: 2px;
+    left: 2px;
+    background: #ccc;
+    mask-image: url("~@/assets/leaf.svg");
+  }
+  &-wrapper-border {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: #468b54;
+    mask-image: url("~@/assets/leaf-border.svg");
+  }
+
+  &-before,
+  &-after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+  }
+
+  &-before {
+    border-radius: 45%;
+    background: rgba(255, 255, 255, 1);
+    animation: animate 5s linear infinite;
+  }
+
+  &-after {
+    border-radius: 40%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: animate 10s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
 }
 </style>
