@@ -18,5 +18,8 @@ public interface CalendarMapper {
 	
 	public int stopCalendar(Integer calendar_id) throws Exception;
 	
-	public Calendar selectCalendarByChoiceId(String calendar_id) throws Exception;
+	public Calendar selectCalendarByChoiceId(String choice_id) throws Exception;
+
+	public Calendar selectEntireCalendarByChoiceId(String choice_id) throws Exception;
+	
 }

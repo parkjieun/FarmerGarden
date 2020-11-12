@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,6 +58,24 @@ public class CalendarController {
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(calendars, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/{choice_id}")
+	@ApiOperation(value = "현재 작물의 일정 목록 조회", notes = "재배 일정 반환")
+	public ResponseEntity<Object> selectCurrentCalendar(Authentication authentication,@PathVariable String choice_id) {
+		String userId = authentication.getPrincipal().toString();
+		Calendar calendar = null;
+		try {
+			User user = userService.selectUser(userId);
+			if(user != null) {
+				calendar = calendarService.selectEntireCalendarByChoiceId(choice_id);
+				return new ResponseEntity<>(calendar, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(calendar, HttpStatus.NOT_FOUND);
 		}
 	}
 }

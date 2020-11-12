@@ -24,11 +24,23 @@
 		where c.user_id = #{user_id}
 	</select>
 	
-	<!-- 일정 아이디로 재배 일정 조회 -->
+	<!-- 작물 선택 아이디로 재배 일정 조회 -->
 	<select id="selectCalendarByChoiceId" parameterType="String" resultMap="calendarBasic">
 		select *
 		from calendar
 		where choice_id = #{choice_id}
+	</select>
+	
+	<select id="selectEntireCalendarByChoiceId" parameterType="String" resultMap="calendarBasic">
+		select c.calendar_id, c.calendar_eat_day, c.calendar_start_day, c.calendar_stop_day, 
+			c.choice_id, c.user_id, c.plant_id,
+			p.plant_name, pc.grow_flag
+		from calendar c
+		JOIN plant_choice pc
+		 ON c.choice_id = pc.choice_id
+		JOIN plant p
+		 ON c.plant_id = p.plant_id
+		where c.choice_id = #{choice_id}
 	</select>
 	
 	<!-- 재배 일정 중단 -->

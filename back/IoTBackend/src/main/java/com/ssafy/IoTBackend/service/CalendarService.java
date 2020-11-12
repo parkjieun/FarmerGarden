@@ -12,5 +12,7 @@ public interface CalendarService {
 	public List<Calendar> selectCalendar(String user_id) throws Exception;
 
 	public int stopCalendar(Integer calendar_id) throws Exception;
+	
+	public Calendar selectEntireCalendarByChoiceId(String choice_id) throws Exception;
 
 }

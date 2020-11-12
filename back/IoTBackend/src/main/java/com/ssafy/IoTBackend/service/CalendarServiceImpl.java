@@ -32,4 +32,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarMapper.stopCalendar(calendar_id);
 	}
 
+	@Override
+	public Calendar selectEntireCalendarByChoiceId(String choice_id) throws Exception {
+		return calendarMapper.selectEntireCalendarByChoiceId(choice_id);
+	}
+
 }
