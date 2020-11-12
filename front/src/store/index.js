@@ -63,8 +63,7 @@ export default new Vuex.Store({
       console.log(getters.config);
       http
         .post("/api/choice?plant_id=" + value.sprout, getters.config)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           http
             .put(
               "/api/user/pot",
@@ -73,7 +72,7 @@ export default new Vuex.Store({
             )
             .then(() => {
               commit("SET_PLANTCHARINFO", value);
-              router.push({ name: "PlantMain" });
+              router.push({ name: "Tutorial" });
               location.reload();
             });
         })
@@ -81,13 +80,13 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    setPosts( { commit, getters }) {
-      http.get("/api/post", getters.config)
-      .then((res) => {
-        commit("SET_POSTS", res.data.reverse())
-      })
-      .catch(err => console.log(err))
+    setPosts({ commit, getters }) {
+      http
+        .get("/api/post", getters.config)
+        .then((res) => {
+          commit("SET_POSTS", res.data.reverse());
+        })
+        .catch((err) => console.log(err));
     },
-
   },
 });
