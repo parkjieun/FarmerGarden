@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d22d746"],{f820:function(n,t,e){"use strict";e.r(t);var a=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("v-container",[e("div",{staticClass:"text-h1"},[n._v("About")]),n._v(" About 페이지가 될 예정 ")])},u=[],c={},o=c,s=e("2877"),i=e("6544"),l=e.n(i),r=e("a523"),d=Object(s["a"])(o,a,u,!1,null,null,null);t["default"]=d.exports;l()(d,{VContainer:r["a"]})}}]);
-//# sourceMappingURL=chunk-2d22d746.9e561286.js.map
