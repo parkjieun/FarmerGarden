@@ -45,15 +45,20 @@ def iotActions():
     # waterpump
     # picture
 
+    print("iot ~~~")
     async def my_connect():
-        async with websockets.connect("ws://115.143.115.9:443") as websocket:
+        print("websocket connect")
+        async with websockets.connect("ws://192.168.219.110:3000") as websocket:
+            print("before send")
             await websocket.send(action)
             data_rcv = await websocket.recv()
             print("data received from server : " + data_rcv)
 
     # connect to server
-    asyncio.get_event_loop().run_until_complete(my_connect())
-
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(my_connect())
+    loop.close()
+    
     return action
 
 
