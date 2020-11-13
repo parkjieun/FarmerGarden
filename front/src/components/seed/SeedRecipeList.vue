@@ -1,30 +1,27 @@
 <template>
-  <v-card class="elevation-0">
-    <v-card-text
-      class="pa-0 rounded-0"
-      style="overflow: auto"
-      :style="'height: ' + ($vuetify.breakpoint.height - 196) + 'px'"
-    >
+  <v-slide-group style="width: 100vw;">
+    <v-slide-item v-for="(recipe, index) in recipes" :key="index">
       <v-card
-        class="mt-3 rounded-0"
-        style="border-top: 1px solid #666666; border-bottom: 1px solid #666666"
-        width="100%"
+        class="rounded-lg ma-2"
+        height="160"
+        width="200"
         target="_blank"
-        v-for="(recipe, index) in recipes"
-        :key="index"
         :href="youtubeLink(recipe.url)"
       >
-        <v-img :src="youtubeThumbnailLink(recipe.url)" height="200px"></v-img>
+        <v-img
+          height="110"
+          width="200"
+          :src="youtubeThumbnailLink(recipe.url)"
+        ></v-img>
 
-        <v-card-title class="pa-0">
-          <v-col cols="10" class="text-truncate">{{ recipe.title }}</v-col>
-          <v-col cols="2">
-            <v-icon class="text-h4 grey--text">mdi-chevron-right</v-icon>
-          </v-col>
-        </v-card-title>
+        <v-card-actions>
+          <span class="nbn--font font-weight-bold text-truncate">
+            {{ recipe.title }}
+          </span>
+        </v-card-actions>
       </v-card>
-    </v-card-text>
-  </v-card>
+    </v-slide-item>
+  </v-slide-group>
 </template>
 
 <script>
@@ -41,5 +38,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.nbn--font {
+  font-family: "Handon3gyeopsal300g";
+  font-size: 15px;
+
+  &-bold {
+    font-family: "Handon3gyeopsal600g";
+  }
+}
 </style>

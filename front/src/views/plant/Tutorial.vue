@@ -1,85 +1,67 @@
 <template>
-  <div style="max-width: 90%; min-width: 300px;" class="mx-auto mt-5">
-    <div class="text-h5 text-center pb-5">튜토리얼</div>
-    <div>
-    <v-stepper v-model="e1">
-      <v-stepper-items>
-        <v-stepper-content step="1">
-          <TutorialCard :e1="e1"/>
-        </v-stepper-content>
-        <v-stepper-content step="2">
-          <TutorialCard :e1="e1"/>
-        </v-stepper-content>
-        <v-stepper-content step="3">
-          <TutorialCard :e1="e1"/>
-        </v-stepper-content>
-      </v-stepper-items>
-
-      <v-stepper-header>
-        <v-stepper-step
-          :complete="e1 > 1"
-          step="1"
-          @click="e1=1"
-        >
-          씨앗 준비
-        </v-stepper-step>
-        <v-divider></v-divider>
-        <v-stepper-step
-          :complete="e1 > 2"
-          step="2"
-          @click="e1=2"
-        >
-          씨앗 뿌리기
-        </v-stepper-step>
-        <v-divider></v-divider>
-        <v-stepper-step step="3" @click="e1=3">
-          물 주입
-        </v-stepper-step>
-      </v-stepper-header>
-      
-  </v-stepper>
-  <v-btn @click="goMain" class="text-center mt-5">Skip</v-btn>
-  </div>
-
-  
-  <v-carousel height="350px" :hide-delimiter-background="false" :continuous="false"
-  delimiter-icon="mdi-minus">
-    <v-carousel-item>
-      <TutorialCard :e1="1"/>
-    </v-carousel-item>
-    <v-carousel-item>
-      <TutorialCard :e1="2"/>
-    </v-carousel-item>
-    <v-carousel-item>
-      <TutorialCard :e1="3"/>
-    </v-carousel-item>
-  </v-carousel>
-  </div>
+  <v-container
+    fluid
+    class="fill-height"
+    :style="{ backgroundColor: '#2bc77e13' }"
+  >
+    <v-row no-gutters>
+      <v-col cols="4"></v-col>
+      <v-col cols="4" class="mx-auto d-flex justify-center">
+        <span class="nbn--font align-self-center">튜토리얼</span>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col cols="2">
+        <v-btn
+          text
+          class="nbn--font-bold"
+          v-text="el == 2 ? '완료' : 'skip'"
+          :to="{ name: 'PlantEmpty' }"
+        ></v-btn>
+      </v-col>
+    </v-row>
+    <v-carousel
+      v-model="el"
+      :hide-delimiter-background="true"
+      :show-arrows="false"
+      :continuous="false"
+      delimiter-icon="mdi-minus"
+      light
+    >
+      <v-carousel-item>
+        <TutorialCard :el="0" />
+      </v-carousel-item>
+      <v-carousel-item>
+        <TutorialCard :el="1" />
+      </v-carousel-item>
+      <v-carousel-item>
+        <TutorialCard :el="2" />
+      </v-carousel-item>
+    </v-carousel>
+  </v-container>
 </template>
 
 <script>
-import TutorialCard from '@/components/plant/TutorialCard.vue'
+import TutorialCard from "@/components/plant/TutorialCard.vue";
 export default {
   components: {
-    TutorialCard
+    TutorialCard,
   },
-  data () {
-      return {
-        e1: 1,
-        items: [
-          {src: require('@/assets/plant/tutorial/seed.jpeg')},
-          {src: require('@/assets/plant/tutorial/water.jpg')}
-        ]
-      }
+  data() {
+    return {
+      el: 0,
+    };
   },
-  methods: {
-    goMain() {
-
-    }
-  }
-}
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
+.nbn--font {
+  font-size: 28px;
+  font-family: "Jua", sans-serif;
 
+  &-bold {
+    font-family: "Jua", sans-serif;
+    font-weight: 900;
+  }
+}
 </style>

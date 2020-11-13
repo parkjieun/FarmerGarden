@@ -83,7 +83,7 @@ cordova build android --release
 
 apk 서명을 위한 키생성(안드로이드 개발환경 필요)
 ```
-keytool-genkeypair -v -keystore android.keystore -alias android-app-key -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkeypair -v -keystore android.keystore -alias android-app-key -keyalg RSA -keysize 2048 -validity 10000
 keytool -importkeystore -srckeystore android.keystore -destkeystore android.keystore -deststoretype pkcs12
 ```
 서명을 apk와 합치기(JDK 필요)
