@@ -13,7 +13,7 @@
 	</v-app-bar>
   <v-form ref="form" style="width: 300px;" class="mx-auto">
     <div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true">
-      <v-img :src="selectedImage" alt="selected_image" width="300" class="rounded-lg"/>
+      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage.rb_img" alt="selected_image" width="300" class="rounded-lg" height="200"/>
     </div>
 		<v-row v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-5 mx-auto" align="center" justify="center">
       <v-icon size="60" color="lightgray" @click="showPhoto=true">mdi-camera-outline</v-icon>
@@ -50,7 +50,7 @@
 		</div>
   </v-form>
   <div v-if="showPhoto" style="position:absolute; right:0; top:0;">
-    <PhotoSelect id="picture_select" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
+    <PhotoSelect id="picture_select" :images="images" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
   </div>
 </div>
 </template>
@@ -78,6 +78,7 @@ export default {
 			],
       showPhoto: false,
 			selectedImage: null ,
+			images: []
 		}
 	},
 	computed: {
@@ -101,7 +102,7 @@ export default {
 				const data = {
 					post_title: this.title,
 					post_contents: this.content,
-					post_img: this.selectImage
+					post_img: this.selectedImage.rb_img
 				}
 				http.post('/api/post', data, this.config)
 				.then(res => {
@@ -110,10 +111,18 @@ export default {
 						this.$router.push({name: "PlantCalendar2"})
 					}
 				})
-				.catch(err => console.log(err))
-					
+				.catch(err => console.log(err))	
 			}
+		},
+		getImages() {
+			http.get("/iot/recent-imgs?choice_id=1000", this.config)
+			.then(res => {
+				this.images = res.data
+			})
 		}
+	},
+	created() {
+		this.getImages()
 	}
 }
 </script>

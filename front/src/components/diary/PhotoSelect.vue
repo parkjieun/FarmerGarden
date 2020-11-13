@@ -13,16 +13,16 @@
 	</v-app-bar>
   <div style="height: calc(100vh - 104px); overflow-y:scroll; background-color:white;">
     <div v-if="selectedImage">
-      <v-img :src="selectedImage.src" aspect-ratio="1.5"/>
+      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage.rb_img" aspect-ratio="1.5"/>
     </div>
     <div v-else>
-      <v-img :src="images[0].src"/>
+      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+images[0].rb_img"/>
     </div>
     <v-row class="ma-0">
       <v-col cols="4" sm="3" md="2" v-for="(image, index) in images" :key="index" class="pa-0">
         <v-img
           aspect-ratio="1.5"
-          :src="image.src" :alt="image.alt" 
+          :src="'http://k3a105.p.ssafy.io:8001/'+image.rb_img" alt="image" 
           :lazy-src="image.src"
           @click="selectImage(index)" 
           :id="'image-'+index"
@@ -61,6 +61,7 @@
 
 <script>
 export default {
+  props: ['images'],
   data() {
 		return {
 			post: [],
@@ -71,33 +72,6 @@ export default {
 			contentRules: [
 				(value) => !!value || "내용을 입력해주세요",
 			],
-			images: [
-				{   
-					id: 1,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image1"
-				},
-				{
-					id: 2,
-					src:"https://picsum.photos/seed/picsum/200/300",
-					alt: "sample_image2"
-				},
-				{
-					id: 3,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image3"
-				},
-				{
-					id: 4,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image4"
-				},
-				{
-					id: 5,
-					src:"https://picsum.photos/300/200",
-					alt: "sample_image5"
-        },
-      ],
       selectedImage: null,
 		}
   },
@@ -116,7 +90,7 @@ export default {
     select() {
       this.$emit('selectPhoto', this.selectedImage)
       this.closeForm()
-    }
+    },
   }
 
 }

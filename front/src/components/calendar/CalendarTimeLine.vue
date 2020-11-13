@@ -4,7 +4,7 @@
       <v-card @click.prevent="detailPage(post.post_id)" class="mr-3">
         <v-card-title>{{post.post_title}}</v-card-title>
         <v-card-subtitle>{{post.post_create}}</v-card-subtitle>
-        <div v-if="post.post_img"><v-img :src="post.post_img" alt="post_img"/></div>
+        <v-img v-if="post.post_img" :src="'http://k3a105.p.ssafy.io:8001/'+post.post_img" alt="post_img"/>
       </v-card>
     </v-timeline-item>
       

@@ -16,7 +16,7 @@
 			<div class="text-h5 mt-5">{{post.post_title}}</div>
 			<div class="text-caption text-right my-2">작성일: {{post.post_create}}</div>
 			<v-divider></v-divider>
-			<div v-if="post.post_img != null" style="height: 200px;" class="rounded-lg my-3" @click="showPhoto=true"><v-img :src="post.post_img" alt="selected_image" width="300" class="rounded-lg"/></div>
+			<div v-if="post.post_img != null" style="height: 200px;" class="rounded-lg my-3" @click="showPhoto=true"><v-img :src="'http://k3a105.p.ssafy.io:8001/'+post.post_img" alt="selected_image" width="300" class="rounded-lg"/></div>
 			<div v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-3 mx-auto">
 				<v-icon size="60" color="lightgray" class="mx-auto" style="width: 300px; margin-top: 50px;">mdi-camera-outline</v-icon>
 				<div class="text-caption text-center">이미지가 없습니다.</div>
