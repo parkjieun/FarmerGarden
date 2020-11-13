@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import cookies from "vue-cookies";
-import router from "@/router";
 import http from "@/utils/http-common";
 
 Vue.use(Vuex);
@@ -12,7 +11,7 @@ export default new Vuex.Store({
     user: cookies.get("user"),
     socialData: JSON.parse(sessionStorage.getItem("socialData")),
     authorization: cookies.get("authorization"),
-    plantCharInfo: cookies.get("plantCharInfo"),
+    plant: cookies.get("plantCharInfo"),
     posts: JSON.parse(cookies.get("posts")),
   },
   getters: {
@@ -21,7 +20,7 @@ export default new Vuex.Store({
       return state.user;
     },
     plantCharInfo(state) {
-      return state.plantCharInfo;
+      return state.plant;
     },
     isLoggedIn(state) {
       return !!state.authorization;
@@ -41,8 +40,15 @@ export default new Vuex.Store({
       state.socialData = value;
     },
     SET_PLANTCHARINFO(state, value) {
+      console.log(value);
       cookies.set("plantCharInfo", value, 60 * 60 * 60);
       state.plant = value;
+    },
+    SET_SPROUTTYPE(state, value) {
+      var plant = state.plant;
+      plant.sproutType = value;
+      cookies.set("plantCharInfo", plant, 60 * 60 * 60);
+      state.plant = plant;
     },
     SET_POSTS(state, value) {
       cookies.set("posts", JSON.stringify(value), 60 * 60 * 60);
@@ -60,34 +66,25 @@ export default new Vuex.Store({
       commit("SET_SOCIAL", value);
     },
     setPlantCharInfo({ commit, getters }, value) {
-      console.log(getters.config);
+      console.log(value);
       http
-        .post("/api/choice?plant_id=" + value.sprout, getters.config)
+        .put(
+          "/api/user/pot",
+          { user_pot: JSON.stringify(value) },
+          getters.config
+        )
         .then((res) => {
           console.log(res);
-          http
-            .put(
-              "/api/user/pot",
-              { user_pot: JSON.stringify(value) },
-              getters.config
-            )
-            .then(() => {
-              commit("SET_PLANTCHARINFO", value);
-              router.push({ name: "PlantMain" });
-              location.reload();
-            });
-        })
-        .catch((err) => {
-          console.log(err);
+          commit("SET_PLANTCHARINFO", value);
         });
     },
-    setPosts( { commit, getters }) {
-      http.get("/api/post", getters.config)
-      .then((res) => {
-        commit("SET_POSTS", res.data.reverse())
-      })
-      .catch(err => console.log(err))
+    setPosts({ commit, getters }) {
+      http
+        .get("/api/post", getters.config)
+        .then((res) => {
+          commit("SET_POSTS", res.data.reverse());
+        })
+        .catch((err) => console.log(err));
     },
-
   },
 });
