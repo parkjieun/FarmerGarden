@@ -87,15 +87,17 @@
             class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
             style="color: #d17451"
           >
-            <v-card-title class="nbn--list-font font-weight-bold pa-0 pt-1">
+            <v-card-title
+              class="nbn--list-font font-weight-bold pa-0 pt-1 mx-2"
+            >
               온도
             </v-card-title>
-            <div class="mx-1">50</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">0</div>
-            <div class="mx-2">˚C</div>
+            <div class="mx-2">50</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">0</div>
+            <div class="mx-3">˚C</div>
           </v-col>
           <v-col cols="10" class="pr-4">
             <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">
@@ -138,15 +140,17 @@
             class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
             style="color: #0ba75e"
           >
-            <v-card-title class="nbn--list-font font-weight-bold pa-0 pt-1">
+            <v-card-title
+              class="nbn--list-font font-weight-bold pa-0 pt-1 mx-2"
+            >
               습도
             </v-card-title>
-            <div class="mx-1">100</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">-</div>
-            <div class="mx-2">0</div>
-            <div class="mx-2">%</div>
+            <div class="mx-2">100</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">0</div>
+            <div class="mx-3">%</div>
           </v-col>
           <v-col cols="10" class="pr-4">
             <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">

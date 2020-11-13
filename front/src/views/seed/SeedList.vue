@@ -45,11 +45,13 @@
           <v-expand-transition>
             <div v-show="sheet[index - 1]">
               <v-divider></v-divider>
-              <v-tabs v-model="tab[index - 1]">
+              <v-tabs v-model="tab[index - 1]" active-class="nbn--tab-active">
                 <v-tab href="#nbn--info">
-                  <span>정보</span>
+                  <v-icon>$vuetify.icons.book</v-icon>
+                  <span> 정보</span>
                 </v-tab>
                 <v-tab href="#nbn--recipe">
+                  <v-icon>$vuetify.icons.fork</v-icon>
                   <span>요리법</span>
                 </v-tab>
               </v-tabs>
@@ -67,6 +69,16 @@
             </div>
           </v-expand-transition>
         </v-card>
+      </v-col>
+      <v-col cols="12" style="background-color: #2bc77e13">
+        <div class="nbn--list-font text-h6 text-center py-3">
+          새로운 새싹들을 연구 중입니다
+        </div>
+        <v-img
+          class="mx-auto"
+          width="300px"
+          :src="require('@/assets/연구.png')"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -227,23 +239,90 @@ export default {
         ],
         1003: [
           {
-            url: "0VAtKhN87aI",
-            title:
-              "미모원정대 - Ep.02 : 밀싹주스, 젊음을 위한 싱그러운 레시피!",
+            url: "B7UmUX68KtE",
+            title: "Pöpcørn | Recipes with The Swedish Chef | The Muppets",
+          },
+          {
+            url: "LSPQw6PCbsc",
+            title: "How to make Popcorn Sprout Tea",
           },
         ],
         1004: [
           {
-            url: "0VAtKhN87aI",
+            url: "u1ArASs_Rzo",
+            title: "무순겉절이 너무 간단하쟈나!!!!!! [만개의레시피]",
+          },
+          {
+            url: "_vvXaTgRt8o",
             title:
-              "미모원정대 - Ep.02 : 밀싹주스, 젊음을 위한 싱그러운 레시피!",
+              "[요리]쌈무말이 만들기(ssammumali) /Mep81 : 손님상 메뉴의 비주얼 담당,예쁘고 맛있는 쌈무말이 #파티음식#특별한요리",
+          },
+          {
+            url: "RXVvDGhJPlU",
+            title:
+              "무순팽이버섯 장아찌ㅣ추석요리ㅣ고기와 함께 먹으면 좋은음식ㅣ장아찌담그기ㅣ무순요리",
+          },
+          {
+            url: "j92_01toxL4",
+            title:
+              "[김밥만들기] 무순을 넣은 꼬마김밥 만드는 방법, 연겨자 소스로 매콤하게 즐기는 꼬마김밥 만들기 Korean Food mini kimbap recipe",
+          },
+          {
+            url: "46UrMcyFUlE",
+            title:
+              "날치알 요리, 날치알과 무순만 넣은 간단한 데마끼 김마끼 만들기 : ceramicdo 세라믹도",
+          },
+          {
+            url: "vNbb68Mcp-g",
+            title: "연어 무순 말이 만들어서 먹어 봤습니다! 연어롤?/ 연어말이",
+          },
+          {
+            url: "d_iWpGBmsJA",
+            title:
+              "소고기 야채말이 만들기_ 간단하고 고급진 특별한 날 추천 요리",
+          },
+          {
+            url: "HstezNJHfLk",
+            title: "간단하고 예쁜 무쌈말이 만드는 방법 !",
           },
         ],
         1005: [
           {
-            url: "0VAtKhN87aI",
+            url: "d_iWpGBmsJA",
             title:
-              "미모원정대 - Ep.02 : 밀싹주스, 젊음을 위한 싱그러운 레시피!",
+              "소고기 야채말이 만들기_ 간단하고 고급진 특별한 날 추천 요리",
+          },
+          {
+            url: "j92_01toxL4",
+            title:
+              "[김밥만들기] 무순을 넣은 꼬마김밥 만드는 방법, 연겨자 소스로 매콤하게 즐기는 꼬마김밥 만들기 Korean Food mini kimbap recipe",
+          },
+          {
+            url: "HstezNJHfLk",
+            title: "간단하고 예쁜 무쌈말이 만드는 방법 !",
+          },
+          {
+            url: "u1ArASs_Rzo",
+            title: "무순겉절이 너무 간단하쟈나!!!!!! [만개의레시피]",
+          },
+          {
+            url: "RXVvDGhJPlU",
+            title:
+              "무순팽이버섯 장아찌ㅣ추석요리ㅣ고기와 함께 먹으면 좋은음식ㅣ장아찌담그기ㅣ무순요리",
+          },
+          {
+            url: "46UrMcyFUlE",
+            title:
+              "날치알 요리, 날치알과 무순만 넣은 간단한 데마끼 김마끼 만들기 : ceramicdo 세라믹도",
+          },
+          {
+            url: "vNbb68Mcp-g",
+            title: "연어 무순 말이 만들어서 먹어 봤습니다! 연어롤?/ 연어말이",
+          },
+          {
+            url: "_vvXaTgRt8o",
+            title:
+              "[요리]쌈무말이 만들기(ssammumali) /Mep81 : 손님상 메뉴의 비주얼 담당,예쁘고 맛있는 쌈무말이 #파티음식#특별한요리",
           },
         ],
       },
@@ -260,5 +339,9 @@ export default {
   &-bold {
     font-family: "Handon3gyeopsal600g";
   }
+}
+
+.v-tab--active {
+  fill: var(--primary-color);
 }
 </style>

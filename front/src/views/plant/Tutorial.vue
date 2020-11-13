@@ -13,6 +13,7 @@
       <v-col cols="2">
         <v-btn
           text
+          class="nbn--font-bold"
           v-text="el == 2 ? '완료' : 'skip'"
           :to="{ name: 'PlantEmpty' }"
         ></v-btn>
@@ -59,6 +60,7 @@ export default {
   font-family: "Jua", sans-serif;
 
   &-bold {
+    font-family: "Jua", sans-serif;
     font-weight: 900;
   }
 }
