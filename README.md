@@ -106,6 +106,8 @@
 
 ### 문서
 
+![설명서](assets/취급설명서.png)
+
 * [프로젝트 계획서](https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing)
     * 디바이스 설계 및 설명
 * [와이어프레임](https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/zC6EO)
@@ -116,7 +118,13 @@
 
 ## 프로젝트 구성
 
-### Frontend 구성 요소
+
+### Frontend
+---
+
+#### [코드 실행 방법(front/README.md)](front/README.md)
+
+#### 구성 요소
 
 |        Package         |    Version    | Comment                                         |
 | :--------------------: | :-----------: | :---------------------------------------------- |
@@ -129,7 +137,14 @@
 |       gradle           |   6.7         | 안드로이드 빌드 시스템                          |
 |       android-sdk      |   30.0.2      | 안드로이드 소프트웨어 라이브러리 킷             |
 
-### Backend 구성 요소
+
+
+### Backend
+---
+
+#### [코드 실행 방법(back/README.md)](back/README.md)
+
+#### 구성요소
 
 |   기술 스택    |   Version   | Comment                                    |
 | :------------: | :---------: | :----------------------------------------- |
@@ -150,6 +165,11 @@
 |             Gson             |     -      | Json - Object 능동 변환을 위해 사용  |
 |           Java JWT           |      | 로그인 유저 인증을 위해 토큰 사용    |
 
+|      Flask 라이브러리       |  Version   | Comment                              |
+| :--------------------------: | :--------: | :----------------------------------- |
+|       Flask       |     1.1.2      | flask 라이브러리       |
+|           PyMySQL           |   0.10.1    | flask와 mysql연동               |
+|             requests            |     2.24.0      | Rest Api 를 위한 라이브러리  | 
 
 
 ## 팀원 소개

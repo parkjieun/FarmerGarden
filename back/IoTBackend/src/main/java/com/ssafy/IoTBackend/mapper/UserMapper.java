@@ -9,10 +9,12 @@ import com.ssafy.IoTBackend.model.User;
 @Mapper
 public interface UserMapper {
 
-	public int selectUser(User dto) throws Exception;
-
+	public int existsByUserId(String socialId) throws Exception;
+	
+	public String findId(String socialId) throws Exception;
+	
 	public int insertUser(User dto) throws Exception;
-
-	public User login(User dto)  throws Exception;
-
+	
+	public User selectUser(String user_id) throws Exception;
 }
+
