@@ -144,5 +144,41 @@ def tempAndHum():
     result = json.dumps(row, indent=3)
     return result
 
+@app.route('/recent-temp', methods = ['GET'])
+def recentTemp():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 가장 최근 기록된 온도 반환
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_temperature from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create limit 1"
+    row = db_class.executeAll(sql)
+
+    print("/recent-temp 결과", row)
+    return row[0]
+
+@app.route('/recent-hum', methods = ['GET'])
+def recentHum():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 가장 최근 기록된 습도 반환
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_humidity from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create limit 1"
+    row = db_class.executeAll(sql)
+
+    print("/recent-hum 결과", row)
+    return row[0]
+
 if __name__ == '__main__':
     app.run()
