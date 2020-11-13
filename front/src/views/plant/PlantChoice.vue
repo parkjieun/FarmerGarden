@@ -36,7 +36,7 @@
               <PlantCharacter
                 v-if="plantCharInfo"
                 v-bind="selectPlantCharInfo"
-                width="100px"
+                width="120px"
               />
             </v-col>
           </v-row>
@@ -78,12 +78,12 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="160"
+                height="170"
                 width="120"
                 @click="selectPotSlider(key)"
               >
                 <v-img
-                  height="160"
+                  height="170"
                   width="120"
                   position="bottom"
                   :src="
@@ -116,12 +116,12 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="160"
+                height="170"
                 width="120"
                 @click="selectPlantCharInfo.potColor = key"
               >
                 <v-img
-                  height="160"
+                  height="170"
                   width="120"
                   position="bottom"
                   :src="
@@ -151,12 +151,12 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="160"
+                height="170"
                 width="120"
                 @click="selectPlantCharInfo.character = key"
               >
                 <v-img
-                  height="160"
+                  height="170"
                   width="120"
                   position="bottom"
                   :src="
@@ -186,12 +186,12 @@
               <v-card
                 :color="active ? 'primary' : ''"
                 class="ma-4"
-                height="160"
+                height="170"
                 width="120"
                 @click="selectPlantCharInfo.bgimage = key"
               >
                 <v-img
-                  height="160"
+                  height="170"
                   width="120"
                   :src="require('@/assets/plant/bgimage/' + itemBGImage[key])"
                 />
@@ -222,7 +222,7 @@ export default {
         character: "기본",
         pot: "기본",
         potColor: "orange",
-        sprout: "싹",
+        sprout: "1000",
         sproutType: "1",
         bgimage: "1",
       },

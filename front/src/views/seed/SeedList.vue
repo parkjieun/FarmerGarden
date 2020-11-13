@@ -119,7 +119,16 @@ export default {
         sproutType: "1",
         bgimage: "1",
       };
-      this.setPlantCharInfo(plantCharInfo);
+
+      http
+        .post("/api/choice?plant_id=" + sprout, this.config)
+        .then(() => {
+          this.setPlantCharInfo(plantCharInfo);
+          this.$router.push({ name: "Tutorial" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {
@@ -127,7 +136,6 @@ export default {
       .get("api/plant", this.config)
       .then((res) => {
         this.listItems = res.data;
-        console.log(this.listItems);
       })
       .catch((err) => {
         console.log(err);
@@ -149,32 +157,72 @@ export default {
             url: "baiyoFb7CMg",
             title: "절대미모팁TIP 7. 뷰티박사 지윤의 밀싹 주스 레시피",
           },
+          {
+            url: "MKbMp55BiaY",
+            title:
+              "[완치 비결] 단 4가지로 질병 완치는 물론 예방까지 가능하다? • 암 완치 • 식이요법 • 밀싹효능 • 밀싹주스 만들기 • 밀싹즙",
+          },
+          {
+            url: "p65Vb3S_LHQ",
+            title: '궁극의 청혈제 "밀싹"',
+          },
+          {
+            url: "QvqHONKe3QI",
+            title: "밀싹 프렌치토스트",
+          },
         ],
         1001: [
           {
-            url: "HC9Cdv0ZJLY",
+            url: "iZJMp9g8628",
             title:
-              "구수한 새싹보리된장국 맛있게 끓이는 법, 된장국 맛있게 끓이기",
+              "6시 내고향 (Hometown Report) - 싹으로 먹으면 더 좋은 메밀 메밀싹!.20150324",
           },
           {
-            url: "uMEyOOXsXOI",
-            title: "새싹요리법(보리새싹주스)",
+            url: "EdqQNys3STc",
+            title: "메밀의 놀라운 효능과 부작용, 메밀차, 메밀싹 메밀 루틴 효능",
           },
           {
-            url: "pYmCc0UNeW8",
+            url: "JjCxAg9bVuc",
             title:
-              "보리새싹 초특급 레시피!🍴 달콤하고 고소한 샐러드와 에그스크램블❣️",
+              "6시 내고향 - 오감만족 건강한 맛, 메밀싹 - 강원 평창.20160215",
           },
           {
-            url: "Ni2_ZrmADMQ",
-            title: "면역력에 최고 새싹보리 겉절이",
+            url: "GU5xzK1PQFE",
+            title: '돌복숭아효소를이용한 "메밀싹돈피무침"간편요리(발효밥상)',
+          },
+          {
+            url: "bqh9fcr1FWM",
+            title:
+              "[SBS먹킷_#평창] 9월초 활짝 만개한 메밀꽃 오늘은 메밀막국수, 메밀싹비빔밥, 메밀전병을 만나보자! / Mukbang Eating show",
           },
         ],
         1002: [
           {
-            url: "0VAtKhN87aI",
+            url: "eh0sgeCXR4M",
             title:
-              "미모원정대 - Ep.02 : 밀싹주스, 젊음을 위한 싱그러운 레시피!",
+              "[준쿡] 루꼴라 좋아하시는 분 이 영상 꼭 보세요 | 루꼴라샐러드와 썬드라이 토마토 드레싱 | Arugula Salad [JUNCOOK]",
+          },
+          {
+            url: "9TjW4ipw3Mo",
+            title:
+              "현실요리 #8 [SUB] 루꼴라키우기. 초당옥수수요리! 새로운 토스트만들기.",
+          },
+          {
+            url: "lprZrMYDJ9w",
+            title: "씨앗부터 키운 루꼴라 수확 & 활용하기",
+          },
+          {
+            url: "bbipKg6ADXA",
+            title: "비건 루꼴라 알리오 올리오 🌿🧄🍝",
+          },
+          {
+            url: "Cn00ThyABcg",
+            title: "참치김밥 아루굴라(루꼴라)를 넣어 더욱 맛있는 김밥",
+          },
+          {
+            url: "3ckICy867sQ",
+            title:
+              "🌱홈가드닝 #루꼴라 씨앗 발아부터 루꼴라 또띠아 피자 만들기! 새벽빛네 베란다텃밭 관찰일지☆*",
           },
         ],
         1003: [

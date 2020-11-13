@@ -84,18 +84,18 @@
         <v-row no-gutters>
           <v-col
             cols="2"
-            class="pl-4 nbn--list-font-sm font-weight-bold"
+            class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
             style="color: #d17451"
           >
             <v-card-title class="nbn--list-font font-weight-bold pa-0 pt-1">
               온도
             </v-card-title>
-            <div>50</div>
-            <div>-</div>
-            <div>-</div>
-            <div>-</div>
-            <div>0</div>
-            <div>˚C</div>
+            <div class="mx-1">50</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">0</div>
+            <div class="mx-2">˚C</div>
           </v-col>
           <v-col cols="10" class="pr-4">
             <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">
@@ -135,18 +135,18 @@
         <v-row no-gutters>
           <v-col
             cols="2"
-            class="pl-4 nbn--list-font-sm font-weight-bold"
+            class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
             style="color: #0ba75e"
           >
             <v-card-title class="nbn--list-font font-weight-bold pa-0 pt-1">
               습도
             </v-card-title>
-            <div>100</div>
-            <div>-</div>
-            <div>-</div>
-            <div>-</div>
-            <div>0</div>
-            <div>%</div>
+            <div class="mx-1">100</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">-</div>
+            <div class="mx-2">0</div>
+            <div class="mx-2">%</div>
           </v-col>
           <v-col cols="10" class="pr-4">
             <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">

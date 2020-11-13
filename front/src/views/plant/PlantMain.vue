@@ -120,7 +120,7 @@
 <script>
 import http from "@/utils/http-common";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 import { mixinPlantCharInfo } from "@/mixins/mixinPlantCharInfo";
 
@@ -173,6 +173,9 @@ export default {
         this.plantInfo.percent = Math.floor(
           (100 * (today - start)) / (end - start)
         );
+        this.SET_SPROUTTYPE(
+          (1 + Math.floor(this.plantInfo.percent / 25)).toString()
+        );
       });
   },
   mounted() {
@@ -223,6 +226,7 @@ export default {
     ...mapGetters(["plantCharInfo", "isLoggedIn", "user", "config"]),
   },
   methods: {
+    ...mapMutations(["SET_SPROUTTYPE"]),
     getFormatDate(date) {
       var month = 1 + date.getMonth();
       var day = date.getDate();

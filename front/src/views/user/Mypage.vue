@@ -106,13 +106,42 @@
             <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item v-if="!plantCharInfo">
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold">
-              재배작물 심기
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <v-dialog
+          v-if="!plantCharInfo"
+          v-model="dialog.seedChoice"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold">
+                  재배작물 심기
+                </v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.seedChoice = !dialog.seedChoice">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                재배작물 심기
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text class="pa-0">
+              <SeedList v-if="dialog.seedChoice" :choice="true" />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
         <v-list-item v-if="plantCharInfo">
           <v-list-item-content>
             <v-list-item-title
@@ -279,6 +308,7 @@ export default {
       dialog: {
         privacy: false,
         seedList: false,
+        seedChoice: false,
         device: false,
       },
       teamListItems: [

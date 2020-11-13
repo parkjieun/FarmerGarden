@@ -48,7 +48,7 @@
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
               <v-toolbar-title class="text-body-1 nbn--list-font-bold">
-                새싹정보
+                재배작물 심기
               </v-toolbar-title>
             </v-toolbar>
             <!-- dialog title end -->
