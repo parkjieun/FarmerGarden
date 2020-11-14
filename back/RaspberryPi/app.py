@@ -26,21 +26,12 @@ def index():
 def test():
     return "testpage"
 
-@app.route('/imgUpload', methods = ['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        print("이미지 업로드 시작해요")
-        f = request.files['file']
-        fname = secure_filename(f.filename)
-        path = os.path.join(app.config['UPLOAD_DIR'], fname)
-        f.save(path)
-        return 'Img upload complete (%s)' % path
-
-    return "img upload FAIL"
-
 @app.route('/iot-actions', methods=['GET'])
 def iotActions():
     action = request.args.get('action')  # 사용자 액션
+    choice_id = request.args.get('choice_id')  # 작물선택 기본키
+
+    sendSTR = action +","+choice_id
     # led => on/off
     # waterpump
     # picture
@@ -50,7 +41,7 @@ def iotActions():
         print("websocket connect")
         async with websockets.connect("ws://115.143.115.9:3000") as websocket:
             print("before send")
-            await websocket.send(action)
+            await websocket.send(sendSTR)
             data_rcv = await websocket.recv()
             print("data received from server : " + data_rcv)
 
@@ -80,6 +71,7 @@ def dayImgs():
     row = db_class.executeAll(sql)
 
     for data in row:
+        data['rb_img'] = "/static/data/img/" + data['rb_img'] + ".jpg"
         print(data['rb_img'])
 
     print("/day-imgs의 결과", row)
@@ -101,24 +93,12 @@ def recentImgs():
     row = db_class.executeAll(sql)
 
     for data in row:
+        data['rb_img'] = "/static/data/img/" + data['rb_img'] + ".jpg"
         print(data['rb_img'])
 
     print("/recent-imgs의 결과", row)
 
-    path_dir = './static/data/img/'
-    file_list = os.listdir(path_dir)  # path 에 존재하는 파일 목록 가져오기
 
-    i = 0
-    result = []
-
-    for data in row:
-        imgname = data['rb_img']
-        for filename in file_list:
-            if imgname in filename:
-                data['rb_img'] = (path_dir[1:]+imgname)
-            else:
-                data['rb_img'] = (path_dir[1:]+"error.jpg")
-                break
 
     return json.dumps(row)
 
