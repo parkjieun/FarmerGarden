@@ -48,7 +48,7 @@ def iotActions():
     print("iot ~~~")
     async def my_connect():
         print("websocket connect")
-        async with websockets.connect("ws://192.168.219.110:3000") as websocket:
+        async with websockets.connect("ws://115.143.115.9:3000") as websocket:
             print("before send")
             await websocket.send(action)
             data_rcv = await websocket.recv()
@@ -61,6 +61,29 @@ def iotActions():
     
     return action
 
+@app.route('/day-imgs', methods = ['GET'])
+def dayImgs():
+    choice_id = request.args.get('choice_id')  # 작물선택 기본키
+    day =  request.args.get('day')
+    # 가장 최근에 찍힌 사진 10개만 리턴
+    print("날짜", day)
+    db_class = dbModule.Database()
+
+    sql = '''select r.rb_img from raspberry as r \
+            join plant_choice p \
+            on ''' + choice_id + ''' = r.choice_id \
+            where p.grow_flag = 1 \
+            and r.rb_img LIKE '%%%%%s%%%%' \
+            order by r.rb_create desc''' % (day)
+
+    print(sql)
+    row = db_class.executeAll(sql)
+
+    for data in row:
+        print(data['rb_img'])
+
+    print("/day-imgs의 결과", row)
+    return json.dumps(row)
 
 @app.route('/recent-imgs', methods = ['GET'])
 def recentImgs():
