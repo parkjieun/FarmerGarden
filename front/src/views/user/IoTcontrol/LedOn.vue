@@ -34,7 +34,7 @@
         {{ message }}
       </div>
     </v-col>
-    <p style="height:300px"></p>
+    <p style="height:600px"></p>
   </div>
 </template>
 
