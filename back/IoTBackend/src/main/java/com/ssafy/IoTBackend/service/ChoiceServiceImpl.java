@@ -21,7 +21,7 @@ public class ChoiceServiceImpl implements ChoiceService {
 	private CalendarMapper calendarMapper;
 	
 	@Override
-	public int insertChoice(Choice choice) throws Exception {
+	public String insertChoice(Choice choice) throws Exception {
 		choiceMapper.insertChoice(choice);
 		
 		CreateCalendarRequestDTO calendarDTO = new CreateCalendarRequestDTO();
@@ -29,7 +29,9 @@ public class ChoiceServiceImpl implements ChoiceService {
 		calendarDTO.setUser_id(choice.getUser_id());
 		calendarDTO.setPlant_id(choice.getPlant_id());
 		
-		return calendarMapper.insertCalendar(calendarDTO);
+		calendarMapper.insertCalendar(calendarDTO);
+		
+		return choice.getChoice_id();
 	}
 
 	@Override
