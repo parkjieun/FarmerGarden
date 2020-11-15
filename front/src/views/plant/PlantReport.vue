@@ -1,5 +1,15 @@
 <template>
   <v-container fluid class="fill-height pt-0" style="background: #2bc77e13">
+    <v-btn
+      fab
+      small
+      text
+      color="white"
+      style="position: absolute; top: 20px; left: 16px; z-index: 3"
+      :to="{ name: 'PlantMain' }"
+    >
+      <v-icon v-text="'mdi-chevron-left'"></v-icon>
+    </v-btn>
     <div class="nbn--report-header"></div>
     <v-row class="d-flex align-self-start w-100">
       <div class="nbn--wave-wrapper-border">
@@ -7,11 +17,11 @@
           <div class="nbn--wave">
             <div
               class="nbn--wave-before"
-              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+              :style="{ top: 80 - 1.4 * plantInfo.percent + 'px' }"
             ></div>
             <div
               class="nbn--wave-after"
-              :style="{ top: 14 - plantInfo.percent / 4 + 'px' }"
+              :style="{ top: 80 - 1.4 * plantInfo.percent + 'px' }"
             ></div>
           </div>
         </div>
@@ -20,9 +30,13 @@
             {{ plantInfo.percent }}
           </span>
           <span class="nbn--percent">%</span>
-          <div class="nbn--percent nbn--percent-sm">
-            {{ plantInfo.dday }} 예정
+          <div
+            class="nbn--percent nbn--percent-sm"
+            v-if="plantInfo.percent < 100"
+          >
+            {{ getFormatMonthDay(plantInfo.calendar_eat_day) }} 예정
           </div>
+          <div class="nbn--percent" v-else>수확하세요!</div>
         </div>
       </div>
     </v-row>
@@ -39,7 +53,7 @@
                   선택작물
                 </v-list-item-subtitle>
                 <v-list-item-title class="nbn--list-font font-weight-bold">
-                  {{ sproutCodeTable[plantCharInfo.sprout] }}
+                  {{ sproutCodeTable[plantInfo.sprout] }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -49,7 +63,7 @@
                   재배 시작일
                 </v-list-item-subtitle>
                 <v-list-item-title class="nbn--list-font font-weight-bold">
-                  2020년 11월 12일
+                  {{ plantInfo.calendar_start_day }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -59,15 +73,119 @@
                   수확 예정일
                 </v-list-item-subtitle>
                 <v-list-item-title class="nbn--list-font font-weight-bold">
-                  2020년 11월 12일
+                  {{ plantInfo.calendar_eat_day }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-col>
         </v-row>
       </v-card>
-      <v-card class="mt-4" width="100%" height="160px"> test </v-card>
-      <v-card class="mt-4" width="100%" height="160px"> test </v-card>
+      <v-card class="mt-4" width="100%" height="160px">
+        <v-row no-gutters>
+          <v-col
+            cols="2"
+            class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
+            style="color: #d17451"
+          >
+            <v-card-title
+              class="nbn--list-font font-weight-bold pa-0 pt-1 mx-2"
+            >
+              온도
+            </v-card-title>
+            <div class="mx-2">50</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">0</div>
+            <div class="mx-3">˚C</div>
+          </v-col>
+          <v-col cols="10" class="pr-4">
+            <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">
+              <span class="mx-auto">{{ dateTerm() }}</span>
+            </v-card-title>
+            <v-slide-group v-model="temp" style="width: 90vw">
+              <v-slide-item
+                v-for="(data, index) in iotData"
+                :key="index"
+                :value="index"
+              >
+                <div
+                  class="text-center nbn--list-font font-weight-bold"
+                  @click="focusTempSlider(index)"
+                >
+                  <v-card
+                    class="mx-3 my-1 rounded-md"
+                    height="80"
+                    width="16"
+                    color="#F19471"
+                    elevation="0"
+                  >
+                    <v-img
+                      class="rounded-0"
+                      :height="80 - 1.6 * data.rb_temperature"
+                      src="@/assets/mask.svg"
+                    />
+                  </v-card>
+                  <span style="color: #e2623b">{{ data.rb_temperature }}</span>
+                </div>
+              </v-slide-item>
+            </v-slide-group>
+          </v-col>
+        </v-row>
+      </v-card>
+      <v-card class="mt-4" width="100%" height="160px">
+        <v-row no-gutters>
+          <v-col
+            cols="2"
+            class="pl-4 nbn--list-font-sm font-weight-bold d-flex align-content-space-between flex-wrap"
+            style="color: #0ba75e"
+          >
+            <v-card-title
+              class="nbn--list-font font-weight-bold pa-0 pt-1 mx-2"
+            >
+              습도
+            </v-card-title>
+            <div class="mx-2">100</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">-</div>
+            <div class="mx-3">0</div>
+            <div class="mx-3">%</div>
+          </v-col>
+          <v-col cols="10" class="pr-4">
+            <v-card-title class="nbn--list-font-sm pa-0 pt-1 text--secondary">
+              <span class="mx-auto">{{ dateTerm() }}</span>
+            </v-card-title>
+            <v-slide-group v-model="hum" mandatory style="width: 90vw">
+              <v-slide-item
+                v-for="(data, index) in iotData"
+                :key="index"
+                :value="index"
+              >
+                <div
+                  class="text-center nbn--list-font font-weight-bold"
+                  @click="focusHumSlider(index)"
+                >
+                  <v-card
+                    class="mx-3 my-1 rounded-md"
+                    height="80"
+                    width="16"
+                    color="#2bc77eaa"
+                    elevation="0"
+                  >
+                    <v-img
+                      class="rounded-0"
+                      :height="80 - 0.8 * data.rb_humidity"
+                      src="@/assets/mask.svg"
+                    />
+                  </v-card>
+                  <span style="color: #2bc77e">{{ data.rb_humidity }}</span>
+                </div>
+              </v-slide-item>
+            </v-slide-group>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-row>
   </v-container>
 </template>
@@ -82,11 +200,14 @@ import PlantCharacter from "@/components/plant/PlantCharacter.vue";
 export default {
   data() {
     return {
+      iotData: [{ rb_create: null, rb_temperature: null, rb_humidity: null }],
+      temp: null,
+      hum: null,
       plantInfo: {
-        name: "밀싹",
-        sprout: "밀",
-        dday: "11월 7일",
-        percent: "50",
+        sprout: "",
+        calendar_start_day: "",
+        calendar_eat_day: "",
+        percent: 0,
       },
       sproutCodeTable: {
         1000: "밀싹",
@@ -96,6 +217,7 @@ export default {
         1004: "무순",
         1005: "적무순",
       },
+      weekName: ["일", "월", "화", "수", "목", "금", "토"],
     };
   },
   created() {
@@ -103,15 +225,85 @@ export default {
       // .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
       .get("iot/temp-and-hum?choice_id=1000")
       .then((res) => {
-        console.log(res.data);
         this.iotData = res.data;
+        this.temp = res.data.length;
+        this.hum = res.data.length;
+      });
+
+    http
+      .get("api/calendar/" + this.user.choice_id, this.config)
+      // .get("api/calendar/1000", this.config)
+      .then((res) => {
+        this.plantInfo.sprout = res.data.plant_id;
+        this.plantInfo.calendar_start_day = res.data.calendar_start_day;
+        this.plantInfo.calendar_eat_day = res.data.calendar_eat_day;
+        var today = new Date();
+        var start = new Date(this.plantInfo.calendar_start_day);
+        var end = new Date(this.plantInfo.calendar_eat_day);
+        this.plantInfo.percent = Math.floor(
+          (100 * (today - start)) / (end - start)
+        );
       });
   },
   components: {
     PlantCharacter,
   },
   computed: {
-    ...mapGetters(["plantCharInfo"]),
+    ...mapGetters(["plantCharInfo", "user", "config"]),
+  },
+  methods: {
+    focusTempSlider(key) {
+      this.temp = key;
+    },
+    focusHumSlider(key) {
+      this.hum = key;
+    },
+    dateTerm() {
+      var dateF = new Date(this.iotData[0].rb_create);
+      var yearF = dateF.getFullYear();
+      var monthF = dateF.getMonth() + 1;
+      var dayF = dateF.getDate();
+      var hourF = dateF.getHours();
+      var minF = dateF.getMinutes();
+      if (minF < 10) {
+        minF = "0" + minF;
+      }
+
+      var dateE = new Date(this.iotData[this.iotData.length - 1].rb_create);
+      var yearE = dateE.getFullYear();
+      var monthE = dateE.getMonth() + 1;
+      var dayE = dateE.getDate();
+      var hourE = dateE.getHours();
+      var minE = dateE.getMinutes();
+      if (minE < 10) {
+        minE = "0" + minE;
+      }
+
+      var result = `${yearF}-${monthF}-${dayF} ${hourF}:${minF}`;
+      var result2;
+
+      if (yearF != yearE) {
+        result2 = ` ~ ${yearE}-${monthE}-${dayE} ${hourE}:${minE}`;
+      } else if (monthF != monthE) {
+        result2 = ` ~ ${monthE}-${dayE} ${hourE}:${minE}`;
+      } else if (dayF != dayE) {
+        result2 = ` ~ ${dayE} ${hourE}:${minE}`;
+      } else if (hourF != hourE || minF != minE) {
+        result2 = ` ~ ${hourE}:${minE}`;
+      } else {
+        result2 = "";
+      }
+
+      return result + result2;
+    },
+
+    getFormatMonthDay(dateString) {
+      var date = new Date(dateString);
+      var month = 1 + date.getMonth();
+      var day = date.getDate();
+
+      return month + "월 " + day + "일";
+    },
   },
 };
 </script>
@@ -136,6 +328,16 @@ export default {
 .nbn--list-font {
   font-family: "Handon3gyeopsal300g";
   font-size: 15px;
+
+  &-sm {
+    font-family: "Handon3gyeopsal300g";
+    font-size: 12px;
+  }
+
+  &-xs {
+    font-family: "Handon3gyeopsal300g";
+    font-size: 10px;
+  }
 
   &-bold {
     font-family: "Handon3gyeopsal600g";

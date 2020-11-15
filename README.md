@@ -106,6 +106,8 @@
 
 ### 문서
 
+![설명서](assets/취급설명서.png)
+
 * [프로젝트 계획서](https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing)
     * 디바이스 설계 및 설명
 * [와이어프레임](https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/zC6EO)
@@ -137,7 +139,12 @@
 
 
 
-### Backend 구성 요소
+### Backend
+---
+
+#### [코드 실행 방법(back/README.md)](back/README.md)
+
+#### 구성요소
 
 |   기술 스택    |   Version   | Comment                                    |
 | :------------: | :---------: | :----------------------------------------- |
