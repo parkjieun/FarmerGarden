@@ -68,9 +68,9 @@ import { mapGetters } from "vuex";
 import SeedList from "@/views/seed/SeedList.vue";
 
 export default {
-  name: "PlantMain",
   mounted() {
-    if (this.plantCharInfo) {
+    if (this.plantCharInfo && this.plantCharInfo != "null") {
+      console.log(this.plantCharInfo)
       this.$router.push({ name: "PlantMain" });
     }
   },
