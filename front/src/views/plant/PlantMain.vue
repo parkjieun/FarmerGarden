@@ -138,7 +138,8 @@ export default {
     if (!this.isLoggedIn) {
       this.$router.push({ name: "Login" });
     }
-    if (!this.plantCharInfo) {
+    if (!this.plantCharInfo || this.plantCharInfo == "null") {
+      console.log("여기왔냐")
       this.$router.push({ name: "PlantEmpty" });
     }
     http
@@ -173,6 +174,10 @@ export default {
         this.plantInfo.percent = Math.floor(
           (100 * (today - start)) / (end - start)
         );
+        
+        // if (isNaN(this.plantInfo.percent)) {
+        //   this.$router.push({ name: "PlantEmpty" });
+        // }
         this.SET_SPROUTTYPE(
           (1 + Math.floor(this.plantInfo.percent / 25)).toString()
         );
