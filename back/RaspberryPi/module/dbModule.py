@@ -6,9 +6,9 @@ import pymysql
 
 class Database():
     def __init__(self):
-        self.db = pymysql.connect(host='localhost',
+        self.db = pymysql.connect(host='3.35.131.33',
                                   user='root',
-                                  password='1234',
+                                  password='ssafy',
                                   db='ssafy_iot',
                                   charset='utf8')
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)

@@ -5,7 +5,6 @@
       src="@/assets/main/team/iot.png"
       style="width:100% !important"
     >
-    <!-- src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" -->
       <v-container fill-height>
         <v-row class="mx-auto " style="text-align:center !important">
          

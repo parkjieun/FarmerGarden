@@ -24,4 +24,14 @@ public class UserServiceImpl implements UserService {
 		return mapper.insertUser(dto);
 	}
 
+	@Override
+	public int updateUser(User dto) throws Exception {
+		return mapper.updateUser(dto);
+	}
+
+	@Override
+	public int updateUserPot(User dto) throws Exception {
+		return mapper.updateUserPot(dto);
+	}
+
 }

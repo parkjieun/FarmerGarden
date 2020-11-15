@@ -14,7 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.IoTBackend.model.User;
@@ -37,39 +40,44 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
-	@ApiOperation(value = "테스트")
-	@GetMapping("/test")
-	public ResponseEntity<String> doBuy(User dto) throws Exception {
-		LOGGER.info("--------------------------------------");
-		LOGGER.debug("[DEBUG]");
-		LOGGER.info("[INFO]");
-		LOGGER.warn("[WARN]");
-		LOGGER.error("[ERROR]");
-
-		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
-	}
-
-	@ApiOperation(value = "회원가입")
+	@ApiOperation(value = "회원가입", notes = "성공시 'success' 실패시 'fail' 반환")
 	@PostMapping("/signup")
-	public ResponseEntity<String> doSignUp(Authentication authentication, User dto, HttpServletRequest request) throws Exception {
-		LOGGER.info("--------------------------------------signup");
-		
+	public ResponseEntity<String> doSignUp(Authentication authentication, User dto) throws Exception {
 		dto.setUser_id(authentication.getPrincipal().toString());
-		System.out.println("dto>>>>>>>>> "+dto.toString());
-		
 		int flag = service.insertUser(dto);
 
 		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 
-	// 회원정보가져오기
-	@ApiOperation(value = "회원정보 가져오기")
+	@ApiOperation(value = "회원정보 가져오기", notes = "성공시  'User' 반환")
 	@GetMapping
 	public ResponseEntity<User> doGetUser(Authentication authentication) throws Exception {
-		LOGGER.info("--------------------------------------doGetUser");
-		
 		String userId = authentication.getPrincipal().toString();
 		return new ResponseEntity<User>(service.selectUser(userId), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "회원정보 수정", notes = "성공시 'success' 실패시 'fail' 반환")
+	@PutMapping
+	public ResponseEntity<String> doUpdateUser(Authentication authentication, User dto) throws Exception {
+		String userId = authentication.getPrincipal().toString();
+		dto.setUser_id(userId);
+		
+		int flag = service.updateUser(dto);
+
+		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "회원 화분 정보 수정", notes = "성공시 'success' 실패시 'fail' 반환")
+	@PutMapping("/pot")
+	public ResponseEntity<String> doUpdateUserPot(Authentication authentication, @RequestBody User dto) throws Exception {
+		String userId = authentication.getPrincipal().toString();
+		dto.setUser_id(userId);
+
+		int flag = service.updateUserPot(dto);
+
+		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 }
