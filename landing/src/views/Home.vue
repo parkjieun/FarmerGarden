@@ -3,8 +3,8 @@
       <v-main>
        <MainImgSection/>
        <MainAboutSection/>
-       <MainFeatureSection/>
        <MainTeamSection/>
+       <MainFeatureSection/>
        <MainTutorialSection/>
        <ScrollTop/>
      </v-main>

@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-img
         :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-        src="@/assets/main/iot3.jpg"
+        src="@/assets/main/h5.png"
       >
         <v-theme-provider dark>
           <v-container fill-height>
@@ -17,22 +17,21 @@
                 cols="12"
                 tag="h1"
               >
-                <span
+                <!-- <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
                   class="font-weight-light"
                   style="color:#333333"
                 >
                   WELCOME TO
-                </span>
-
+                </span>  
                 <br>
-
+                
+                -->
                 <span
-                  class="font-weight-black"
-                  style="color:#333333;  text-shadow: 2px 6px 2px	#999999;"
+                  class="font-weight-black nanum"
+                  :class="[$vuetify.breakpoint.smAndDown ? 'f-size80': 'f-size130']"
                 >
-                  <span class="nanum f-brown " :class="[$vuetify.breakpoint.smAndDown ? 'f-size80': 'f-size130']">농부네 </span> 
-                  <span class="nanum f-green" :class="[$vuetify.breakpoint.smAndDown ? 'f-size80': 'f-size130']">텃밭</span>
+                  <span class="nanum " >농부네 텃밭</span> 
                 </span>
 
               </v-col>
@@ -40,12 +39,12 @@
               <v-btn
                 class="align-self-end"
                 fab
-                outlined
+                color="#333333"
                 @click="$vuetify.goTo('#about-me')"
-                style="color:#333333"
               >
                 <v-icon>mdi-chevron-double-down</v-icon>
               </v-btn>
+              
             </v-row>
           </v-container>
         </v-theme-provider>

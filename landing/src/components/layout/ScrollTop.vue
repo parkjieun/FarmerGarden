@@ -1,7 +1,15 @@
 <template>
-       <v-row>
-         <v-img src="@/assets/top-arrow.png" id="scrollButton" @click="scrollToTop"></v-img>
-       </v-row>
+  <v-row>
+    <v-avatar color="" size="56" id="moveButton"  @click="goService">
+       <v-img 
+          src="@/assets/main/movebtn.png" 
+          contain
+          max-height="100%"
+        />
+    </v-avatar>
+
+    <v-img src="@/assets/top-arrow.png" id="scrollButton" @click="scrollToTop"></v-img>
+  </v-row>
 </template>
 
 <script>
@@ -18,11 +26,17 @@ export default {
     windowTop: function() {
         if (this.windowTop > 700) {
             let btn = document.getElementById('scrollButton')
+            let btn2 = document.getElementById('moveButton')
+
             btn.style.display = 'block'
+            btn2.style.display = 'block'
         }
         else {
             let btn = document.getElementById('scrollButton')
+            let btn2 = document.getElementById('moveButton')
+
             btn.style.display = 'none'
+            btn2.style.display = 'none'
         }
     }
   },
@@ -38,6 +52,9 @@ export default {
       },
       onScroll(e) {
           this.windowTop = e.target.documentElement.scrollTop;
+      },
+      goService(){
+        alert("이동")
       }
   }
   
@@ -46,10 +63,18 @@ export default {
 
 <style scoped>
  #scrollButton {
-   z-index: 10;
+   z-index: 100;
     position: fixed;
     display: none;
     bottom: 150px;
+    right: 30px;
+    cursor: pointer;
+}
+ #moveButton {
+   z-index: 100;
+    position: fixed;
+    display: none;
+    bottom: 230px;
     right: 30px;
     cursor: pointer;
 }

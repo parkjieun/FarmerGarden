@@ -2,29 +2,18 @@
   <section id="stats">
     <v-parallax
       :height="$vuetify.breakpoint.smAndDown ? 700 : 500" 
-      src="@/assets/main/team.jpg"
+      src="@/assets/main/team/iot.png"
       style="width:100% !important"
     >
     <!-- src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" -->
       <v-container fill-height>
         <v-row class="mx-auto " style="text-align:center !important">
          
-         <v-col cols="12" md="5">
-            <div>
-              <div class="display-3 font-weight-black mb-4 ">        
-              </div>
-            </div>
-          </v-col> 
-          <v-col cols="12" md="2" >
+
+          <v-col cols="12" md="12" >
             <div>
               <div class="display-3 font-weight-black mb-4" >        
-                <v-img  contain src="@/assets/word.png"></v-img>
-              </div>
-            </div>
-          </v-col> 
-          <v-col cols="12" md="5">
-            <div>
-              <div class="display-3 font-weight-black mb-4 ">        
+                <!-- <v-img  contain src="@/assets/word.png"></v-img> -->
               </div>
             </div>
           </v-col> 
