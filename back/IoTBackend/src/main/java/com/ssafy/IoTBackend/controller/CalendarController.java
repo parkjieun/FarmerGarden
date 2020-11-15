@@ -62,7 +62,7 @@ public class CalendarController {
 	}
 	
 	@GetMapping("/{choice_id}")
-	@ApiOperation(value = "현재 작물의 일정 목록 조회", notes = "재배 일정 반환")
+	@ApiOperation(value = "현재 작물의 일정 조회", notes = "재배 일정 반환")
 	public ResponseEntity<Object> selectCurrentCalendar(Authentication authentication,@PathVariable String choice_id) {
 		String userId = authentication.getPrincipal().toString();
 		Calendar calendar = null;

@@ -29,13 +29,16 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public int insertPost(CreatePostRequestDTO postDto) throws Exception {
-		return postMapper.insertPost(postDto);
+	public Post insertPost(CreatePostRequestDTO postDto) throws Exception {
+		postMapper.insertPost(postDto);
+		return postMapper.selectPostById(postDto.getPost_id());
 	}
 
 	@Override
-	public int updatePost(UpdatePostRequestDTO postDto) throws Exception {
-		return postMapper.updatePost(postDto);
+	public Post updatePost(UpdatePostRequestDTO postDto) throws Exception {
+		int result = postMapper.updatePost(postDto);
+		if(result == 0) return null;
+		return postMapper.selectPostById(postDto.getPost_id());
 	}
 
 	@Override

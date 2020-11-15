@@ -1,7 +1,12 @@
-# file name : test.py
-# pwd : /project_name/app/test/test.py
+# file name : websocketServer.py
+# pwd : /project_name/app/test/websocketServer.py
+import asyncio
+import websockets
+from werkzeug.utils import secure_filename
 import datetime
-from flask import Flask, Blueprint, request, render_template, flash, redirect, url_for
+import os
+import json,datetime
+from flask import Flask, Blueprint, send_file, request, render_template, flash, redirect, url_for
 
 from flask_cors import CORS
 from module import dbModule
@@ -15,71 +20,168 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('test.html',
-                           result=None,
-                           resultData=None,
-                           resultUPDATE=None)
+    return render_template('test.html')
 
+@app.route('/test', methods=['GET'])
+def test():
+    return "testpage"
 
-# INSERT 함수 예제
-@app.route('/insert', methods=['GET'])
-def insert():
+@app.route('/iot-actions', methods=['GET'])
+def iotActions():
+    action = request.args.get('action')  # 사용자 액션
+    choice_id = request.args.get('choice_id')  # 작물선택 기본키
+
+    sendSTR = action +","+choice_id
+    # led => on/off
+    # waterpump
+    # picture
+
+    print("iot ~~~")
+    async def my_connect():
+        print("websocket connect")
+        async with websockets.connect("ws://115.143.115.9:3000") as websocket:
+            print("before send")
+            await websocket.send(sendSTR)
+            data_rcv = await websocket.recv()
+            print("data received from server : " + data_rcv)
+
+    # connect to server
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(my_connect())
+    loop.close()
+    
+    return action
+
+@app.route('/day-imgs', methods = ['GET'])
+def dayImgs():
+    choice_id = request.args.get('choice_id')  # 작물선택 기본키
+    day =  request.args.get('day')
+    # 가장 최근에 찍힌 사진 10개만 리턴
+    print("날짜", day)
     db_class = dbModule.Database()
 
-    #today time
-    now = datetime.datetime.now()
-    nowDate = now.strftime('%Y-%m-%d')
-    nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
+    sql = '''select r.rb_img from raspberry as r \
+            join plant_choice p \
+            on ''' + choice_id + ''' = r.choice_id \
+            where p.grow_flag = 1 \
+            and r.rb_img LIKE '%%%%%s%%%%' \
+            order by r.rb_create desc''' % (day)
 
-    # INSERT INTO raspberry(rb_id, rb_temperature, rb_humidity, rb_shoot_day, user_id, plant_id, rb_img, rb_create )
-    # VALUES(1, 23, 50,"2020-10-20", 1, 1, "임시 이미지", "2020-10-20");
-    sql = "INSERT INTO raspberry(rb_temperature, rb_humidity, rb_shoot_day, user_id, plant_id, rb_img, rb_create ) \
-                VALUES(23, 50, '%s', 1, 1, '임시 이미지', '%s')" % (nowDate, nowDatetime)
-    db_class.execute(sql)
-    db_class.commit()
-
-    return render_template('test.html',
-                           result='insert is done!',
-                           resultData=None,
-                           resultUPDATE=None)
-
-
-# SELECT 함수 예제
-@app.route('/select', methods=['GET'])
-def select():
-    db_class = dbModule.Database()
-
-    sql = "SELECT * \
-                FROM raspberry"
+    print(sql)
     row = db_class.executeAll(sql)
 
-    print(row)
-    print(row[0])
-    return render_template('test.html',
-                           result=None,
-                           resultData=row[0],
-                           resultUPDATE=None)
+    for data in row:
+        data['rb_img'] = "/static/data/img/" + data['rb_img'] + ".jpg"
+        print(data['rb_img'])
 
+    print("/day-imgs의 결과", row)
+    return json.dumps(row)
 
-# UPDATE 함수 예제
-@app.route('/update', methods=['GET'])
-def update():
+@app.route('/recent-imgs', methods = ['GET'])
+def recentImgs():
+    choice_id = request.args.get('choice_id')  # 작물선택 기본키
+    # 가장 최근에 찍힌 사진 10개만 리턴
+
     db_class = dbModule.Database()
 
-    sql = "UPDATE raspberry \
-                SET rb_img='%s' \
-                WHERE rb_id=1" % ('임시이미지_변경')
-    db_class.execute(sql)
-    db_class.commit()
-
-    sql = "SELECT * \
-                    FROM raspberry"
+    sql = "select r.rb_img from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create desc \
+            limit 10"
     row = db_class.executeAll(sql)
 
-    return render_template('test.html',
-                           result=None,
-                           resultData=None,
-                           resultUPDATE=row[0])
+    for data in row:
+        data['rb_img'] = "/static/data/img/" + data['rb_img'] + ".jpg"
+        print(data['rb_img'])
+
+    print("/recent-imgs의 결과", row)
+
+
+
+    return json.dumps(row)
+
+@app.route('/supply-water-logs', methods = ['GET'])
+def supplyWaterLogs():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 가장 최근 급수 시간 출력
+
+    db_class = dbModule.Database()
+
+    sql = "select w.watering_time from watering_log as w \
+            join plant_choice p \
+            on " + choice_id + " = w.choice_id \
+            where p.grow_flag = 1 \
+            order by w.watering_time desc \
+            limit 1"
+    row = db_class.executeAll(sql)
+
+    t = row[0]["watering_time"]
+    row[0]["watering_time"] = t.strftime('%Y-%m-%d %H:%M:%S')
+
+    print("/supply-water-logs의 결과", row)
+    return row[0]
+
+@app.route('/temp-and-hum', methods = ['GET'])
+def tempAndHum():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 온/습도/시간 반환
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_temperature, r.rb_humidity, r.rb_create from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create"
+    row = db_class.executeAll(sql)
+
+
+    for datas in row:
+        t = datas["rb_create"]
+        datas["rb_create"] = t.strftime('%Y-%m-%d %H:%M:%S')
+    print("결과", row)
+    result = json.dumps(row, indent=3)
+    return result
+
+@app.route('/recent-temp', methods = ['GET'])
+def recentTemp():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 가장 최근 기록된 온도 반환
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_temperature from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create limit 1"
+    row = db_class.executeAll(sql)
+
+    print("/recent-temp 결과", row)
+    return row[0]
+
+@app.route('/recent-hum', methods = ['GET'])
+def recentHum():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 가장 최근 기록된 습도 반환
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_humidity from raspberry as r \
+            join plant_choice p \
+            on " + choice_id + " = r.choice_id \
+            where p.grow_flag = 1 \
+            order by r.rb_create limit 1"
+    row = db_class.executeAll(sql)
+
+    print("/recent-hum 결과", row)
+    return row[0]
 
 if __name__ == '__main__':
     app.run()

@@ -11,11 +11,11 @@
 	<!-- 게시글 상세 조회 -->
 	<select id="selectPostById" parameterType="Integer" resultMap="postBasic">
 		select * from post
-		where post_id = #{post_id}
+		where post_id = #{post_id} and del_flag = false
 	</select>
     
     <!-- 게시글 등록 -->
-	<insert id="insertPost" parameterType="post">
+	<insert id="insertPost" parameterType="post" useGeneratedKeys="true" keyProperty="post_id">
 		insert into post
 		 (post_title, post_contents, post_img, user_id)
 		values
