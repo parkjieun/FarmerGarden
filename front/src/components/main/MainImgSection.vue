@@ -3,10 +3,11 @@
     <v-row no-gutters>
       <v-img
         :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-        src="@/assets/main/h5.png"
+        src="@/assets/main/h6.png"
       >
         <v-theme-provider dark>
-          <v-container fill-height>
+          <v-container style="margin-top:60px">
+            <!-- fill-height -->
             <v-row
               align="center"
               class="white--text mx-auto"
@@ -28,23 +29,21 @@
                 
                 -->
                 <span
-                  class="font-weight-black "
+                  class="font-weight-black cafep"
                   :class="[$vuetify.breakpoint.smAndDown ? 'f-size80': 'f-size130']"
                 >
-                  <span class="nanum " >농부네 텃밭</span> 
+                  <span style="">농부네</span> <span class="f-green">텃밭</span>
                 </span>
-
               </v-col>
 
-              <v-btn
+              <v-btn 
                 class="align-self-end"
                 fab
-                color="#333333"
+                color="#80AA6B"
                 @click="$vuetify.goTo('#about-me')"
               >
                 <v-icon>mdi-chevron-double-down</v-icon>
               </v-btn>
-              
             </v-row>
           </v-container>
         </v-theme-provider>
@@ -60,6 +59,28 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.f-size130{
+  font-size:130px;
+}
 
+.f-size80{
+  font-size:75px;
+}
+
+.nanum{
+  font-family: 'Nanum Pen Script', cursive;
+}
+
+.f-green{
+  color:#93c130;
+}
+
+.nbp{
+  font-family: NanumBarunpen; 
+}
+
+.cafep{
+  font-family: 'Cafe24Oneprettynight';
+}
 </style>  

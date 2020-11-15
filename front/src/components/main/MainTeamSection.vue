@@ -35,4 +35,7 @@ export default {
 </script>
 
 <style scoped>
+.nbp{
+  font-family: NanumBarunpen; 
+}
 </style>  

@@ -1,9 +1,11 @@
 <template>
-  <section id="blog"  class=" lighten-3">
+  <section id="blog"  class="nbp lighten-3">
     <div class="py-12"></div>
 
     <v-container>
-      <h2 class="display-3 font-weight-bold mb-3 text-uppercase text-center" >서비스 소개</h2>
+      <h2 class="nbp display-3 font-weight-bold mb-3 text-uppercase text-center" >
+        서비스 소개
+      </h2>
 
       <v-responsive
         class="mx-auto mb-12"
@@ -20,7 +22,7 @@
            class="mb-4" height="350" contain max-width="100%"
           ></v-img>
 
-          <h2 class="font-weight-black mb-4 text-uppercase">전자동관리 서비스</h2>
+          <h2 class="font-weight-black mb-4 text-uppercase ">전자동관리 서비스</h2>
 
           <!-- <div class="title font-weight-light mb-5"  style="font-size:1.1rem !important"> -->
           <div class="">           
@@ -69,6 +71,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.nbp{
+  font-family: NanumBarunpen !important; 
+}
 </style>  

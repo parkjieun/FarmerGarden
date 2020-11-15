@@ -1,14 +1,14 @@
 <template>
      <section
         id="features"
-        class=" lighten-3 grey"
+        class=" lighten-3 grey nbp"
       >
         <div class="py-12"></div>
 
         <v-container class="text-center">
-          <h2 class="display-3  mb-3" >
+          <h2 class="display-3  mb-3 nbp" >
             <span class="font-weight-bold">이렇게</span> 
-            사용하세요
+            사용하세요<span class="font-weight-bold">!</span>
           </h2>
 
           <v-responsive
@@ -80,6 +80,12 @@ export default {
 
 <style scoped>
 .step{
-  color:#9ACA7F;font-size:1.8rem;padding-right:10px;
+  color:#9ACA7F;
+  font-size:1.8rem;
+  padding-right:10px;
+}
+
+.nbp{
+  font-family: NanumBarunpen !important; 
 }
 </style>  

@@ -1,5 +1,5 @@
 <template>
-      <section id="about-me">
+      <section id="about-me" class="nbp">
         <div class="py-12"></div>
 
         <v-container class="text-center">
@@ -161,6 +161,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.nbp{
+  font-family: NanumBarunpen; 
+}
 </style>  
