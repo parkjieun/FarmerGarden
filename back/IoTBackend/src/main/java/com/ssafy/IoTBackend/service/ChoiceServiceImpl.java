@@ -40,4 +40,9 @@ public class ChoiceServiceImpl implements ChoiceService {
 		calendarMapper.stopCalendar(calendar.getCalendar_id());
 		return choiceMapper.stopChoice(choice_id);
 	}
+
+	@Override
+	public Choice selectChoice(String user_id) throws Exception {
+		return choiceMapper.selectChoice(user_id);
+	}
 }
