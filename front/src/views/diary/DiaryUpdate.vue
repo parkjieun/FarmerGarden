@@ -10,7 +10,7 @@
     <v-spacer></v-spacer>
 		<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">{{createDate}}</v-toolbar-title>
 		<v-spacer></v-spacer>
-		<v-btn color="primary" @click="checkForm" style="min-width:48px; font-family: 'Jua', sans-serif!important;" class="pa-0" >수정</v-btn>
+		<v-btn color="primary" @click="checkForm" style="min-width:48px; font-family: 'Jua', sans-serif!important;" depressed class="pa-0" >수정</v-btn>
 	</v-app-bar>
   
 	<v-form ref="form" style="width: 300px;" class="mx-auto">

@@ -34,7 +34,7 @@ export default {
   computed: {
 		...mapState(['posts']),
 		selectPosts() {
-			return this.posts.filter((post) => post.post_create.substring(0,10)==this.day)
+			return this.posts.filter((post) => post.post_create.substring(0,10)==this.day && post.del_flag==false)
 		}
 	},
 	watch: {

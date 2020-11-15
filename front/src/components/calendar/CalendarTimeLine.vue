@@ -1,6 +1,6 @@
 <template>
   <v-timeline align-top dense class="mt-3" style="overflow: scroll; height: calc(100vh - 200px); width: 100%;">
-    <v-timeline-item v-for="(post, index) in posts" :key="index" :color="colors[index%2]" icon="mdi-sprout">
+    <v-timeline-item v-for="(post, index) in posts" :key="index" :color="colors[index%2]" v-if="post.del_flag==false" icon="mdi-sprout">
       <v-card @click.prevent="detailPage(post.post_id)" class="mr-3">
         <v-card-title style="font-family: 'Jua', sans-serif!important;">{{post.post_title}}</v-card-title>
         <v-card-subtitle style="font-family: 'Jua', sans-serif!important;">{{post.post_create}}</v-card-subtitle>
