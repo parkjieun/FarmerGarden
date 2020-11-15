@@ -33,4 +33,10 @@ export default {
 
   --font1-color: #5b3016;
 }
+.vc-grid-cell  {
+	font-family: 'Jua', sans-serif!important;
+}
+.vc-day-content {
+	font-family: 'Jua', sans-serif!important;
+}
 </style>

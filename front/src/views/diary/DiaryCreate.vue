@@ -7,13 +7,13 @@
 	>
 		<v-app-bar-nav-icon @click="cancelForm"><v-icon>mdi-chevron-left</v-icon></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-		<v-toolbar-title>오늘의 일기</v-toolbar-title>
+		<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">오늘의 일기</v-toolbar-title>
 		<v-spacer></v-spacer>
-		<v-btn color="primary" @click="checkForm" class="px-0" style="min-width:48px;">완료</v-btn>
+		<v-btn color="primary" @click="checkForm" class="px-0" style="min-width:48px; font-family: 'Jua', sans-serif!important;">완료</v-btn>
 	</v-app-bar>
   <v-form ref="form" style="width: 300px;" class="mx-auto">
     <div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true">
-      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage.rb_img" alt="selected_image" width="300" class="rounded-lg" height="200"/>
+      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage" alt="selected_image" width="300" class="rounded-lg" height="200"/>
     </div>
 		<v-row v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-5 mx-auto" align="center" justify="center">
       <v-icon size="60" color="lightgray" @click="showPhoto=true">mdi-camera-outline</v-icon>
@@ -31,6 +31,7 @@
 			autocapitalize="off"
 			autocorrect="off"
 			autocomplete="off"
+			style="font-family: 'Jua', sans-serif!important;"
 		/>
 		<v-textarea
 			label="내용"
@@ -42,12 +43,8 @@
 			autocapitalize="off"
 			autocorrect="off"
 			autocomplete="off"
+			style="font-family: 'Jua', sans-serif!important;"
 		/>
-		
-		<div class="text-right">
-			<v-btn color="secondary" @click="cancelForm">취소</v-btn>
-			<v-btn color="primary" class="ml-1" @click="checkForm">작성완료</v-btn>
-		</div>
   </v-form>
   <div v-if="showPhoto" style="position:absolute; right:0; top:0;">
     <PhotoSelect id="picture_select" :images="images" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
@@ -57,7 +54,7 @@
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import PhotoSelect from '@/components/diary/PhotoSelect.vue'
 
@@ -85,7 +82,7 @@ export default {
 		...mapGetters(['config']),
 	},
 	methods: {
-		...mapActions(['setPosts']),
+		...mapMutations(['SET_POST']),
 		selectImage(index) {
 			if (this.selectedImage == this.images[index]) {   
 				this.selectedImage = null
@@ -102,23 +99,22 @@ export default {
 				const data = {
 					post_title: this.title,
 					post_contents: this.content,
-					post_img: this.selectedImage.rb_img
+					post_img: this.selectedImage
 				}
 				http.post('/api/post', data, this.config)
 				.then(res => {
-					if (res.data == "success") {
-						this.setPosts()
-						this.$router.push({name: "PlantCalendar2"})
-					}
+					this.SET_POST(res.data)
+					this.$router.push({name:'PlantCalendar2'})
 				})
 				.catch(err => console.log(err))	
 			}
 		},
 		getImages() {
-			http.get("/iot/recent-imgs?choice_id=1000", this.config)
+			http.get("/iot/recent-imgs?choice_id=1002", this.config)
 			.then(res => {
 				this.images = res.data
 			})
+			.catch(err => console.log(err))
 		}
 	},
 	created() {
