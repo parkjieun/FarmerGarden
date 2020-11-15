@@ -13,7 +13,7 @@
 	</v-app-bar>
   <div style="height: calc(100vh - 104px); overflow-y:scroll; background-color:white;">
     <div v-if="selectedImage">
-      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage.rb_img" aspect-ratio="1.5"/>
+      <v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage.rb_img"/>
     </div>
     <div v-else>
       <v-img :src="'http://k3a105.p.ssafy.io:8001/'+images[0].rb_img"/>
@@ -88,7 +88,7 @@ export default {
       this.$emit('closePhoto')
     },
     select() {
-      this.$emit('selectPhoto', this.selectedImage)
+      this.$emit('selectPhoto', this.selectedImage.rb_img)
       this.closeForm()
     },
   }

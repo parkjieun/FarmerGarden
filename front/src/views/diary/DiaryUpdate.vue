@@ -8,13 +8,15 @@
 	>
 		<v-app-bar-nav-icon @click="cancelForm"><v-icon>mdi-chevron-left</v-icon></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-		<v-toolbar-title>{{createDate}}</v-toolbar-title>
+		<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">{{createDate}}</v-toolbar-title>
 		<v-spacer></v-spacer>
-		<v-btn color="primary" @click="checkForm" style="min-width:48px;" class="pa-0">수정</v-btn>
+		<v-btn color="primary" @click="checkForm" style="min-width:48px; font-family: 'Jua', sans-serif!important;" class="pa-0" >수정</v-btn>
 	</v-app-bar>
   
 	<v-form ref="form" style="width: 300px;" class="mx-auto">
-		<div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true"><v-img :src="selectedImage" alt="selected_image" width="300" class="rounded-lg"/></div>
+		<div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true">
+			<v-img :src="'http://k3a105.p.ssafy.io:8001/'+selectedImage" alt="selected_image" width="300" height="200" class="rounded-lg"/>
+		</div>
 		<v-row v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-5 mx-auto" align="center" justify="center">
       <v-icon size="60" color="lightgray" @click="showPhoto=true">mdi-camera-outline</v-icon>
     </v-row>
@@ -32,6 +34,7 @@
 			autocapitalize="off"
 			autocorrect="off"
 			autocomplete="off"
+			style="font-family: 'Jua', sans-serif!important;"
 		/>
 		<v-textarea
 			label="내용"
@@ -44,18 +47,19 @@
 			autocapitalize="off"
 			autocorrect="off"
 			autocomplete="off"
+			style="font-family: 'Jua', sans-serif!important;"
 		/>
 		
   </v-form>
   <div v-if="showPhoto" style="position:absolute; left:0; top:0;">
-    <PhotoSelect id="picture_select" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
+    <PhotoSelect id="picture_select" :images="images" @closePhoto="showPhoto=false" @selectPhoto="(val) => selectedImage = val"/>
   </div>
 </div>
 </template>
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 import PhotoSelect from '@/components/diary/PhotoSelect.vue'
 
@@ -76,13 +80,15 @@ export default {
 			],
 			showPhoto: false,
 			selectedImage: null ,
+			images: []
 		}
 	},
 	computed: {
     ...mapGetters(['config']),
 	},
 	methods: {
-    ...mapActions(['setPosts']),
+		...mapActions(['setPosts']),
+		...mapMutations(['SET_POST']),
 		selectImage(index) {
 			if (this.selectedImage == this.images[index]) {   
 				this.selectedImage = null
@@ -100,14 +106,13 @@ export default {
 					post_id: this.post.post_id,
 					post_title: this.post.post_title,
 					post_contents: this.post.post_contents,
-					post_img: this.selectImage
+					post_img: this.selectedImage
 				}
 				http.put('/api/post', data, this.config)
 				.then(res => {
-					if (res.data == "success") {
-            this.setPosts()
-            this.$router.push({name: "PlantCalendar2"})
-					}
+					console.log(res)
+					this.SET_POST(res.data)
+					this.$router.push({name:'PlantCalendar2'})
 				})
 				.catch(err => console.log(err))	
 			}
@@ -117,12 +122,20 @@ export default {
 			.then(res => {
 				this.post = res.data
         this.selectedImage = res.data.post_img
-        this.createDate = res.data.post_create.substring(0,4)+'년 '+res.data.post_create.substring(5,7)+'월 '+res.data.post_create.substring(8,10)+'일'
+				this.createDate = res.data.post_create.substring(0,4)+'년 '+res.data.post_create.substring(5,7)+'월 '+res.data.post_create.substring(8,10)+'일'
+				http.get(`/iot/day-imgs?choice_id=1002&day=${res.data.post_create.substring(0,10)}`, this.config)
+				.then(res2 => {
+					this.images = res2.data
+				})
 			})
+		},
+		getImages() {
+			
 		}
 	},
 	created() {
-    this.getPostInfo()
+			this.getPostInfo()
+			
 	}
 }
 </script>
