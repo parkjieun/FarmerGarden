@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    class="justify-center"
+    class="justify-center nbp"
     color=""
     height=""
     style="border-top:1px solid #ccc;"
@@ -54,6 +54,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.nbp{
+  font-family: NanumBarunpen !important; 
+}
 </style>
