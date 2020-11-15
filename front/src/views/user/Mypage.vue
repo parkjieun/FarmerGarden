@@ -541,12 +541,9 @@ export default {
   },
   methods: {
     ...mapActions(["setAuth", "setUser", "setPlantCharInfo"]),
-    ...mapMutations(["SET_PLANTCHARINFO", "SET_POST"]),
+    ...mapMutations(["SET_PLANTCHARINFO", "LOGOUT"]),
     logout() {
-      this.setUser(null);
-      this.setAuth(null);
-      this.SET_PLANTCHARINFO(null);
-      this.SET_POSTS(null);
+      this.LOGOUT()
       this.$router.push({ name: "Login" });
     },
     startGrowPlant() {

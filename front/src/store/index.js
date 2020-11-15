@@ -12,7 +12,7 @@ export default new Vuex.Store({
     socialData: JSON.parse(sessionStorage.getItem("socialData")),
     authorization: cookies.get("authorization"),
     plant: cookies.get("plantCharInfo"),
-    posts: JSON.parse(cookies.get("posts")),
+    posts: JSON.parse(sessionStorage.getItem("posts")),
   },
   getters: {
     config: (state) => ({ headers: { Authorization: state.authorization } }),
@@ -30,6 +30,17 @@ export default new Vuex.Store({
     SET_USER(state, value) {
       cookies.set("user", value, 60 * 60 * 60);
       state.user = value;
+    },
+    LOGOUT(state) {
+      state.plant = null
+      state.user = null
+      state.posts = null
+      state.socialData = null
+      sessionStorage.removeItem("posts")
+      sessionStorage.removeItem("socialData")
+      cookies.remove("user")
+      cookies.remove("plantCharInfo")
+      cookies.remove("authorization")
     },
     SET_AUTH(state, value) {
       cookies.set("authorization", value, 60 * 60 * 60);
@@ -51,9 +62,24 @@ export default new Vuex.Store({
       state.plant = plant;
     },
     SET_POSTS(state, value) {
-      cookies.set("posts", JSON.stringify(value), 60 * 60 * 60);
+      sessionStorage.setItem("posts", JSON.stringify(value));
       state.posts = value;
     },
+    SET_POST(state, value) {
+      var index = state.posts.findIndex((el) => el.post_id === value.post_id)
+      if (index>=0) {
+        console.log("수정", value)
+        
+        state.posts[index] = value
+        sessionStorage.setItem("posts", JSON.stringify(state.posts));
+      }
+      else {
+        console.log("생성", value)
+        state.posts = [value, ...state.posts]
+        sessionStorage.setItem("posts", JSON.stringify(state.posts));
+      }
+      
+    }
   },
   actions: {
     setUser({ commit }, value) {
@@ -82,6 +108,7 @@ export default new Vuex.Store({
       http
         .get("/api/post", getters.config)
         .then((res) => {
+          console.log("setPOsts")
           commit("SET_POSTS", res.data.reverse());
         })
         .catch((err) => console.log(err));
