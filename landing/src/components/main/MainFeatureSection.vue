@@ -47,7 +47,6 @@
 
           <h2 class="font-weight-black mb-4 text-uppercase ">모바일 서비스 제공</h2>
 
-          <!-- <div class="title font-weight-light mb-5" style="font-size:1.1rem !important"> -->
           <div class="">
             예상 수확 일정, 챗봇, 온·습도 분석 그래프 등 다양한 기능을 제공합니다.
           </div>

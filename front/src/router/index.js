@@ -30,9 +30,17 @@ import DiaryCreate from "../views/diary/DiaryCreate.vue";
 import DiaryUpdate from "../views/diary/DiaryUpdate.vue";
 import DiaryDetail from "../views/diary/DiaryDetail.vue";
 
+// landing
+import Home from '@/views/Home.vue'
+
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
   {
     path: "/bottom",
     name: "default",
@@ -116,12 +124,12 @@ const routes = [
     ],
   },
   {
-    path: "/",
+    path: "/app",
     component: Layout,
     props: { bottomnav: false },
     children: [
       {
-        path: "/",
+        path: "/app",
         name: "SplashScreen",
         component: SplashScreen,
       },
@@ -150,7 +158,7 @@ const routes = [
       },
       // user end
     ],
-  },
+  }
 ];
 
 const router = new VueRouter({
