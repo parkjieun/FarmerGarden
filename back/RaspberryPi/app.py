@@ -20,7 +20,7 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('test.html')
+    return "This is IOT REST-Api Server Default Page"
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -32,10 +32,6 @@ def iotActions():
     choice_id = request.args.get('choice_id')  # 작물선택 기본키
 
     sendSTR = action +","+choice_id
-    # led => on/off
-    # waterpump
-    # picture
-
     print("iot ~~~")
     async def my_connect():
         print("websocket connect")
@@ -181,6 +177,26 @@ def recentHum():
     row = db_class.executeAll(sql)
 
     print("/recent-hum 결과", row)
+    return row[0]
+
+@app.route('/pictured-img', methods = ['GET'])
+def picturedImg():
+    choice_id = request.args.get('choice_id') #작물선택 기본키
+
+    # 방금 사진찍혔을때 이미지
+
+    db_class = dbModule.Database()
+
+    sql = "select r.rb_img from raspberry as r \
+            join plant_choice p \
+            on p.choice_id = r.choice_id  \
+            where p.choice_id = " + choice_id + " \
+            order by r.rb_create desc\
+            limit 1"
+    row = db_class.executeAll(sql)
+
+    print("/pictured-img 결과", row)
+    row[0]['rb_img'] = "/static/data/img/" + row[0]['rb_img'] + ".jpg"
     return row[0]
 
 if __name__ == '__main__':
