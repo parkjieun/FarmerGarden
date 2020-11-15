@@ -9,7 +9,7 @@
 			<v-spacer></v-spacer>
 			<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">{{createDate}}</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn color="primary" @click="updatePage" style="min-width:48px; font-family: 'Jua', sans-serif!important;" class="pa-0">수정</v-btn>
+			<v-btn color="primary" @click="updatePage" style="min-width:48px; font-family: 'Jua', sans-serif!important;" class="pa-0" depressed>수정</v-btn>
 		</v-app-bar>
   
 		<div style="width: 300px;" class="mx-auto">
@@ -25,14 +25,16 @@
 			</div>
 		
 			
-			<div class="mt-5" style="font-family: 'Jua', sans-serif!important;">{{post.post_contents}}</div>
+			<div class="mt-5" style="font-family: 'Jua', sans-serif!important; height: calc(100vh - 470px);">{{post.post_contents}}</div>
+      <v-btn color="#B71C1C" outlined block rounded @click="deletePost">삭제</v-btn>
 		</div>
+    
   </div>
 </template>
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -44,6 +46,7 @@ export default {
     ...mapGetters(['config'])
   },
   methods: {
+    ...mapMutations(['SET_POST']),
     prePage() {
       this.$router.go(-1)
     },
@@ -56,7 +59,18 @@ export default {
         this.post = res.data
         this.createDate = res.data.post_create.substring(0,4)+'년 '+res.data.post_create.substring(5,7)+'월 '+res.data.post_create.substring(8,10)+'일'
       })
+    },
+    deletePost() {
+      http.delete('/api/post?post_id='+this.$route.params.id, this.config)
+      .then(res => {
+        if (res.data == 'success') {
+          this.post.del_flag = true
+          this.SET_POST(this.post)
+        }
+        
+        this.$router.push({name:'PlantCalendar2'})
 
+      })
     }
   },
   created() {

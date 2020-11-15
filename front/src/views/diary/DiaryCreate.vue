@@ -9,7 +9,7 @@
     <v-spacer></v-spacer>
 		<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">오늘의 일기</v-toolbar-title>
 		<v-spacer></v-spacer>
-		<v-btn color="primary" @click="checkForm" class="px-0" style="min-width:48px; font-family: 'Jua', sans-serif!important;">완료</v-btn>
+		<v-btn color="primary" @click="checkForm" class="px-0" style="min-width:48px; font-family: 'Jua', sans-serif!important;" depressed>완료</v-btn>
 	</v-app-bar>
   <v-form ref="form" style="width: 300px;" class="mx-auto">
     <div v-if="selectedImage" style="height: 200px;" class="rounded-lg my-5" @click="showPhoto=true">

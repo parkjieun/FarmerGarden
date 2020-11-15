@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuetify from "vuetify/lib";
-import { preset } from "vue-cli-plugin-vuetify-preset-crane/preset";
 
 import Book from "@/assets/icon/custom/Book.vue";
 import Calendar from "@/assets/icon/custom/Calendar.vue";
@@ -13,7 +12,16 @@ import Magnifier from "@/assets/icon/custom/Magnifier.vue";
 Vue.use(Vuetify);
 
 export default new Vuetify({
-  preset,
+  theme: {
+    themes: {
+      light: {
+        primary: '#56c156',
+        secondary: '#78e378',
+        accent: '#8c9eff',
+        error: '#b71c1c',
+      },
+    },
+  },
   icons: {
     values: {
       book: {
