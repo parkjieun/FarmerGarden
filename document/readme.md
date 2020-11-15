@@ -12,6 +12,8 @@ https://docs.google.com/presentation/d/1bVO_9yoMRVuzXt91g64G9fEk4mUDXefe9HiX2BO0
 
 # restAPI 문서
 https://docs.google.com/spreadsheets/d/1e9bJdDTk8L3oyalDqiSUmR_t4xPTUf_djbOCobEhkfM/edit?usp=sharing
+### restAPI - postman
+https://winter-crescent-185348.postman.co/collections/10086146-049d960a-916a-4a73-abcb-a711f39edee8?version=latest&workspace=192866bd-153a-4c0a-bb6f-b1746b7be185
 
 # 구매장비 목록
 https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing
@@ -24,4 +26,6 @@ https://docs.google.com/spreadsheets/d/1TD0e4Kn3iLPqifXe1RVrZennq6dgL0G2gnOCUGMs
 
 # 중간발표 ppt
 https://docs.google.com/presentation/d/1oHrPjXpgUPbQikc0eiUJi-2U-zGdoKlDX2d-pNNKD24/edit?usp=sharing
+
+젠킨스 테스트
  

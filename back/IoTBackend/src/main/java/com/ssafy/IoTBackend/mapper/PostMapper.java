@@ -13,13 +13,13 @@ import com.ssafy.IoTBackend.model.post.UpdatePostRequestDTO;
 @Mapper
 public interface PostMapper {
 	
-	List<Post> selectPosts(String user_id) throws Exception;
+	public List<Post> selectPosts(String user_id) throws Exception;
 	
-	Post selectPostById(Integer post_id) throws Exception;
+	public Post selectPostById(Integer post_id) throws Exception;
 	
-	void insertPost(CreatePostRequestDTO postDto) throws Exception;
+	public int insertPost(CreatePostRequestDTO postDto) throws Exception;
 
-	void updatePost(UpdatePostRequestDTO postDto) throws Exception;
+	public int updatePost(UpdatePostRequestDTO postDto) throws Exception;
 
-	void deletePost(Integer post_id) throws Exception;
+	public int deletePost(Integer post_id) throws Exception;
 }

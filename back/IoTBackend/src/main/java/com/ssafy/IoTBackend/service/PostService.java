@@ -12,10 +12,10 @@ public interface PostService {
 	
 	public Post selectPostById(Integer post_id) throws Exception;
 	
-	public void insertPost(CreatePostRequestDTO postDto) throws Exception;
+	public Post insertPost(CreatePostRequestDTO postDto) throws Exception;
 	
-	public void updatePost(UpdatePostRequestDTO postDto) throws Exception;
+	public Post updatePost(UpdatePostRequestDTO postDto) throws Exception;
 
-	public void deletePost(Integer post_id) throws Exception;
+	public int deletePost(Integer post_id) throws Exception;
 
 }

@@ -9,5 +9,7 @@ public class User {
 	private String user_name;
 	private String user_address;
 	private String social_id;
+	private String user_pot;
+	private String choice_id;
 }
 

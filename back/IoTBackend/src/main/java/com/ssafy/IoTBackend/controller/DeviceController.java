@@ -1,5 +1,6 @@
 package com.ssafy.IoTBackend.controller;
 
+import java.security.MessageDigest;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.IoTBackend.model.Device;
 import com.ssafy.IoTBackend.model.User;
+import com.ssafy.IoTBackend.service.DeviceService;
 import com.ssafy.IoTBackend.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -29,53 +32,47 @@ import io.swagger.annotations.ApiOperation;
 //http://localhost:8080/swagger-ui.html
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
-@RequestMapping("/user")
-@Api(value = "USER")
-public class UserController {
+@RequestMapping("/device")
+@Api(value = "Device")
+public class DeviceController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 	public static final String SUCESS = "success";
 	public static final String FAIL = "fail";
 
 	@Autowired
-	private UserService service;
+	private DeviceService service;
 
-	@ApiOperation(value = "회원가입", notes = "성공시 'success' 실패시 'fail' 반환")
-	@PostMapping("/signup")
-	public ResponseEntity<String> doSignUp(Authentication authentication, User dto) throws Exception {
+	@ApiOperation(value = "디바이스 추가", notes = "성공시 'success' 실패시 'fail' 반환")
+	@PostMapping
+	public ResponseEntity<String> doInsertDevice(Authentication authentication, Device dto) throws Exception {
+		LOGGER.info("--------------------------------------doInsertDevice");
+		
 		dto.setUser_id(authentication.getPrincipal().toString());
-		int flag = service.insertUser(dto);
+		int flag = service.insertDevice(dto);
 
 		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "회원정보 가져오기", notes = "성공시  'User' 반환")
+	@ApiOperation(value = "디바이스 조회", notes = "성공시  'User' 반환")
 	@GetMapping
-	public ResponseEntity<User> doGetUser(Authentication authentication) throws Exception {
+	public ResponseEntity<Device> doSelectDevice(Authentication authentication) throws Exception {
+		LOGGER.info("--------------------------------------doSelectDevice");
+		
 		String userId = authentication.getPrincipal().toString();
-		return new ResponseEntity<User>(service.selectUser(userId), HttpStatus.OK);
+		return new ResponseEntity<Device>(service.selectDevice(userId), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "회원정보 수정", notes = "성공시 'success' 실패시 'fail' 반환")
+	@ApiOperation(value = "디바이스 수정", notes = "성공시 'success' 실패시 'fail' 반환")
 	@PutMapping
-	public ResponseEntity<String> doUpdateUser(Authentication authentication, User dto) throws Exception {
+	public ResponseEntity<String> doUpdateDevice(Authentication authentication, Device dto) throws Exception {
+		LOGGER.info("--------------------------------------doUpdateDevice");
+		
 		String userId = authentication.getPrincipal().toString();
 		dto.setUser_id(userId);
 		
-		int flag = service.updateUser(dto);
-
-		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
-		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "회원 화분 정보 수정", notes = "성공시 'success' 실패시 'fail' 반환")
-	@PutMapping("/pot")
-	public ResponseEntity<String> doUpdateUserPot(Authentication authentication, @RequestBody User dto) throws Exception {
-		String userId = authentication.getPrincipal().toString();
-		dto.setUser_id(userId);
-
-		int flag = service.updateUserPot(dto);
+		int flag = service.updateDevice(dto);
 
 		if (flag == 0) return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<String>(SUCESS, HttpStatus.OK);
