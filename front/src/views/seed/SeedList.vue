@@ -132,8 +132,10 @@ export default {
         bgimage: "1",
       };
 
+      let params = new URLSearchParams();
+      params.append("plant_id", sprout);
       http
-        .post("/api/choice?plant_id=" + sprout, this.config)
+        .post("/api/choice", params, this.config)
         .then(() => {
           this.setPlantCharInfo(plantCharInfo);
           this.$router.push({ name: "Tutorial" });
