@@ -254,27 +254,157 @@
       <div class="px-4"><v-divider></v-divider></div>
 
       <v-list-item-group>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold"
-              >수동급수</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold"
-              >LED ON / OFF</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="nbn--list-font font-weight-bold"
-              >사진찍기</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
+        <!-- 수동급수 다이얼로그 -->
+        <v-dialog
+          v-model="dialog.water"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold"
+                  >수동급수</v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.water = !dialog.water">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                수동급수
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <Watering />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <!-- led 켜기 다이얼로그 -->
+        <v-dialog
+          v-model="dialog.ledon"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold"
+                  >LED ON</v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.ledon = !dialog.ledon">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                LED ON
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <LedOn />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <!-- led 끄기 다이얼로그 -->
+        <v-dialog
+          v-model="dialog.ledoff"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold"
+                  >LED OFF</v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.ledoff = !dialog.ledoff">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                LED OFF
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <LedOff />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <!-- 사진 찍기 다이얼로그 -->
+        <v-dialog
+          v-model="dialog.camera"
+          scrollable
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template #activator="{ attrs, on }">
+            <v-list-item v-bind="attrs" v-on="on">
+              <v-list-item-content>
+                <v-list-item-title class="nbn--list-font font-weight-bold"
+                  >사진찍기</v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+
+          <v-card class="rounded-0">
+            <!-- dialog title start -->
+            <v-toolbar flat dark dense color="primary">
+              <v-btn icon @click="dialog.camera = !dialog.camera">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-toolbar-title class="text-body-1 nbn--list-font-bold">
+                사진 찍기
+              </v-toolbar-title>
+            </v-toolbar>
+            <!-- dialog title end -->
+            <v-card-text>
+              <Camera />
+            </v-card-text>
+          </v-card>
+        </v-dialog>
       </v-list-item-group>
     </v-list>
 
@@ -357,6 +487,10 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import PrivacyPolicy from "@/views/user/PrivacyPolicy.vue";
 import SeedList from "@/views/seed/SeedList.vue";
 import DeviceUpdate from "@/views/device/DeviceUpdate.vue";
+import Watering from "@/views/user/IoTcontrol/Watering.vue";
+import LedOn from "@/views/user/IoTcontrol/LedOn.vue";
+import LedOff from "@/views/user/IoTcontrol/LedOff.vue";
+import Camera from "@/views/user/IoTcontrol/Camera.vue";
 
 export default {
   name: "Mypage",
@@ -368,6 +502,10 @@ export default {
         seedChoice: false,
         device: false,
         cancel: false,
+        water: false,
+        ledon: false,
+        ledoff: false,
+        camera: false,
       },
       teamListItems: [
         {
@@ -393,12 +531,16 @@ export default {
     PrivacyPolicy,
     SeedList,
     DeviceUpdate,
+    Watering,
+    LedOn,
+    LedOff,
+    Camera,
   },
   computed: {
     ...mapGetters(["plantCharInfo", "user", "config"]),
   },
   methods: {
-    ...mapActions(["setAuth", "setUser"]),
+    ...mapActions(["setAuth", "setUser", "setPlantCharInfo"]),
     ...mapMutations(["SET_PLANTCHARINFO", "SET_POST"]),
     logout() {
       this.setUser(null);
@@ -407,13 +549,66 @@ export default {
       this.SET_POSTS(null);
       this.$router.push({ name: "Login" });
     },
+    startGrowPlant() {
+      if(this.user.user_id == '54c2018801dafce76b6aedafd47d3305'){
+        let params = new URLSearchParams();
+        params.append("plant_id", "");
+        http
+          .post("/api/choice", params, this.config)
+          .then((res) => {
+            this.updateUserState();
+            console.log(res.data + " " + this.user.choice_id)
+            http
+              .get("/iot/iot-actions?action=start&choice_id="+this.user.choice_id)
+              .then(() => {
+                alert("재배를 시작합니다.")
+              })
+              .catch(() => {});
+          })
+          .catch(() => {});
+      }else {
+        alert("기기를 구입해 주세요.")
+      }
+    },
     stopGrowPlant() {
-      let params = new URLSearchParams();
-      params.append("choice_id", this.user.choice_id);
-      http
-        .put("/api/choice", params, this.config)
-        .then(() => {})
-        .catch(() => {});
+      if(this.user.user_id == '54c2018801dafce76b6aedafd47d3305'){
+        let params = new URLSearchParams();
+        params.append("choice_id", this.user.choice_id);
+        http
+          .put("/api/choice", params, this.config)
+          .then(() => {
+            this.setPlantCharInfo(null);
+            this.SET_PLANTCHARINFO(null);
+            this.updateUserState();
+            http
+              .get("/iot/iot-actions?action=stop&choice_id="+this.user.choice_id)
+              .then(() => {
+                alert("재배를 중단합니다.")
+              })
+              .catch(() => {});
+          })
+          .catch(() => {});
+      }else {
+        alert("기기를 구입해 주세요.")
+      }
+    },
+    updateUserState() {
+      // choice_id 변경된 부분 vuex user에 적용
+      http.get("/api/user", this.config)
+      .then((res) => {
+        this.setUser(res.data);
+        // 등록된 기기가 없으면
+        if (res.data.user_pot == null) {
+          this.$router.push({ name: "PlantEmpty" });
+        }
+        // 등록된 기기가 있으면
+        else {
+          this.$router.push({ name: "PlantMain" });
+        }
+      })
+      .catch((err) => {
+        console.log("회원정보 catch" + err.data);
+      });
     },
   },
 };
