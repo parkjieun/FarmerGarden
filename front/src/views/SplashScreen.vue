@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="fill-height">
     <v-row class="my-auto">
-      <v-col cols="10">
+      <v-col cols="12">
         <v-img :src="require('@/assets/농부네텃밭.gif')" />
       </v-col>
     </v-row>
@@ -14,9 +14,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  },
   created() {
-    setTimeout(() => this.$router.push({ name: "Login" }), 3000);
+    console.log(this.isLoggedIn)
+    if (this.isLoggedIn) {
+      setTimeout(() => this.$router.push({ name: "PlantMain" }), 3000);
+    }
+    else {
+      setTimeout(() => this.$router.push({ name: "Login" }), 3000);
+    }
+    
   },
 };
 </script>
