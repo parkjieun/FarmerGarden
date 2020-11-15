@@ -14,6 +14,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CreatePostRequestDTO {
+
+    @ApiModelProperty(required = false)
+    private Integer post_id;
 	
     @ApiModelProperty(required = true)
     @NotBlank(message = "성장일기 제목은 필수 입력값입니다.")

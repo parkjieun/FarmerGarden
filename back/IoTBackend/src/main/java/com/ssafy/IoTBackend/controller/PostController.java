@@ -84,16 +84,16 @@ public class PostController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "게시글 작성", notes = "성공시 'success' 실패시 'fail' 반환")
-	public ResponseEntity<String> createPost(Authentication authentication, @RequestBody CreatePostRequestDTO postDto) {
+	@ApiOperation(value = "게시글 작성", notes = "성공시 작성한 게시글 반환, 실패시 'fail' 반환")
+	public ResponseEntity<Object> createPost(Authentication authentication, @RequestBody CreatePostRequestDTO postDto) {
 		String userId = authentication.getPrincipal().toString();
 		try {
 			User user = userService.selectUser(userId);
 			if(user != null) {
 				postDto.setUser_id(userId);
-				int result = postService.insertPost(postDto);
-				if(result == 0) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
-				else return new ResponseEntity<>(SUCCESS, HttpStatus.CREATED);
+				Post newPost = postService.insertPost(postDto);
+				if(newPost == null) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+				else return new ResponseEntity<>(newPost, HttpStatus.CREATED);
 			}else {
 				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
 			}
@@ -103,12 +103,12 @@ public class PostController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "게시글 수정", notes = "성공시 'success' 실패시 'fail' 반환")
-	public ResponseEntity<String> updatePost(@RequestBody UpdatePostRequestDTO postDto) {
+	@ApiOperation(value = "게시글 수정", notes = "성공시 수정한 게시글 반환, 실패시 'fail' 반환")
+	public ResponseEntity<Object> updatePost(@RequestBody UpdatePostRequestDTO postDto) {
 		try {
-			int result = postService.updatePost(postDto);
-			if(result == 0) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
-			else return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+			Post editPost = postService.updatePost(postDto);
+			if(editPost == null) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+			else return new ResponseEntity<>(editPost, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
