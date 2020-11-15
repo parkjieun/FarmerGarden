@@ -1,5 +1,5 @@
-# file name : test.py
-# pwd : /project_name/app/test/test.py
+# file name : websocketServer.py
+# pwd : /project_name/app/test/websocketServer.py
 import asyncio
 import websockets
 from werkzeug.utils import secure_filename
