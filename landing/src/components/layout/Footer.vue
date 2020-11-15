@@ -5,7 +5,6 @@
     height=""
     style="border-top:1px solid #ccc;"
   >
-  <!-- #292929 grey--text -->
   <v-row class="font-weight-light  text--lighten-1 text-center" style="color:#676767">
     <v-col cols="3">
       <span style="font-weight:bold">INFORMATION</span>
