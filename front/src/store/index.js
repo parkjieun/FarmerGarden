@@ -69,8 +69,13 @@ export default new Vuex.Store({
       var index = state.posts.findIndex((el) => el.post_id === value.post_id)
       if (index>=0) {
         console.log("수정", value)
-        
-        state.posts[index] = value
+        if (value.del_flag == true) {
+          console.log("삭제")
+          state.posts.splice(index, 1)
+        }
+        else {
+          state.posts[index] = value
+        }
         sessionStorage.setItem("posts", JSON.stringify(state.posts));
       }
       else {
