@@ -7,30 +7,34 @@
 		>
 			<v-app-bar-nav-icon @click="prePage"><v-icon>mdi-chevron-left</v-icon></v-app-bar-nav-icon>
 			<v-spacer></v-spacer>
-			<v-toolbar-title>{{createDate}}</v-toolbar-title>
+			<v-toolbar-title style="font-family: 'Jua', sans-serif!important;">{{createDate}}</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn color="primary" @click="updatePage" style="min-width:48px;" class="pa-0">수정</v-btn>
+			<v-btn color="primary" @click="updatePage" style="min-width:48px; font-family: 'Jua', sans-serif!important;" class="pa-0" depressed>수정</v-btn>
 		</v-app-bar>
   
 		<div style="width: 300px;" class="mx-auto">
-			<div class="text-h5 mt-5">{{post.post_title}}</div>
-			<div class="text-caption text-right my-2">작성일: {{post.post_create}}</div>
+			<div class="text-h5 mt-5" style="font-family: 'Jua', sans-serif!important;">{{post.post_title}}</div>
+			<div class="text-caption text-right my-2" style="font-family: 'Jua', sans-serif!important;">작성일: {{post.post_create}}</div>
 			<v-divider></v-divider>
-			<div v-if="post.post_img != null" style="height: 200px;" class="rounded-lg my-3" @click="showPhoto=true"><v-img :src="'http://k3a105.p.ssafy.io:8001/'+post.post_img" alt="selected_image" width="300" class="rounded-lg"/></div>
+			<div v-if="post.post_img != null" style="height: 200px;" class="rounded-lg my-3" @click="showPhoto=true">
+        <v-img :src="'http://k3a105.p.ssafy.io:8001/'+post.post_img" alt="selected_image" width="300" height="200" class="rounded-lg"/>
+        </div>
 			<div v-else style="height: 200px; border: lightgray 2px solid; width: 300px;" class="rounded-lg my-3 mx-auto">
 				<v-icon size="60" color="lightgray" class="mx-auto" style="width: 300px; margin-top: 50px;">mdi-camera-outline</v-icon>
-				<div class="text-caption text-center">이미지가 없습니다.</div>
+				<div class="text-caption text-center" style="font-family: 'Jua', sans-serif!important;">이미지가 없습니다.</div>
 			</div>
 		
 			
-			<div class="mt-5">{{post.post_contents}}</div>
+			<div class="mt-5" style="font-family: 'Jua', sans-serif!important; height: calc(100vh - 470px);">{{post.post_contents}}</div>
+      <v-btn color="#B71C1C" outlined block rounded @click="deletePost">삭제</v-btn>
 		</div>
+    
   </div>
 </template>
 
 <script>
 import http from '@/utils/http-common'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -42,6 +46,7 @@ export default {
     ...mapGetters(['config'])
   },
   methods: {
+    ...mapMutations(['SET_POST']),
     prePage() {
       this.$router.go(-1)
     },
@@ -54,7 +59,18 @@ export default {
         this.post = res.data
         this.createDate = res.data.post_create.substring(0,4)+'년 '+res.data.post_create.substring(5,7)+'월 '+res.data.post_create.substring(8,10)+'일'
       })
+    },
+    deletePost() {
+      http.delete('/api/post?post_id='+this.$route.params.id, this.config)
+      .then(res => {
+        if (res.data == 'success') {
+          this.post.del_flag = true
+          this.SET_POST(this.post)
+        }
+        
+        this.$router.push({name:'PlantCalendar2'})
 
+      })
     }
   },
   created() {

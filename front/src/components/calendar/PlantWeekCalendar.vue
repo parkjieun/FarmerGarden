@@ -2,8 +2,8 @@
 <div class="d-flex align-center" id="weekCalendar" style="z-index: 1;">
   <v-btn fab text small @click="prev()"><v-icon small>mdi-chevron-left</v-icon></v-btn>
   <transition mode="out-in" name="out-in-translate-fade" v-on:beforeEnter="beforeEnter" v-on:enter="enter" >
-    <v-calendar-weekly v-if="isToday" key="this" :weekday-format="myWeekdayFormat" :month-format="myMonthFormat" :start="startday"/>
-    <v-calendar-weekly v-else key="next" ref="calendarWeek" :weekday-format="myWeekdayFormat" :month-format="myMonthFormat" :start="startday"/>
+    <v-calendar-weekly v-if="isToday" key="this" :weekday-format="myWeekdayFormat" :month-format="myMonthFormat" :start="startday" @click:date="dayClick"/>
+    <v-calendar-weekly v-else key="next" ref="calendarWeek" :weekday-format="myWeekdayFormat" :month-format="myMonthFormat" :start="startday" @click:date="dayClick"/>
   </transition>
   <v-btn fab text small @click="next()"><v-icon small>mdi-chevron-right</v-icon></v-btn>
 </div>
@@ -47,6 +47,10 @@ export default {
       },
       myMonthFormat(m) {
         return m.month + ' /'
+      },
+      dayClick(date) {
+        this.$emit('day', date.date)
+        this.$emit('selectDay')
       }
     },
     mounted() {
@@ -69,11 +73,13 @@ export default {
   padding-top: 5px;
   border-right: none;
   color: #000000 !important;
+  font-family: 'Jua', sans-serif!important;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day {
   border-right: none;
   border-bottom: none;
   color: #000000;
+  font-family: 'Jua', sans-serif!important;
 }
 .theme--light.v-calendar-weekly {
   /* highlight background-color */
