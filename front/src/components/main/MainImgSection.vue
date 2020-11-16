@@ -31,8 +31,9 @@
                 <span
                   class="font-weight-black cafep"
                   :class="[$vuetify.breakpoint.smAndDown ? 'f-size80': 'f-size130']"
+                  
                 >
-                  <span style="">농부네</span> <span class="f-green">텃밭</span>
+                  <span class="h-bold1">농부네</span> <span class="f-green h-bold2" >텃밭</span>
                 </span>
               </v-col>
 
@@ -42,7 +43,7 @@
                 color="#80AA6B"
                 @click="$vuetify.goTo('#about-me')"
               >
-                <v-icon>mdi-chevron-double-down</v-icon>
+                <v-icon>mdi-chevron-down</v-icon>
               </v-btn>
             </v-row>
           </v-container>
@@ -82,5 +83,12 @@ export default {
 
 .cafep{
   font-family: 'Cafe24Oneprettynight';
+}
+.h-bold1{
+  text-shadow: -1px 0 #fff, 0 1px#fff, 1px 0 #fff, 0 -1px #fff;
+}
+
+.h-bold2{
+  text-shadow: -1px 0 #93c130, 0 1px#93c130, 1px 0 #93c130, 0 -1px #93c130;
 }
 </style>  
