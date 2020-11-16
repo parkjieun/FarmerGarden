@@ -27,7 +27,7 @@
 
             <h2 style="">
               <v-img 
-                  src="@/assets/main/about/vision4.png" 
+                  src="@/assets/main/about/vision5.png" 
                   contain
                   max-height="100%"
                 />

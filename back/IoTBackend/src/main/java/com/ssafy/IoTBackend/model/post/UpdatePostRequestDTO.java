@@ -28,9 +28,4 @@ public class UpdatePostRequestDTO {
     @NotBlank(message = "성장일기 내용은 필수 입력값입니다.")
     @Max(65535)
     private String post_contents;
-    
-    @ApiModelProperty(required = false)
-    @Max(255)
-	private String post_img;
-    
 }

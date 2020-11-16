@@ -26,8 +26,7 @@
 	<update id="updatePost" parameterType="post">
 		update post
 		 set post_title = #{post_title},
-		 	 post_contents = #{post_contents},
-		 	 post_img = #{post_img}
+		 	 post_contents = #{post_contents}
 		where post_id = #{post_id}
 	</update>
 		
