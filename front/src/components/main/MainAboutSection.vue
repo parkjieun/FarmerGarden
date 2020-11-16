@@ -123,14 +123,13 @@
             outlined
             large
             href="/instruction_manual.pdf" download
-            style="margin-right:20px"
           >
             <span class="grey--text text--darken-1 font-weight-bold">
               취급설명서 다운로드
             </span>
           </v-btn>
 
-          <v-btn
+          <!-- <v-btn
             color="grey"
             outlined
             large
@@ -139,7 +138,7 @@
             <span class="grey--text text--darken-1 font-weight-bold">
               모바일앱 다운로드
             </span>
-          </v-btn>
+          </v-btn> -->
 
         </v-container>
 
