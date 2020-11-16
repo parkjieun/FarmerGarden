@@ -39,4 +39,25 @@ export default {
 .vc-day-content {
 	font-family: 'Jua', sans-serif!important;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&Nanum+Gothic:wght@700;800&Noto+Sans+KR:wght@300&Black+Han+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@font-face {
+  font-family: 'NanumBarunpen';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.main-default {
+  font-family: "NanumSquare", "Nanum Gothic", "Do Hyeon", "Noto Sans KR",
+    sans-serif;
+  font-weight: 400;
+}
+
 </style>

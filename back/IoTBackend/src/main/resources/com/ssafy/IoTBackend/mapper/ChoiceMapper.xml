@@ -8,6 +8,13 @@
 		values (#{user_id}, #{plant_id})
 	</insert>
 	
+	<!-- 현재 기르고 있는 작물 선택 정보 조회 -->
+	<select id="selectChoice" resultType="Choice">
+		select *
+		from plant_choice
+		where user_id=#{user_id} and grow_flag=true
+	</select>
+	
 	<!-- 작물 재배 중단 -->
 	<update id="stopChoice">
 		update plant_choice

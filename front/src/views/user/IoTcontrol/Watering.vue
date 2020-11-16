@@ -2,7 +2,7 @@
  <div class="nbn--font d-flex flex-column justify-space-between align-center" style="padding-top:20px">
     <v-img 
       src="@/assets/IoTcontrol/watering.png"
-      width="50%"
+      width="60%"
       v-show="!wateringFlag"
     />
 
@@ -34,7 +34,7 @@
         {{ message }}
       </div>
     </v-col>
-    <p style="height:300px"></p>
+    <p style="height:600px"></p>
   </div>
 </template>
 

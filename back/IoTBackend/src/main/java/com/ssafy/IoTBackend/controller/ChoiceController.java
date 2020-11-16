@@ -41,13 +41,19 @@ public class ChoiceController {
 		try {
 			User user = userService.selectUser(userId);
 			if(user != null) {
-				Choice choice = new Choice();
-				choice.setUser_id(userId);
-				choice.setPlant_id(plant_id);
-				
-				String new_choice_id = choiceService.insertChoice(choice);
-				if(new_choice_id.equals(null)) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
-				else return new ResponseEntity<>(new_choice_id, HttpStatus.CREATED);
+				Choice isChoicePresent = choiceService.selectChoice(userId);
+
+				if(isChoicePresent == null) {					
+					Choice choice = new Choice();
+					choice.setUser_id(userId);
+					choice.setPlant_id(plant_id);
+					
+					String new_choice_id = choiceService.insertChoice(choice);
+					if(new_choice_id.equals(null)) return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+					else return new ResponseEntity<>(new_choice_id, HttpStatus.CREATED);
+				}else {
+					return new ResponseEntity<>("이미 재배 중인 작물이 존재합니다.", HttpStatus.CONFLICT);
+				}
 			}else {
 				return new ResponseEntity<>("유효하지 않은 인증 토큰입니다.", HttpStatus.FORBIDDEN);
 			}
