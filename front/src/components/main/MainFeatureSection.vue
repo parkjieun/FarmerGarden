@@ -31,7 +31,7 @@
         </v-col>
         
         <v-col cols="12"  md="4">
-          <v-img src="@/assets/main/feature/led.gif"
+          <v-img src="@/assets/main/feature/led2.gif"
            class="mb-4" height="350" contain max-width="100%"
           ></v-img>
 
