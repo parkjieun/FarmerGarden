@@ -125,7 +125,6 @@ export default {
             headers: { Authorization: "Bearer " + data.accessToken },
           })
           .then((res) => {
-            console.log(res, "회원가입 결과");
             http
               .get("/api/user", {
                 headers: {
@@ -133,15 +132,14 @@ export default {
                 },
               })
               .then((res) => {
-                console.log(res, "조회");
                 this.setUser(res.data);
                 this.setAuth("Bearer " + data.accessToken);
               });
             //
             this.$router.push({ name: "PlantEmpty" });
           })
-          .catch((res) => {
-            console.log("회원가입 catch" + res);
+          .catch((err) => {
+            console.log("회원가입 catch" + err);
           });
       }
     },

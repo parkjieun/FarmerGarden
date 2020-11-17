@@ -472,7 +472,7 @@
             앱 정보
           </v-list-item-subtitle>
           <v-list-item-title class="nbn--list-font font-weight-bold">
-            2.0.0
+            3.1.3
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -543,32 +543,33 @@ export default {
     ...mapActions(["setAuth", "setUser", "setPlantCharInfo"]),
     ...mapMutations(["SET_PLANTCHARINFO", "LOGOUT"]),
     logout() {
-      this.LOGOUT()
+      this.LOGOUT();
       this.$router.push({ name: "Login" });
     },
     startGrowPlant() {
-      if(this.user.user_id == '54c2018801dafce76b6aedafd47d3305'){
+      if (this.user.user_id == "54c2018801dafce76b6aedafd47d3305") {
         let params = new URLSearchParams();
         params.append("plant_id", "");
         http
           .post("/api/choice", params, this.config)
-          .then((res) => {
+          .then(() => {
             this.updateUserState();
-            console.log(res.data + " " + this.user.choice_id)
             http
-              .get("/iot/iot-actions?action=start&choice_id="+this.user.choice_id)
+              .get(
+                "/iot/iot-actions?action=start&choice_id=" + this.user.choice_id
+              )
               .then(() => {
-                alert("재배를 시작합니다.")
+                alert("재배를 시작합니다.");
               })
               .catch(() => {});
           })
           .catch(() => {});
-      }else {
-        alert("기기를 구입해 주세요.")
+      } else {
+        alert("기기를 구입해 주세요.");
       }
     },
     stopGrowPlant() {
-      if(this.user.user_id == '54c2018801dafce76b6aedafd47d3305'){
+      if (this.user.user_id == "54c2018801dafce76b6aedafd47d3305") {
         let params = new URLSearchParams();
         params.append("choice_id", this.user.choice_id);
         http
@@ -578,34 +579,37 @@ export default {
             this.SET_PLANTCHARINFO(null);
             this.updateUserState();
             http
-              .get("/iot/iot-actions?action=stop&choice_id="+this.user.choice_id)
+              .get(
+                "/iot/iot-actions?action=stop&choice_id=" + this.user.choice_id
+              )
               .then(() => {
-                alert("재배를 중단합니다.")
+                alert("재배를 중단합니다.");
               })
               .catch(() => {});
           })
           .catch(() => {});
-      }else {
-        alert("기기를 구입해 주세요.")
+      } else {
+        alert("기기를 구입해 주세요.");
       }
     },
     updateUserState() {
       // choice_id 변경된 부분 vuex user에 적용
-      http.get("/api/user", this.config)
-      .then((res) => {
-        this.setUser(res.data);
-        // 등록된 기기가 없으면
-        if (res.data.user_pot == null) {
-          this.$router.push({ name: "PlantEmpty" });
-        }
-        // 등록된 기기가 있으면
-        else {
-          this.$router.push({ name: "PlantMain" });
-        }
-      })
-      .catch((err) => {
-        console.log("회원정보 catch" + err.data);
-      });
+      http
+        .get("/api/user", this.config)
+        .then((res) => {
+          this.setUser(res.data);
+          // 등록된 기기가 없으면
+          if (res.data.user_pot == null) {
+            this.$router.push({ name: "PlantEmpty" });
+          }
+          // 등록된 기기가 있으면
+          else {
+            this.$router.push({ name: "PlantMain" });
+          }
+        })
+        .catch((err) => {
+          console.log("회원정보 catch" + err.data);
+        });
     },
   },
 };

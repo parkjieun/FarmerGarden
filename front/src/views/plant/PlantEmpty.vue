@@ -70,7 +70,6 @@ import SeedList from "@/views/seed/SeedList.vue";
 export default {
   mounted() {
     if (this.plantCharInfo && this.plantCharInfo != "null") {
-      console.log(this.plantCharInfo)
       this.$router.push({ name: "PlantMain" });
     }
   },

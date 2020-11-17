@@ -14,20 +14,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(["isLoggedIn"]),
   },
   created() {
-    console.log(this.isLoggedIn)
     if (this.isLoggedIn) {
       setTimeout(() => this.$router.push({ name: "PlantMain" }), 3000);
-    }
-    else {
+    } else {
       setTimeout(() => this.$router.push({ name: "Login" }), 3000);
     }
-    
   },
 };
 </script>
