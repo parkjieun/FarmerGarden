@@ -54,28 +54,32 @@
             readonly
             class="centered-input text--darken-3 mt-3"
           ></v-text-field>
-        </v-col>
-        <v-col cols="12">
-          <div
-            v-show="isDone"
-            class="centered-input text--darken-3 mt-3"
-            style="color: green; font-size: 1rem; font-weight: 700; text-align: center;"
-          >
-            {{ message }}
-          </div>
-          <v-spacer style="padding-top:30px"></v-spacer>
-          <v-card
-            v-show="isDone"
-          >
-            <v-img
-              :src="'http://k3a105.p.ssafy.io/iot'+currentPicture"
-              max-height="200"
-              class="grey darken-4"
-            ></v-img>
-          </v-card>
-        </v-col>
-        <p style="height:600px"></p>
-      </div>
+        </div>
+      </v-col>
+      <v-col cols="12">
+        <div
+          v-show="isDone"
+          class="centered-input text--darken-3 mt-3"
+          style="
+            color: green;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+          "
+        >
+          {{ message }}
+        </div>
+        <v-spacer style="padding-top: 30px"></v-spacer>
+        <v-card v-show="isDone">
+          <v-img
+            :src="'http://k3a105.p.ssafy.io/iot' + currentPicture"
+            max-height="200"
+            class="grey darken-4"
+          ></v-img>
+        </v-card>
+      </v-col>
+      <p style="height: 600px"></p>
+    </div>
   </v-container>
 </template>
 
@@ -119,8 +123,8 @@ export default {
             this.getCurrentPicture();
           })
           .catch(() => {});
-      }else {
-        this.message = "테스트 계정으로는 수동 조작이 불가능합니다."
+      } else {
+        this.message = "테스트 계정으로는 수동 조작이 불가능합니다.";
         setTimeout(() => {
           this.camFlag = false;
         }, 5000);
@@ -130,7 +134,7 @@ export default {
       http
         .get("/iot/pictured-img?choice_id=" + this.user.choice_id)
         .then((res) => {
-          this.currentPicture = res.data.rb_img
+          this.currentPicture = res.data.rb_img;
         })
         .catch(() => {});
     },
