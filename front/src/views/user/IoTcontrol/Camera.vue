@@ -47,7 +47,7 @@
             ></v-img>
           </v-card>
         </v-col>
-        <p style="height:300px"></p>
+        <p style="height:600px"></p>
       </div>
   </v-container>
 </template>
