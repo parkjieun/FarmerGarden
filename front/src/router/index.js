@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 
 import Layout from "../views/Layout.vue";
 
-import Test from "../views/Test.vue";
 import SplashScreen from "../views/SplashScreen.vue";
 
 // user
@@ -31,15 +30,15 @@ import DiaryUpdate from "../views/diary/DiaryUpdate.vue";
 import DiaryDetail from "../views/diary/DiaryDetail.vue";
 
 // landing
-import Home from '@/views/Home.vue'
+import Home from "@/views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/bottom",
@@ -50,11 +49,6 @@ const routes = [
         path: "/about",
         name: "About",
         component: () => import("../views/About.vue"),
-      },
-      {
-        path: "/test",
-        name: "Test",
-        component: Test,
       },
       {
         path: "/mypage",
@@ -119,7 +113,7 @@ const routes = [
       {
         path: "/diary/:id",
         name: "DiaryDetail",
-        component: DiaryDetail
+        component: DiaryDetail,
       },
     ],
   },
@@ -158,7 +152,7 @@ const routes = [
       },
       // user end
     ],
-  }
+  },
 ];
 
 const router = new VueRouter({

@@ -32,15 +32,15 @@ export default new Vuex.Store({
       state.user = value;
     },
     LOGOUT(state) {
-      state.plant = null
-      state.user = null
-      state.posts = null
-      state.socialData = null
-      sessionStorage.removeItem("posts")
-      sessionStorage.removeItem("socialData")
-      cookies.remove("user")
-      cookies.remove("plantCharInfo")
-      cookies.remove("authorization")
+      state.plant = null;
+      state.user = null;
+      state.posts = null;
+      state.socialData = null;
+      sessionStorage.removeItem("posts");
+      sessionStorage.removeItem("socialData");
+      cookies.remove("user");
+      cookies.remove("plantCharInfo");
+      cookies.remove("authorization");
     },
     SET_AUTH(state, value) {
       cookies.set("authorization", value, 60 * 60 * 60);
@@ -51,7 +51,6 @@ export default new Vuex.Store({
       state.socialData = value;
     },
     SET_PLANTCHARINFO(state, value) {
-      console.log(value);
       cookies.set("plantCharInfo", value, 60 * 60 * 60);
       state.plant = value;
     },
@@ -66,25 +65,19 @@ export default new Vuex.Store({
       state.posts = value;
     },
     SET_POST(state, value) {
-      var index = state.posts.findIndex((el) => el.post_id === value.post_id)
-      if (index>=0) {
-        console.log("수정", value)
+      var index = state.posts.findIndex((el) => el.post_id === value.post_id);
+      if (index >= 0) {
         if (value.del_flag == true) {
-          console.log("삭제")
-          state.posts.splice(index, 1)
-        }
-        else {
-          state.posts[index] = value
+          state.posts.splice(index, 1);
+        } else {
+          state.posts[index] = value;
         }
         sessionStorage.setItem("posts", JSON.stringify(state.posts));
-      }
-      else {
-        console.log("생성", value)
-        state.posts = [value, ...state.posts]
+      } else {
+        state.posts = [value, ...state.posts];
         sessionStorage.setItem("posts", JSON.stringify(state.posts));
       }
-      
-    }
+    },
   },
   actions: {
     setUser({ commit }, value) {
@@ -97,15 +90,13 @@ export default new Vuex.Store({
       commit("SET_SOCIAL", value);
     },
     setPlantCharInfo({ commit, getters }, value) {
-      console.log(value);
       http
         .put(
           "/api/user/pot",
           { user_pot: JSON.stringify(value) },
           getters.config
         )
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           commit("SET_PLANTCHARINFO", value);
         });
     },
@@ -113,7 +104,6 @@ export default new Vuex.Store({
       http
         .get("/api/post", getters.config)
         .then((res) => {
-          console.log("setPOsts")
           commit("SET_POSTS", res.data.reverse());
         })
         .catch((err) => console.log(err));

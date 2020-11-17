@@ -91,7 +91,6 @@ export default {
       }
     },
     testLogin() {
-      console.log("회원정보가져오기");
       const jwt =
         "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzNzRlNjkzYTMxMGM0NTA0MTJjMjkxYjgwODY1MTEyMCJ9.IFUT0sKvVtwcskUKbq1xgNUk4GEgSa9l2sLaYYOGRIA";
       http
@@ -101,7 +100,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log("test 계정:" + JSON.stringify(res.data));
           this.setUser(res.data);
           this.SET_PLANTCHARINFO(JSON.parse(res.data.user_pot));
           this.setAuth("Bearer " + jwt);
@@ -113,13 +111,11 @@ export default {
           else {
             this.$router.push({ name: "PlantMain" });
           }
-          this.setPosts()
+          this.setPosts();
         })
-        .catch((res) => {
-          console.log("회원정보 catch" + res.data);
+        .catch((err) => {
+          console.log("회원정보 catch" + err);
         });
-      
-
     },
     kakaoLogin() {
       window.Kakao.Auth.login({
@@ -138,7 +134,6 @@ export default {
         )
         .then((response) => {
           const data = response.data;
-          console.log(data);
           if (data.isOlder > 0) {
             //회원정보 가져오기
             http
@@ -159,14 +154,13 @@ export default {
                 else {
                   this.$router.push({ name: "PlantMain" });
                 }
-                this.setPosts()
+                this.setPosts();
               })
-              .catch((res) => {
-                console.log("회원정보 catch" + res.data);
+              .catch((err) => {
+                console.log("회원정보 catch" + err);
               });
           } else {
             //회원가입 시키기
-            console.log(data);
             this.setSocial(data);
             this.$router.push({ name: "AddressForm" });
           }

@@ -150,7 +150,6 @@ export default {
       this.$router.push({ name: "Login" });
     }
     if (!this.plantCharInfo || this.plantCharInfo == "null") {
-      console.log("여기왔냐");
       this.$router.push({ name: "PlantEmpty" });
     }
     http
