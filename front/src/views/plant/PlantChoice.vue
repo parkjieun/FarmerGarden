@@ -247,7 +247,7 @@ export default {
     if (!this.plantCharInfo) {
       this.$router.push({ name: "PlantEmpty" });
     }
-    this.selectPlantCharInfo = this.plantCharInfo;
+    this.selectPlantCharInfo = { ...this.plantCharInfo };
   },
   computed: {
     ...mapGetters(["plantCharInfo"]),
