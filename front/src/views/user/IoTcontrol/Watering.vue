@@ -60,6 +60,7 @@ export default {
   methods: {
     watering() {
       this.wateringFlag=true
+      console.log(this.user.choice_id + " dkdkdkdkdk ")
       if(this.user.choice_id == null){
         this.message = "재배 중인 작물이 없습니다."
         setTimeout(() => {
@@ -79,7 +80,7 @@ export default {
           })
           .catch(() => {});
       }else {
-        this.message = "기기를 구입해 주세요."
+        this.message = "테스트 계정으로는 수동 조작이 불가능합니다."
         setTimeout(() => {
           this.wateringFlag=false
         }, 5000);
