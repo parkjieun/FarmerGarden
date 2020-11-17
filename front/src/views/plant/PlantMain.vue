@@ -71,7 +71,18 @@
             <div class="nbn--info nbn--info-subtitle text-left">
               다음 자동급수
             </div>
-            <div class="nbn--info">{{ headerInfo.waterTime }}</div>
+            <div
+              class="nbn--info"
+              style="
+                word-break: nowrap;
+                display: inline-block;
+                text-overflow: clip;
+                overflow: hidden;
+                white-space: nowrap;
+              "
+            >
+              {{ headerInfo.waterTime }}
+            </div>
           </v-col>
         </v-row>
       </v-col>
@@ -139,26 +150,26 @@ export default {
       this.$router.push({ name: "Login" });
     }
     if (!this.plantCharInfo || this.plantCharInfo == "null") {
-      console.log("여기왔냐")
+      console.log("여기왔냐");
       this.$router.push({ name: "PlantEmpty" });
     }
     http
-      // .get("iot/supply-water-logs?choice_id=" + this.user.choice_id)
-      .get("iot/supply-water-logs?choice_id=1000")
+      .get("iot/supply-water-logs?choice_id=" + this.user.choice_id)
+      // .get("iot/supply-water-logs?choice_id=1000")
       .then((res) => {
         var dt = new Date(res.data.watering_time);
         dt.setHours(dt.getHours() + 6);
         this.headerInfo.waterTime = this.getFormatDate(dt);
       });
     http
-      // .get("iot/recent-temp?choice_id=" + this.user.choice_id)
-      .get("iot/recent-temp?choice_id=1000")
+      .get("iot/recent-temp?choice_id=" + this.user.choice_id)
+      // .get("iot/recent-temp?choice_id=1000")
       .then((res) => {
         this.headerInfo.temp = res.data.rb_temperature;
       });
     http
-      // .get("iot/recent-hum?choice_id=" + this.user.choice_id)
-      .get("iot/recent-hum?choice_id=1000")
+      .get("iot/recent-hum?choice_id=" + this.user.choice_id)
+      // .get("iot/recent-hum?choice_id=1000")
       .then((res) => {
         this.headerInfo.hum = res.data.rb_humidity;
       });
@@ -174,7 +185,7 @@ export default {
         this.plantInfo.percent = Math.floor(
           (100 * (today - start)) / (end - start)
         );
-        
+
         // if (isNaN(this.plantInfo.percent)) {
         //   this.$router.push({ name: "PlantEmpty" });
         // }
