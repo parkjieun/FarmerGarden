@@ -1,5 +1,14 @@
 <template>
   <v-container :style="{ backgroundColor: '#2bc77e13' }">
+    <v-btn
+      fab
+      small
+      style="position: absolute; right: 24px; border-radius: 50%; z-index: 3"
+      :style="{ top: '70px' }"
+      @click="randomCustom"
+    >
+      <v-icon color="primary" v-text="'mdi-dice-3'"></v-icon>
+    </v-btn>
     <!-- btn toolbar start -->
     <v-row no-gutters>
       <v-col cols="1"></v-col>
@@ -37,6 +46,7 @@
                 v-if="plantCharInfo"
                 v-bind="selectPlantCharInfo"
                 width="120px"
+                :callAnimate="animateTrigger"
               />
             </v-col>
           </v-row>
@@ -227,6 +237,7 @@ export default {
         bgimage: "1",
       },
       tab: null,
+      animateTrigger: false,
     };
   },
   components: {
@@ -255,6 +266,31 @@ export default {
     savePlantCharCostume() {
       this.setPlantCharInfo(this.selectPlantCharInfo);
       this.$router.push({ name: "PlantMain" });
+    },
+    randomCustom() {
+      // random background image
+      var keys = Object.keys(this.itemBGImage);
+      this.selectPlantCharInfo.bgimage =
+        keys[(keys.length * Math.random()) << 0];
+
+      // random pot
+      keys = Object.keys(this.itemPot);
+      this.selectPlantCharInfo.pot = keys[(keys.length * Math.random()) << 0];
+
+      // random potColor
+      if (this.oneColor.includes(this.selectPlantCharInfo.pot)) {
+        this.selectPlantCharInfo.potColor = "orange";
+      } else {
+        keys = Object.keys(this.itemPot[this.selectPlantCharInfo.pot]);
+        this.selectPlantCharInfo.pot = keys[(keys.length * Math.random()) << 0];
+      }
+
+      // random character
+      keys = Object.keys(this.itemCharacter);
+      this.selectPlantCharInfo.character =
+        keys[(keys.length * Math.random()) << 0];
+
+      this.animateTrigger = !this.animateTrigger;
     },
   },
 };
