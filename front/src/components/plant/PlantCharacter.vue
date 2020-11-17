@@ -50,6 +50,7 @@ export default {
       type: String,
       default: "200px",
     },
+    callAnimate: Boolean,
   },
   data() {
     return {
@@ -58,8 +59,11 @@ export default {
     };
   },
   methods: {
-    changeRandomCharacterType() {
+    animateCharacter() {
       this.animated = true;
+    },
+    changeRandomCharacterType() {
+      this.animateCharacter();
 
       var keys = Object.keys(this.itemCharacter[this.character]);
       this.characterType = keys[(keys.length * Math.random()) << 0];
