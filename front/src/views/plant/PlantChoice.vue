@@ -282,7 +282,8 @@ export default {
         this.selectPlantCharInfo.potColor = "orange";
       } else {
         keys = Object.keys(this.itemPot[this.selectPlantCharInfo.pot]);
-        this.selectPlantCharInfo.pot = keys[(keys.length * Math.random()) << 0];
+        this.selectPlantCharInfo.potColor =
+          keys[(keys.length * Math.random()) << 0];
       }
 
       // random character
