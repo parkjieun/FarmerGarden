@@ -93,7 +93,7 @@ export default {
           })
           .catch(() => {});
       }else {
-        this.message = "기기를 구입해 주세요."
+        this.message = "테스트 계정으로는 수동 조작이 불가능합니다."
         setTimeout(() => {
           this.camFlag=false
         }, 5000);
@@ -103,7 +103,6 @@ export default {
       http
         .get("/iot/pictured-img?choice_id="+this.user.choice_id)
         .then((res) => {
-          console.log(res.data)
           this.currentPicture = res.data.rb_img
         })
         .catch(() => {});
