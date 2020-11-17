@@ -222,8 +222,8 @@ export default {
   },
   created() {
     http
-      // .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
-      .get("iot/temp-and-hum?choice_id=1000")
+      .get("iot/temp-and-hum?choice_id=" + this.user.choice_id)
+      // .get("iot/temp-and-hum?choice_id=1000")
       .then((res) => {
         this.iotData = res.data;
         this.temp = res.data.length;
