@@ -60,7 +60,6 @@ export default {
   methods: {
     watering() {
       this.wateringFlag=true
-      console.log(this.user.choice_id + " dkdkdkdkdk ")
       if(this.user.choice_id == null){
         this.message = "재배 중인 작물이 없습니다."
         setTimeout(() => {

@@ -103,7 +103,6 @@ export default {
       http
         .get("/iot/pictured-img?choice_id="+this.user.choice_id)
         .then((res) => {
-          console.log(res.data)
           this.currentPicture = res.data.rb_img
         })
         .catch(() => {});
