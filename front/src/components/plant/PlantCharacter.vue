@@ -58,6 +58,11 @@ export default {
       characterType: "평범",
     };
   },
+  watch: {
+    callAnimate() {
+      this.changeRandomCharacterType();
+    },
+  },
   methods: {
     animateCharacter() {
       this.animated = true;
