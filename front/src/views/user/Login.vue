@@ -40,12 +40,26 @@
       </v-btn>
       <v-divider class="my-3" /> 
      </v-form> -->
-    <v-btn @click="kakaoLogin" color="yellow" width="100%"
-      >카카오톡 로그인</v-btn
-    >
-    <v-btn @click="testLogin" color="yellow" width="100%"
-      >테스트계정 로그인</v-btn
-    >
+    <v-row>
+      <v-col cols="12">
+        <v-btn
+          @click="kakaoLogin"
+          color="yellow"
+          width="100%"
+          class="font-weight-black"
+          >카카오톡 로그인</v-btn
+        >
+      </v-col>
+      <v-col cols="12" class="pt-0">
+        <v-btn
+          @click="testLogin"
+          color="yellow"
+          width="100%"
+          class="font-weight-black"
+          >테스트계정 로그인</v-btn
+        >
+      </v-col>
+    </v-row>
     <v-row class="mt-auto mb-4">
       <v-col cols="8" class="mx-auto pt-0">
         <v-img :src="require('@/assets/슬기로운.png')" contain />
