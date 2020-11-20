@@ -79,7 +79,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['config']),
+		...mapGetters(['config', 'user']),
 	},
 	methods: {
 		...mapMutations(['SET_POST']),
@@ -110,7 +110,7 @@ export default {
 			}
 		},
 		getImages() {
-			http.get("/iot/recent-imgs?choice_id=1002", this.config)
+			http.get("/iot/recent-imgs?choice_id="+this.user.choice_id, this.config)
 			.then(res => {
 				this.images = res.data
 			})
