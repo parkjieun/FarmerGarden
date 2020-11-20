@@ -14,6 +14,10 @@
     <img src="https://img.shields.io/badge/swagger-valid-brightgreen">
 </div>
 
+<h3 align=cen
+ter>
+“씨앗과 물만 있으면 우리가 키워드립니다” 
+</h3>
 
 <div align=center>
 집 안의 작은 자연, 온 가족 힐링 케어 라이프<br/>
@@ -23,6 +27,22 @@
 
 </div>
  
+ ---
+ <table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td colspan="2" style="vertical-align: middle;"><img width="480" src="assets/title-and-prod.png" alt="title-and-prod" style="max-width: 100%;" /></td>
+      <td rowspan="2" style="vertical-align: middle;"><img width="480" src="assets/exploded-view.png" alt="exploded-view" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img width="480" src="assets/ssafy.png" alt="ssafy" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img width="480" src="assets/pot-design.png" alt="pot-design" style="max-width: 100%;" /></td>
+      <td><img width="480" src="assets/products.png" alt="products" style="max-width: 100%;" /></td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## :book: 목차
