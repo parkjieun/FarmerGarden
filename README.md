@@ -32,7 +32,7 @@
 
 </div>
  
-<h3><div align=center><a href="document/DEMO.md">DEMO 바로가기</a></div></h3>
+<h3><div align=center><a href="document/DEMO.md">프로젝트 사진 및 영상 보러가기</a></div></h3>
 
  ---
  
