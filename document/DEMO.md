@@ -1,16 +1,81 @@
-<h1 align=center>농부네텃밭 DEMO</h1>
+<h1 align=center>농부네텃밭 사진 및 영상</h1>
 
-> 농부네텃밭의 데모 페이지입니다.
+> 농부네텃밭의 프론트 사진, 영상과
+>
+> IoT 기능에 따른 사진, 영상을 
+>
+> 모아놨습니다.
 
 ## :book: 목차
 
-### 1. [메인 페이지](#메인-페이지)
+### 1. [IoT](#iot)
 
 ### 2. [목차2](#목차2)
 
+---
+
+## IoT
+
+### 제품 실제 모습
+<table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: middle;"><img width="480" src="demo_images/prod-face.jpg" alt="prod-face" style="max-width: 100%;" /></td>
+      <td style="vertical-align: middle;"><img width="480" src="demo_images/prod-left.jpg" alt="prod-left" style="max-width: 100%;" /></td>
+    </tr>
+  </tbody>
+</table>
 
 
 
-## 메인 페이지
+### 기능별 모습
+IoT 기기에서 자동 관리 되는 항목은 
+
+1. 스케줄러에 의한 
+    * [식물 생장용 LED](#led-제어)
+    * 물 자동 제어
+    * 카메라 모듈로 사진찍기
+     
+_사용자가 수동제어 가능_
+
+>   
+>   LED: on / off 기능   
+>   물: 물펌프를 제어하여 안개분사 노즐로 물 뿌림   
+>   카메라: 자동 제어는 1시간 간격으로 설정해서 찍음,     
+>           따로 보조 조명이 없어 씨앗 스케줄러에 따라 LED가 꺼져 있을 경우   
+>           까맣게 나옵니다.   
+>   
+2. 센서에 의한 물온도, 습도 자동제어   
+    * 수동제어 불가능   
+>      
+>   물온도: 센서가 측정하면 라즈베리파이가 감지하고 수치에 따라 히터를 통해 온도를 올려서 제어함    
+>   습도: 습도 센서로 습도를 측정하고 라즈베리파이가 팬을 제어하여 습도를 낮춰서 제어함   
+>    
+
+####  LED 제어
+<table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td width="120" style="vertical-align: middle;"><h6 align=center>장비</h6></td>
+      <td width="360">식물 생장용 LED</td>
+      <td rowspan=4 style="vertical-align: middle;"><img width="480" src="demo_images/LED-on-off.gif" alt="LED-on-off" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td width="120" style="vertical-align: middle;"><h6 align=center>기능</h6></td>
+      <td width="360">ON / OFF</td>
+    </tr>
+    <tr>
+      <td width="120" style="vertical-align: middle;"><h6 align=center>인터렉션</h6></td>
+      <td width="360">전면부를 아크릴로 설계하여 불빛을 관측할 수 있게 하였습니다</td>
+    </tr>
+    <tr>
+      <td rowspan=2 width="120" style="vertical-align: middle;"><h6 align=center>상세 내용</h6></td>
+      <td rowspan=2 width="360">
+      <div>라즈베리 파이에서 씨앗 종류별 스케줄러에 의해 전원 제어를 합니다.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## 목차2
