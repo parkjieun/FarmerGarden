@@ -10,7 +10,7 @@
 
 ### 1. [IoT](#iot)
 
-### 2. [목차2](#목차2)
+### 2. [Front](#front)
 
 ---
 
@@ -117,4 +117,31 @@ IoT 기기에서 자동 관리 되는 항목은
 </table>
 
 
-## 목차2
+## Front
+
+### 사이트맵
+
+#### 메인페이지
+<table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td width="120" style="vertical-align: middle;"><h6 align=center>주요기능</h6></td>
+      <td width="360">가장 최근 관측값 표시(온도, 습도), 다음 급수 시간 알림, 화분 캐릭터 애니메이션</td>
+      <td colspan=1 rowspan=2 style="vertical-align: middle;"><img width="480" src="demo_images/layer.png" alt="layer" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td width="120" style="vertical-align: middle;"><h6 align=center>상세 내용</h6></td>
+      <td width="360">
+      <div>애니메이션 효과를 빠르게 개발하기 위해 캐릭터를 layer로 나누어 각각 gif로 만들었습니다. 
+      반복 시간을 다르게 해서 전체 주기를 길게 느껴지게 하여 지루함을 줄이고 생동감을 높였습니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 width="480"><img width="480" src="demo_images/pot-design.png" alt="pot-design" style="max-width: 100%;" /></td>
+      <td width="480" style="vertical-align: middle;">
+      <img width="200" src="demo_images/main1.jpg" alt="main1" style="max-width: 100%;" />
+      <img width="200" src="demo_images/main2.jpg" alt="main2" style="max-width: 100%;" />
+      </td>
+    </tr>
+  </tbody>
+</table>
