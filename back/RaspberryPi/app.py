@@ -35,7 +35,8 @@ def iotActions():
     print("iot ~~~")
     async def my_connect():
         print("websocket connect")
-        async with websockets.connect("ws://115.143.115.9:3000") as websocket:
+        async with websockets.connect("ws://192.168.219.110:3000") as websocket:
+        #async with websockets.connect("ws://115.143.115.9:3000") as websocket:
             print("before send")
             await websocket.send(sendSTR)
             data_rcv = await websocket.recv()
@@ -82,13 +83,15 @@ def recentImgs():
 
     sql = "select r.rb_img from raspberry as r \
             join plant_choice p \
-            on " + choice_id + " = r.choice_id \
-            where p.grow_flag = 1 \
+            on   p.choice_id   = r.choice_id \
+            where p.grow_flag = 1 and r.choice_id =" + choice_id + "\
             order by r.rb_create desc \
             limit 10"
     row = db_class.executeAll(sql)
+    print("결과", row)
 
     for data in row:
+        print("바꾸기 전", data['rb_img'])
         data['rb_img'] = "/static/data/img/" + data['rb_img'] + ".jpg"
         print(data['rb_img'])
 
