@@ -1,6 +1,10 @@
 <div align=center><img style="height:300px" src="assets/nongbunae.png"></div>
 
-<h2 align=center>서울 A105 - 슬기로운 재배생활 / 농부네 텃밭</h2>
+<h2>
+<div align=center>
+서울 A105 - 슬기로운 재배생활 / 농부네 텃밭
+</div>
+</h2>
 
 <div align=center>
     <a href="https://opensource.org/licenses/MIT" ><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
@@ -14,6 +18,11 @@
     <img src="https://img.shields.io/badge/swagger-valid-brightgreen">
 </div>
 
+<h3>
+<div align=center>
+“씨앗과 물만 있으면 우리가 키워드립니다” 
+</div>
+</h3>
 
 <div align=center>
 집 안의 작은 자연, 온 가족 힐링 케어 라이프<br/>
@@ -23,6 +32,25 @@
 
 </div>
  
+<h3><div align=center><a href="document/DEMO.md">프로젝트 사진 및 영상 보러가기</a></div></h3>
+
+ ---
+ 
+ <table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td colspan="2" style="vertical-align: middle;"><img width="480" src="assets/title-and-prod.png" alt="title-and-prod" style="max-width: 100%;" /></td>
+      <td rowspan="2" style="vertical-align: middle;"><img width="480" src="assets/exploded-view.png" alt="exploded-view" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img width="480" src="assets/ssafy.png" alt="ssafy" style="max-width: 100%;" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img width="480" src="assets/pot-design.png" alt="pot-design" style="max-width: 100%;" /></td>
+      <td><img width="480" src="assets/products.png" alt="products" style="max-width: 100%;" /></td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## :book: 목차
@@ -33,7 +61,8 @@
 
 - ERD
 - 시스템 구성도
-- 기타 (와이어프레임 / API 문서 / 추천 시스템 소개)
+- 와이어프레임 / 디자인 설계
+- 기타 (API 문서)
 
 ### :package: [프로젝트 구성](#프로젝트-구성)​
 
@@ -49,9 +78,11 @@
 
 ## 프로젝트 소개
 
-> **Easy Home gardening**
+> **물만 주면 되는 Smart Garden**
 >
-> 집 안 작은 자연으로 당신의 삶에 싱그러운 웰빙 새싹을 선물합니다.
+> 집 안 작은 자연으로 
+>
+> 당신의 삶에 싱그러운 웰빙 새싹을 선물합니다.
 >
 > 물만 주면 채소가 자라는 나만의 식탁 농장
 
@@ -60,8 +91,6 @@
 물이 훑고 간 자리에서
 
 새싹이 싹트는
-
-식탁 위 작은 농장으로
 
 새로운 삶의 가치를 선사합니다.
 
@@ -74,7 +103,7 @@
 > ERD 설명 추가
 >
 
-![ERD](document/ERD_ver_1.0.PNG)
+![ERD](document/ERD_ver_7.0.PNG)
 
 
  
@@ -83,7 +112,7 @@
 
 > 저희는 Spring boot와 flask를 활용한 MSA를 구축했습니다.
 >
-> Flask로 IoT를 제어하고
+> Flask로 Web socket을 통해 raspberry pi와 통신하고
 >
 > 회원 등 웹서버를 Spring boot로 구성하였습니다.
 
@@ -96,6 +125,15 @@
 
 ![IoT](assets/IoT.png)
 
+ <table style="table-layout: fixed; overflow-wrap: break-word;">
+  <tbody>
+    <tr>
+      <td><img width="640" src="assets/exploded.png" alt="exploded" style="max-width: 100%;" /></td>
+      <td><img width="480" src="assets/exploded-view.png" alt="exploded-view" style="max-width: 100%;" /></td>
+    </tr>
+  </tbody>
+</table>
+
 * [플로우 차트](https://drive.google.com/file/d/1lV2jV9rgNariafkxwM28mbhvYka-KbNf/view?usp=sharing)
     * IoT 플로우 차트
 * [새싹채소 만들기 ppt - iot 설명](https://docs.google.com/presentation/d/1bVO_9yoMRVuzXt91g64G9fEk4mUDXefe9HiX2BO0DUQ/edit?usp=sharing)
@@ -103,6 +141,10 @@
 * [구매장비 목록](https://docs.google.com/spreadsheets/d/1L0CvwjUjEYeLN4UNH8Oh4hs1I-DfMXOFU8Glkxb1mq0/edit?usp=sharing)
     * 구매장비 목록 문서입니다.    
 
+### 와이어 프레임 / 디자인 설계
+
+* [와이어프레임](https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/zC6EO)
+    * kakao oven을 사용하여 제작된 와이어프레임
 
 ### 문서
 
@@ -110,8 +152,6 @@
 
 * [프로젝트 계획서](https://docs.google.com/document/d/1hJjWcgzWbUVVBCf-M1eg6aCNJIDI24GV_T3r52wQQDY/edit?usp=sharing)
     * 디바이스 설계 및 설명
-* [와이어프레임](https://ovenapp.io/view/aoHmJLeac19v0vBjpbTgWdvtmymmnjOd/zC6EO)
-    * kakao oven을 사용하여 제작된 와이어프레임
 * [API Documentation](https://docs.google.com/spreadsheets/d/1e9bJdDTk8L3oyalDqiSUmR_t4xPTUf_djbOCobEhkfM/edit?usp=sharing)
     * RESTful 서버의 API 문서입니다.
 
